@@ -1,9 +1,14 @@
 package dec.gen;
 
+import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
+  private final Validator validator = new Validator();
+  private final Arithmetic arithmetic = new Arithmetic();
+  private final Converter converter = new Converter();
+
   public void mainMenu() {
     Scanner scanner = new Scanner(System.in);
 
@@ -21,6 +26,8 @@ public class Menu {
 
       switch (choice) {
         case 1:
+          addMenu(scanner, validator);
+          break;
         case 2:
         case 3:
         case 4:
@@ -43,7 +50,16 @@ public class Menu {
     System.exit(0);
   }
 
-  private void addMenu() {
+  private void addMenu(Scanner scanner, Validator validator) {
+    System.out.println("Введите два числа, по одному на каждой строке.");
+    String strVal1 = scanner.next().trim();
+    String strVal2 = scanner.next().trim();
+    if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
+      BigDecimal bd1 = converter.fromStrToDec(strVal1);
+      BigDecimal bd2 = converter.fromStrToDec(strVal2);
+      arithmetic.add(bd1, bd2);
+    } else {
 
+    }
   }
 }
