@@ -50,11 +50,10 @@ public class S21Decimal {
 
   @Override
   public String toString() {
-    return "S21Decimal{" +
-        "lowBits=" + lowBits +
-        ", midBits=" + midBits +
-        ", highBits=" + highBits +
-        ", signScaleBits=" + signScaleBits +
-        '}';
+    return "s21_decimal = {{0x"
+        + Integer.toHexString(lowBits)
+        + ", 0x" + Integer.toHexString(midBits)
+        + ", 0x" + Integer.toHexString(highBits)
+        + ", 0x" + Integer.toHexString(signScaleBits) + "}}";
   }
 }
