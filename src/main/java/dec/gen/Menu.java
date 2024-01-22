@@ -1,20 +1,23 @@
 package dec.gen;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class Menu {
-  Logger log = Logger.getLogger(Menu.class.getName());
-
   public void mainMenu() {
-
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
       System.out.println("Выберите действие:\n1. Сложение\n2. Вычитание\n"
           + "3. Умножение\n4. Деление\n5. Генерация числа\n0. Выход");
 
-      int choice = scanner.nextInt();
+      int choice = 0;
+      try {
+        choice = scanner.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Неправильный ввод, попробуйте еще раз.");
+        mainMenu();
+      }
 
       switch (choice) {
         case 1:
@@ -30,7 +33,7 @@ public class Menu {
           System.out.println("Программа завершена.");
           break;
         default:
-          System.out.println("Неверный выбор. Попробуйте еще раз.");
+          System.out.println("Неверный выбор, попробуйте еще раз.");
       }
       if (choice == 0) {
         scanner.close();
@@ -38,5 +41,9 @@ public class Menu {
       }
     }
     System.exit(0);
+  }
+
+  private void addMenu() {
+
   }
 }
