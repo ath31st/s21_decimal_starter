@@ -13,6 +13,8 @@ public class Validator {
       if (bd.scale() > MAX_SCALE.getValue()
           || bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue()) {
         checkRes = false;
+        System.out.printf("Введенное число превышает объем %d бит или степень %d%n",
+            MAX_BIT_LENGTH.getValue(), MAX_SCALE.getValue());
       }
     } catch (Exception e) {
       checkRes = false;

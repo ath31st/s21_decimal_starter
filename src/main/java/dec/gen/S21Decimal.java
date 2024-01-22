@@ -1,50 +1,60 @@
 package dec.gen;
 
 public class S21Decimal {
-  private int lowBit;
-  private int midBit;
-  private int highBit;
-  private int signScaleBit;
+  private int lowBits;
+  private int midBits;
+  private int highBits;
+  private int signScaleBits;
 
-  public int getLowBit() {
-    return lowBit;
+  public int getLowBits() {
+    return lowBits;
   }
 
-  public void setLowBit(int lowBit) {
-    this.lowBit = lowBit;
+  public void setLowBits(int lowBits) {
+    this.lowBits = lowBits;
   }
 
-  public int getMidBit() {
-    return midBit;
+  public int getMidBits() {
+    return midBits;
   }
 
-  public void setMidBit(int midBit) {
-    this.midBit = midBit;
+  public void setMidBits(int midBits) {
+    this.midBits = midBits;
   }
 
-  public int getHighBit() {
-    return highBit;
+  public int getHighBits() {
+    return highBits;
   }
 
-  public void setHighBit(int highBit) {
-    this.highBit = highBit;
+  public void setHighBits(int highBits) {
+    this.highBits = highBits;
   }
 
-  public int getSignScaleBit() {
-    return signScaleBit;
+  public int getSignScaleBits() {
+    return signScaleBits;
   }
 
   public void setSignInBit(int sign) {
     if (sign == 1 || sign == 0) {
-      signScaleBit &= 0x7FFFFFFF;
-      signScaleBit |= (sign & 1) << 31;
+      signScaleBits &= 0x7FFFFFFF;
+      signScaleBits |= (sign & 1) << 31;
     }
   }
 
   public void setScaleInBit(int scale) {
     if (scale >= 0 && scale <= 28) {
-      signScaleBit &= ~(0xFF << 16);
-      signScaleBit |= scale << 16;
+      signScaleBits &= ~(0xFF << 16);
+      signScaleBits |= scale << 16;
     }
+  }
+
+  @Override
+  public String toString() {
+    return "S21Decimal{" +
+        "lowBits=" + lowBits +
+        ", midBits=" + midBits +
+        ", highBits=" + highBits +
+        ", signScaleBits=" + signScaleBits +
+        '}';
   }
 }
