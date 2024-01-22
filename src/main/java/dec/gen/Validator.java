@@ -16,6 +16,7 @@ public class Validator {
       }
     } catch (Exception e) {
       checkRes = false;
+      System.out.println("Некорректный ввод: " + decStr);
     }
     return checkRes;
   }

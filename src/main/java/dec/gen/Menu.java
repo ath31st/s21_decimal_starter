@@ -51,15 +51,19 @@ public class Menu {
   }
 
   private void addMenu(Scanner scanner, Validator validator) {
-    System.out.println("Введите два числа, по одному на каждой строке.");
-    String strVal1 = scanner.next().trim();
-    String strVal2 = scanner.next().trim();
-    if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
-      BigDecimal bd1 = converter.fromStrToDec(strVal1);
-      BigDecimal bd2 = converter.fromStrToDec(strVal2);
-      arithmetic.add(bd1, bd2);
-    } else {
+    while (true) {
+      System.out.println("Введите два числа или exit для выхода в предыдущее меню.");
 
+      String strVal1 = scanner.next().trim();
+      if (strVal1.equals("exit")) break;
+      String strVal2 = scanner.next().trim();
+      if (strVal2.equals("exit")) break;
+
+      if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
+        BigDecimal bd1 = converter.fromStrToDec(strVal1);
+        BigDecimal bd2 = converter.fromStrToDec(strVal2);
+        arithmetic.add(bd1, bd2);
+      }
     }
   }
 }
