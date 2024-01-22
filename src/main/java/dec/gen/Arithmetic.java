@@ -5,8 +5,8 @@ import java.math.RoundingMode;
 
 public class Arithmetic {
 
-  public void add(BigDecimal bd1, BigDecimal bd2) {
-    System.out.println(bd1.add(bd2).toPlainString());
+  public BigDecimal add(BigDecimal bd1, BigDecimal bd2) {
+    return bd1.add(bd2);
   }
 
   public void sub(BigDecimal bd1, BigDecimal bd2) {

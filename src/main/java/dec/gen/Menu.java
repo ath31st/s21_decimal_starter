@@ -62,7 +62,9 @@ public class Menu {
       if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
         BigDecimal bd1 = converter.fromStrToDec(strVal1);
         BigDecimal bd2 = converter.fromStrToDec(strVal2);
-        arithmetic.add(bd1, bd2);
+        BigDecimal res = arithmetic.add(bd1, bd2);
+        S21Decimal d = converter.fromDecToS21Dec(res);
+        System.out.println(d);
       }
     }
   }
