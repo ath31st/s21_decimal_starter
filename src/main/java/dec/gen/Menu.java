@@ -26,12 +26,10 @@ public class Menu {
 
       switch (choice) {
         case 1:
-          addMenu(scanner);
-          break;
         case 2:
         case 3:
         case 4:
-          System.out.println("1-4");
+          processing(scanner, choice);
           break;
         case 5:
           generateS21Decimal(scanner);
@@ -50,7 +48,7 @@ public class Menu {
     System.exit(0);
   }
 
-  private void addMenu(Scanner scanner) {
+  private void processing(Scanner scanner, int action) {
     while (true) {
       System.out.println("Введите два числа или exit для выхода в предыдущее меню.");
 
@@ -62,8 +60,25 @@ public class Menu {
       if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
         BigDecimal bd1 = converter.fromStrToDec(strVal1);
         BigDecimal bd2 = converter.fromStrToDec(strVal2);
-        BigDecimal res = arithmetic.add(bd1, bd2);
+        BigDecimal res;
+        switch (action) {
+          case 1:
+            res = arithmetic.add(bd1, bd2);
+            break;
+          case 2:
+            res = arithmetic.sub(bd1, bd2);
+            break;
+          case 3:
+            res = arithmetic.mul(bd1, bd2);
+            break;
+          case 4:
+            res = arithmetic.div(bd1, bd2);
+            break;
+          default:
+            res = BigDecimal.ZERO;
+        }
         S21Decimal d = converter.fromDecToS21Dec(res);
+        System.out.println(res.toPlainString());
         System.out.println(d);
       }
     }
