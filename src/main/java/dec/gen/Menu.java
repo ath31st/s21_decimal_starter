@@ -1,6 +1,7 @@
 package dec.gen;
 
 import static dec.gen.StringConstants.END_PROGRAM;
+import static dec.gen.StringConstants.EXIT;
 import static dec.gen.StringConstants.INPUT_ONE_NUMBER;
 import static dec.gen.StringConstants.INPUT_TWO_NUMBERS;
 import static dec.gen.StringConstants.MAIN_MENU;
@@ -60,10 +61,10 @@ public class Menu {
     while (true) {
       outputManager.consolePrint(INPUT_TWO_NUMBERS.getValue());
 
-      String strVal1 = scanner.next().trim();
-      if (strVal1.equals("exit")) break;
-      String strVal2 = scanner.next().trim();
-      if (strVal2.equals("exit")) break;
+      String strVal1 = scanner.next().trim().toLowerCase();
+      if (strVal1.equals(EXIT.getValue())) break;
+      String strVal2 = scanner.next().trim().toLowerCase();
+      if (strVal2.equals(EXIT.getValue())) break;
 
       if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
         BigDecimal bd1 = converter.fromStrToDec(strVal1);
@@ -100,8 +101,8 @@ public class Menu {
     while (true) {
       outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
 
-      String strVal = scanner.next().trim();
-      if (strVal.equals("exit")) break;
+      String strVal = scanner.next().trim().toLowerCase();
+      if (strVal.equals(EXIT.getValue())) break;
 
       if (validator.checkDecimalString(strVal)) {
         BigDecimal bd = converter.fromStrToDec(strVal);
