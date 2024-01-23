@@ -1,5 +1,7 @@
 package dec.gen;
 
+import static dec.gen.StringConstants.ZERO_DIV;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -22,7 +24,7 @@ public class ArithmeticHandlers {
       return bd1
           .divide(bd2, ArithmeticConstants.MAX_SCALE.getValue(), RoundingMode.HALF_EVEN).stripTrailingZeros();
     } else {
-      throw new IllegalArgumentException("Argument 'divisor' is 0");
+      throw new IllegalArgumentException(ZERO_DIV.getValue());
     }
   }
 }

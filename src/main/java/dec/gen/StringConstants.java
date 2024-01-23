@@ -8,7 +8,8 @@ public enum StringConstants {
   END_PROGRAM("Программа завершена."),
   INPUT_TWO_NUMBERS("Введите два числа или exit для выхода в предыдущее меню."),
   INPUT_ONE_NUMBER("Введите число или exit для выхода в предыдущее меню."),
-  ZERO_DIV("Деление на 0 недопустимо.");
+  ZERO_DIV("Деление на 0 недопустимо."),
+  OVERFLOW_VALUES("Введенное число превышает объем %d бит или степень %d%n");
   private final String value;
 
   StringConstants(String value) {
