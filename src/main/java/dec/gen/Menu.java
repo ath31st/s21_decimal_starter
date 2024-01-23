@@ -41,6 +41,9 @@ public class Menu {
           processing(scanner, choice);
           break;
         case 5:
+          convertFromNumberToS21Decimal(scanner);
+          break;
+        case 6:
           generateS21Decimal(scanner);
           break;
         case 0:
@@ -95,7 +98,7 @@ public class Menu {
     }
   }
 
-  private void generateS21Decimal(Scanner scanner) {
+  private void convertFromNumberToS21Decimal(Scanner scanner) {
     while (true) {
       outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
 
@@ -104,6 +107,26 @@ public class Menu {
 
       if (validator.checkDecimalString(strVal)) {
         BigDecimal bd = converter.fromStrToDec(strVal);
+        outputManager.consolePrintBigDecAndS21Dec(bd);
+      }
+    }
+  }
+
+  private void generateS21Decimal(Scanner scanner) {
+    while (true) {
+      outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
+
+      String strVal = scanner.next().trim().toLowerCase();
+      if (strVal.equals(EXIT.getValue())) break;
+      int count = 0;
+      try {
+        count = Integer.parseInt(strVal);
+      } catch (Exception e) {
+        outputManager.consolePrint(WRONG_INPUT.getValue());
+      }
+
+      for (int i = 0; i < count; i++) {
+        BigDecimal bd = BigDecimalGenerator.generateLimitedBigDecimal();
         outputManager.consolePrintBigDecAndS21Dec(bd);
       }
     }

@@ -5,6 +5,9 @@ import java.security.SecureRandom;
 import java.util.Date;
 
 public class BigDecimalGenerator {
+  private BigDecimalGenerator() {
+  }
+
   public static BigDecimal generateLimitedBigDecimal() {
 
     int length = generateRandomInteger(1, 29);
