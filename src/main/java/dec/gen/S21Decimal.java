@@ -56,4 +56,13 @@ public class S21Decimal {
         + ", 0x" + Integer.toHexString(highBits)
         + ", 0x" + Integer.toHexString(signScaleBits) + "}}";
   }
+
+  public String extendToString(String name) {
+    return String.format("s21_decimal dec_%s = {{0x%s, 0x%s, 0x%s, 0x%s}}",
+        name,
+        Integer.toHexString(lowBits),
+        Integer.toHexString(midBits),
+        Integer.toHexString(highBits),
+        Integer.toHexString(signScaleBits));
+  }
 }
