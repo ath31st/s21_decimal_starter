@@ -1,19 +1,12 @@
 package dec.starter;
 
-import static dec.starter.constant.StringConstants.END_PROGRAM;
-import static dec.starter.constant.StringConstants.EXIT;
-import static dec.starter.constant.StringConstants.INPUT_ONE_NUMBER;
-import static dec.starter.constant.StringConstants.INPUT_TWO_NUMBERS;
-import static dec.starter.constant.StringConstants.MAIN_MENU;
-import static dec.starter.constant.StringConstants.WRONG_CHOICE;
-import static dec.starter.constant.StringConstants.WRONG_INPUT;
-import static dec.starter.constant.StringConstants.ZERO_DIV;
+import static dec.starter.constant.StringConstants.*;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Menu {
+public class Processor {
   private final Validator validator = new Validator();
   private final ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
   private final Converter converter = new Converter();
@@ -64,37 +57,63 @@ public class Menu {
     while (true) {
       outputManager.consolePrint(INPUT_TWO_NUMBERS.getValue());
 
-      String strVal1 = scanner.next().trim().toLowerCase();
+      String strVal1 = readInput(scanner);
       if (strVal1.equals(EXIT.getValue())) break;
-      String strVal2 = scanner.next().trim().toLowerCase();
+
+      String strVal2 = readInput(scanner);
       if (strVal2.equals(EXIT.getValue())) break;
 
-      if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
-        BigDecimal bd1 = converter.fromStrToDec(strVal1);
-        BigDecimal bd2 = converter.fromStrToDec(strVal2);
-        BigDecimal res = BigDecimal.ZERO;
-        switch (action) {
-          case 1:
-            res = arithmeticHandler.add(bd1, bd2);
-            break;
-          case 2:
-            res = arithmeticHandler.sub(bd1, bd2);
-            break;
-          case 3:
-            res = arithmeticHandler.mul(bd1, bd2);
-            break;
-          case 4:
-            try {
-              res = arithmeticHandler.div(bd1, bd2);
-            } catch (IllegalArgumentException e) {
-              outputManager.consolePrint(ZERO_DIV.getValue());
-            }
-            break;
-          default:
-            break;
+      performOperation(strVal1, strVal2, action);
+    }
+  }
+
+  private String readInput(Scanner scanner) {
+    return scanner.next().trim().toLowerCase();
+  }
+
+  private void performOperation(String strVal1, String strVal2, int action) {
+    if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
+      BigDecimal bd1 = converter.fromStrToDec(strVal1);
+      BigDecimal bd2 = converter.fromStrToDec(strVal2);
+      BigDecimal res = calculateResult(bd1, bd2, action);
+
+      int check = validator.checkBigDecimal(res);
+      handleResultPrinting(res, check);
+    }
+  }
+
+  private BigDecimal calculateResult(BigDecimal bd1, BigDecimal bd2, int action) {
+    BigDecimal res = BigDecimal.ZERO;
+    switch (action) {
+      case 1:
+        res = arithmeticHandler.add(bd1, bd2);
+        break;
+      case 2:
+        res = arithmeticHandler.sub(bd1, bd2);
+        break;
+      case 3:
+        res = arithmeticHandler.mul(bd1, bd2);
+        break;
+      case 4:
+        try {
+          res = arithmeticHandler.div(bd1, bd2);
+        } catch (IllegalArgumentException e) {
+          outputManager.consolePrint(ZERO_DIV.getValue());
         }
-        outputManager.consolePrintBigDecAndS21Dec(res, "res");
-      }
+        break;
+      default:
+        break;
+    }
+    return res;
+  }
+
+  private void handleResultPrinting(BigDecimal res, int check) {
+    if (check == 1) {
+      outputManager.consolePrint(RES_TOO_LARGE_OR_POS_INF.getValue());
+    } else if (check == 2) {
+      outputManager.consolePrint(RES_TOO_SMALL_OR_POS_NEG.getValue());
+    } else {
+      outputManager.consolePrintBigDecAndS21Dec(res, "res");
     }
   }
 

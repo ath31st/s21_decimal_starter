@@ -2,7 +2,7 @@ package dec.starter;
 
 public class App {
   public static void main(String[] args) {
-    Menu menu = new Menu();
-    menu.mainMenu();
+    Processor processor = new Processor();
+    processor.mainMenu();
   }
 }
