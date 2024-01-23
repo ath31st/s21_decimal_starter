@@ -9,9 +9,9 @@ public class OutputManager {
     System.out.println(str);
   }
 
-  public void consolePrintBigDecAndS21Dec(BigDecimal bd) {
+  public void consolePrintBigDecAndS21Dec(BigDecimal bd, String dName) {
     S21Decimal d = converter.fromDecToS21Dec(bd);
     System.out.println("Десятичное значение: " + bd.toPlainString());
-    System.out.println(d.extendToString("res"));
+    System.out.println(d.extendToString(dName));
   }
 }

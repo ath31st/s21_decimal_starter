@@ -93,7 +93,7 @@ public class Menu {
           default:
             break;
         }
-        outputManager.consolePrintBigDecAndS21Dec(res);
+        outputManager.consolePrintBigDecAndS21Dec(res, "res");
       }
     }
   }
@@ -107,7 +107,7 @@ public class Menu {
 
       if (validator.checkDecimalString(strVal)) {
         BigDecimal bd = converter.fromStrToDec(strVal);
-        outputManager.consolePrintBigDecAndS21Dec(bd);
+        outputManager.consolePrintBigDecAndS21Dec(bd, "res");
       }
     }
   }
@@ -127,7 +127,7 @@ public class Menu {
 
       for (int i = 0; i < count; i++) {
         BigDecimal bd = BigDecimalGenerator.generateLimitedBigDecimal();
-        outputManager.consolePrintBigDecAndS21Dec(bd);
+        outputManager.consolePrintBigDecAndS21Dec(bd, "rand_" + (i + 1));
       }
     }
   }

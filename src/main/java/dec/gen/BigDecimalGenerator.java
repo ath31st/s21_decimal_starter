@@ -24,7 +24,9 @@ public class BigDecimalGenerator {
       numberBuilder.insert(commaIndex, '.');
     }
 
-    return new BigDecimal(numberBuilder.toString());
+    BigDecimal bd = new BigDecimal(numberBuilder.toString());
+
+    return generateRandomInteger(0, 1) == 0 ? bd : bd.negate();
   }
 
   private static int generateRandomInteger(int min, int maxInclude) {
