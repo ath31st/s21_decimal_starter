@@ -60,7 +60,7 @@ public class Menu {
       if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
         BigDecimal bd1 = converter.fromStrToDec(strVal1);
         BigDecimal bd2 = converter.fromStrToDec(strVal2);
-        BigDecimal res;
+        BigDecimal res = BigDecimal.ZERO;
         switch (action) {
           case 1:
             res = arithmetic.add(bd1, bd2);
@@ -72,10 +72,14 @@ public class Menu {
             res = arithmetic.mul(bd1, bd2);
             break;
           case 4:
-            res = arithmetic.div(bd1, bd2);
+            try {
+              res = arithmetic.div(bd1, bd2);
+            } catch (IllegalArgumentException e) {
+              System.out.println("Деление на 0 недопустимо.");
+            }
             break;
           default:
-            res = BigDecimal.ZERO;
+            break;
         }
         S21Decimal d = converter.fromDecToS21Dec(res);
         System.out.println(res.toPlainString());
