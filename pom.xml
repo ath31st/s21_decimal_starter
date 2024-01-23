@@ -5,7 +5,7 @@
 
     <groupId>dec.gen</groupId>
     <artifactId>s21_decimal_generator</artifactId>
-    <version>0.5.1</version>
+    <version>0.6.0</version>
     <packaging>jar</packaging>
 
     <name>s21_decimal_generator</name>
