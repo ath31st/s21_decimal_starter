@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dec.gen</groupId>
-    <artifactId>s21_decimal_generator</artifactId>
+    <artifactId>s21_decimal_starter</artifactId>
     <version>0.6.0</version>
     <packaging>jar</packaging>
 
-    <name>s21_decimal_generator</name>
+    <name>s21_decimal_starter</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -36,7 +36,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>dec.gen.App</mainClass>
+                            <mainClass>dec.starter.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

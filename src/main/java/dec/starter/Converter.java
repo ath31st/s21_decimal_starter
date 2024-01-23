@@ -1,6 +1,6 @@
-package dec.gen;
+package dec.starter;
 
-import static dec.gen.constant.ArithmeticConstants.NEG_SIGN;
+import static dec.starter.constant.ArithmeticConstants.NEG_SIGN;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

@@ -1,6 +1,6 @@
-package dec.gen;
+package dec.starter;
 
-import dec.gen.constant.FunctionNames;
+import dec.starter.constant.FunctionNames;
 import java.math.BigDecimal;
 
 public class TestBuilder {

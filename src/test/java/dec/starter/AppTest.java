@@ -1,4 +1,4 @@
-package dec.gen;
+package dec.starter;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

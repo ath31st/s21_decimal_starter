@@ -1,4 +1,4 @@
-package dec.gen.constant;
+package dec.starter.constant;
 
 public enum StringConstants {
   SEP("----------------"),

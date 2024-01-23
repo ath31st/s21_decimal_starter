@@ -1,4 +1,4 @@
-package dec.gen.constant;
+package dec.starter.constant;
 
 public enum FunctionNames {
   S21_ADD("s21_add"),

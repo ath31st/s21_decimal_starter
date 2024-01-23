@@ -1,4 +1,4 @@
-package dec.gen;
+package dec.starter;
 
 import java.math.BigDecimal;
 

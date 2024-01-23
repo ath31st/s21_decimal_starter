@@ -1,4 +1,4 @@
-package dec.gen;
+package dec.starter;
 
 public class S21Decimal {
   private int lowBits;
