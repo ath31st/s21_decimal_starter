@@ -5,7 +5,7 @@ import static dec.gen.StringConstants.ZERO_DIV;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class ArithmeticHandlers {
+public class ArithmeticHandler {
 
   public BigDecimal add(BigDecimal bd1, BigDecimal bd2) {
     return bd1.add(bd2);

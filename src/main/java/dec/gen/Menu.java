@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Menu {
   private final Validator validator = new Validator();
-  private final ArithmeticHandlers arithmeticHandlers = new ArithmeticHandlers();
+  private final ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
   private final Converter converter = new Converter();
   private final OutputManager outputManager = new OutputManager();
 
@@ -72,17 +72,17 @@ public class Menu {
         BigDecimal res = BigDecimal.ZERO;
         switch (action) {
           case 1:
-            res = arithmeticHandlers.add(bd1, bd2);
+            res = arithmeticHandler.add(bd1, bd2);
             break;
           case 2:
-            res = arithmeticHandlers.sub(bd1, bd2);
+            res = arithmeticHandler.sub(bd1, bd2);
             break;
           case 3:
-            res = arithmeticHandlers.mul(bd1, bd2);
+            res = arithmeticHandler.mul(bd1, bd2);
             break;
           case 4:
             try {
-              res = arithmeticHandlers.div(bd1, bd2);
+              res = arithmeticHandler.div(bd1, bd2);
             } catch (IllegalArgumentException e) {
               outputManager.consolePrint(ZERO_DIV.getValue());
             }
@@ -90,8 +90,7 @@ public class Menu {
           default:
             break;
         }
-        S21Decimal d = converter.fromDecToS21Dec(res);
-        outputManager.consolePrintBigDecAndS21Dec(res, d);
+        outputManager.consolePrintBigDecAndS21Dec(res);
       }
     }
   }
@@ -105,8 +104,7 @@ public class Menu {
 
       if (validator.checkDecimalString(strVal)) {
         BigDecimal bd = converter.fromStrToDec(strVal);
-        S21Decimal d = converter.fromDecToS21Dec(bd);
-        outputManager.consolePrintBigDecAndS21Dec(bd, d);
+        outputManager.consolePrintBigDecAndS21Dec(bd);
       }
     }
   }
