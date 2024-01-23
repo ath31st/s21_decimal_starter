@@ -1,6 +1,6 @@
 package dec.gen;
 
-public enum Constants {
+public enum ArithmeticConstants {
   MAX_BIT_LENGTH(96),
   MAX_SCALE(28),
   NEG_SIGN(1),
@@ -8,7 +8,7 @@ public enum Constants {
 
   private final Integer value;
 
-  Constants(Integer value) {
+  ArithmeticConstants(Integer value) {
     this.value = value;
   }
 

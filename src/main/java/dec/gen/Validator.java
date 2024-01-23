@@ -1,7 +1,7 @@
 package dec.gen;
 
-import static dec.gen.Constants.MAX_BIT_LENGTH;
-import static dec.gen.Constants.MAX_SCALE;
+import static dec.gen.ArithmeticConstants.MAX_BIT_LENGTH;
+import static dec.gen.ArithmeticConstants.MAX_SCALE;
 
 import java.math.BigDecimal;
 

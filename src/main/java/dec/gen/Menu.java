@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Menu {
   private final Validator validator = new Validator();
-  private final Arithmetic arithmetic = new Arithmetic();
+  private final ArithmeticHandlers arithmeticHandlers = new ArithmeticHandlers();
   private final Converter converter = new Converter();
 
   public void mainMenu() {
@@ -63,17 +63,17 @@ public class Menu {
         BigDecimal res = BigDecimal.ZERO;
         switch (action) {
           case 1:
-            res = arithmetic.add(bd1, bd2);
+            res = arithmeticHandlers.add(bd1, bd2);
             break;
           case 2:
-            res = arithmetic.sub(bd1, bd2);
+            res = arithmeticHandlers.sub(bd1, bd2);
             break;
           case 3:
-            res = arithmetic.mul(bd1, bd2);
+            res = arithmeticHandlers.mul(bd1, bd2);
             break;
           case 4:
             try {
-              res = arithmetic.div(bd1, bd2);
+              res = arithmeticHandlers.div(bd1, bd2);
             } catch (IllegalArgumentException e) {
               System.out.println("Деление на 0 недопустимо.");
             }
