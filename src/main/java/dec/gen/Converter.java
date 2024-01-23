@@ -3,6 +3,7 @@ package dec.gen;
 import static dec.gen.Constants.NEG_SIGN;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -16,32 +17,43 @@ public class Converter {
   }
 
   public S21Decimal fromDecToS21Dec(BigDecimal bd) {
-    int offset;
-    if (bd.unscaledValue().bitLength() < 45) {
-      offset = 0;
-    } else {
-      offset = 1;
-    }
-
+    //79228162514264337593543950335
     S21Decimal d = new S21Decimal();
+
+    BigInteger unscaledValue = bd.unscaledValue();
     d.setScaleInBit(bd.scale());
     if (bd.signum() == -1) {
       d.setSignInBit(NEG_SIGN.getValue());
     }
 
-    byte[] bytes = bd.unscaledValue().toByteArray();
-    ByteBuffer buffer = ByteBuffer.allocate(12).order(ByteOrder.BIG_ENDIAN);
+    int[] intValues = splitTo32BitValues(unscaledValue);
 
-    for (int i = offset; i < 12 + offset; i++) {
-      if (i < bytes.length) {
-        buffer.put(bytes[i]);
+    d.setLowBits(intValues[0]);
+    d.setMidBits(intValues[1]);
+    d.setHighBits(intValues[2]);
+
+    return d;
+  }
+
+  private int[] splitTo32BitValues(BigInteger value) {
+    int[] intValues = new int[3];
+
+    byte[] bytes = value.toByteArray();
+    int length = bytes.length;
+
+    for (int i = 0; i < 3; i++) {
+      int offset = i * 4;
+      int intValue = 0;
+
+      for (int j = 0; j < 4; j++) {
+        if (offset + j < length) {
+          intValue |= (bytes[length - offset - j - 1] & 0xFF) << (j * 8);
+        }
       }
+
+      intValues[i] = intValue;
     }
 
-    d.setLowBits(buffer.getInt(0));
-    d.setMidBits(buffer.getInt(4));
-    d.setHighBits(buffer.getInt(8));
-    //79228162514264337593543950335
-    return d;
+    return intValues;
   }
 }
