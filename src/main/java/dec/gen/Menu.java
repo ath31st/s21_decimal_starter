@@ -16,18 +16,19 @@ public class Menu {
   private final Validator validator = new Validator();
   private final ArithmeticHandlers arithmeticHandlers = new ArithmeticHandlers();
   private final Converter converter = new Converter();
+  private final OutputManager outputManager = new OutputManager();
 
   public void mainMenu() {
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
-      System.out.println(MAIN_MENU.getValue());
+      outputManager.consolePrint(MAIN_MENU.getValue());
 
       int choice = 0;
       try {
         choice = scanner.nextInt();
       } catch (InputMismatchException e) {
-        System.out.println(WRONG_INPUT.getValue());
+        outputManager.consolePrint(WRONG_INPUT.getValue());
         mainMenu();
       }
 
@@ -42,10 +43,10 @@ public class Menu {
           generateS21Decimal(scanner);
           break;
         case 0:
-          System.out.println(END_PROGRAM.getValue());
+          outputManager.consolePrint(END_PROGRAM.getValue());
           break;
         default:
-          System.out.println(WRONG_CHOICE.getValue());
+          outputManager.consolePrint(WRONG_CHOICE.getValue());
       }
       if (choice == 0) {
         scanner.close();
@@ -57,7 +58,7 @@ public class Menu {
 
   private void processing(Scanner scanner, int action) {
     while (true) {
-      System.out.println(INPUT_TWO_NUMBERS.getValue());
+      outputManager.consolePrint(INPUT_TWO_NUMBERS.getValue());
 
       String strVal1 = scanner.next().trim();
       if (strVal1.equals("exit")) break;
@@ -82,22 +83,22 @@ public class Menu {
             try {
               res = arithmeticHandlers.div(bd1, bd2);
             } catch (IllegalArgumentException e) {
-              System.out.println(ZERO_DIV.getValue());
+              outputManager.consolePrint(ZERO_DIV.getValue());
             }
             break;
           default:
             break;
         }
         S21Decimal d = converter.fromDecToS21Dec(res);
-        System.out.println(res.toPlainString());
-        System.out.println(d);
+        outputManager.consolePrint(res.toPlainString());
+        outputManager.consolePrint(d.extendToString("res"));
       }
     }
   }
 
   private void generateS21Decimal(Scanner scanner) {
     while (true) {
-      System.out.println(INPUT_ONE_NUMBER.getValue());
+      outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
 
       String strVal = scanner.next().trim();
       if (strVal.equals("exit")) break;
@@ -105,7 +106,7 @@ public class Menu {
       if (validator.checkDecimalString(strVal)) {
         BigDecimal bd = converter.fromStrToDec(strVal);
         S21Decimal d = converter.fromDecToS21Dec(bd);
-        System.out.println(d);
+        outputManager.consolePrint(d.extendToString("res"));
       }
     }
   }
