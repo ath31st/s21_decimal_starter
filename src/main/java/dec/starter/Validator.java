@@ -24,4 +24,18 @@ public class Validator {
     }
     return checkRes;
   }
+
+  //  0 - OK
+  //  1 - the number is too large or equal to infinity
+  //  2 - the number is too small or equal to negative infinity
+  public int checkBigDecimal(BigDecimal bd) {
+    int checkRes = 0;
+    if (bd.scale() > MAX_SCALE.getValue()) {
+      checkRes = 2;
+    }
+    if (checkRes == 0 && bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue()) {
+      checkRes = 1;
+    }
+    return checkRes;
+  }
 }
