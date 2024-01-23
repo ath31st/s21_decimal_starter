@@ -18,7 +18,11 @@ public class Converter {
     //79228162514264337593543950335
     S21Decimal d = new S21Decimal();
 
-    BigInteger unscaledValue = bd.unscaledValue();
+    BigInteger unscaledValue = bd
+        .unscaledValue()
+        .abs()
+        .multiply(BigInteger.TEN.pow(Math.abs(bd.scale())));
+
     d.setScaleInBit(bd.scale());
     if (bd.signum() == -1) {
       d.setSignInBit(NEG_SIGN.getValue());
