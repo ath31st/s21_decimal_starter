@@ -91,8 +91,7 @@ public class Menu {
             break;
         }
         S21Decimal d = converter.fromDecToS21Dec(res);
-        outputManager.consolePrint(res.toPlainString());
-        outputManager.consolePrint(d.extendToString("res"));
+        outputManager.consolePrintBigDecAndS21Dec(res, d);
       }
     }
   }
@@ -107,7 +106,7 @@ public class Menu {
       if (validator.checkDecimalString(strVal)) {
         BigDecimal bd = converter.fromStrToDec(strVal);
         S21Decimal d = converter.fromDecToS21Dec(bd);
-        outputManager.consolePrint(d.extendToString("res"));
+        outputManager.consolePrintBigDecAndS21Dec(bd, d);
       }
     }
   }
