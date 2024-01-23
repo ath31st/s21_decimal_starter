@@ -1,5 +1,13 @@
 package dec.gen;
 
+import static dec.gen.StringConstants.END_PROGRAM;
+import static dec.gen.StringConstants.INPUT_ONE_NUMBER;
+import static dec.gen.StringConstants.INPUT_TWO_NUMBERS;
+import static dec.gen.StringConstants.MAIN_MENU;
+import static dec.gen.StringConstants.WRONG_CHOICE;
+import static dec.gen.StringConstants.WRONG_INPUT;
+import static dec.gen.StringConstants.ZERO_DIV;
+
 import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,14 +21,13 @@ public class Menu {
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
-      System.out.println("Выберите действие:\n1. Сложение\n2. Вычитание\n"
-          + "3. Умножение\n4. Деление\n5. Генерация числа\n0. Выход");
+      System.out.println(MAIN_MENU.getValue());
 
       int choice = 0;
       try {
         choice = scanner.nextInt();
       } catch (InputMismatchException e) {
-        System.out.println("Неправильный ввод, попробуйте еще раз.");
+        System.out.println(WRONG_INPUT.getValue());
         mainMenu();
       }
 
@@ -35,10 +42,10 @@ public class Menu {
           generateS21Decimal(scanner);
           break;
         case 0:
-          System.out.println("Программа завершена.");
+          System.out.println(END_PROGRAM.getValue());
           break;
         default:
-          System.out.println("Неверный выбор, попробуйте еще раз.");
+          System.out.println(WRONG_CHOICE.getValue());
       }
       if (choice == 0) {
         scanner.close();
@@ -50,7 +57,7 @@ public class Menu {
 
   private void processing(Scanner scanner, int action) {
     while (true) {
-      System.out.println("Введите два числа или exit для выхода в предыдущее меню.");
+      System.out.println(INPUT_TWO_NUMBERS.getValue());
 
       String strVal1 = scanner.next().trim();
       if (strVal1.equals("exit")) break;
@@ -75,7 +82,7 @@ public class Menu {
             try {
               res = arithmeticHandlers.div(bd1, bd2);
             } catch (IllegalArgumentException e) {
-              System.out.println("Деление на 0 недопустимо.");
+              System.out.println(ZERO_DIV.getValue());
             }
             break;
           default:
@@ -90,7 +97,7 @@ public class Menu {
 
   private void generateS21Decimal(Scanner scanner) {
     while (true) {
-      System.out.println("Введите число или exit для выхода в предыдущее меню.");
+      System.out.println(INPUT_ONE_NUMBER.getValue());
 
       String strVal = scanner.next().trim();
       if (strVal.equals("exit")) break;
