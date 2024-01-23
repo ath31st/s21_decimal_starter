@@ -1,4 +1,4 @@
-package dec.gen;
+package dec.gen.constant;
 
 public enum ArithmeticConstants {
   MAX_BIT_LENGTH(96),

@@ -1,13 +1,13 @@
 package dec.gen;
 
-import static dec.gen.StringConstants.END_PROGRAM;
-import static dec.gen.StringConstants.EXIT;
-import static dec.gen.StringConstants.INPUT_ONE_NUMBER;
-import static dec.gen.StringConstants.INPUT_TWO_NUMBERS;
-import static dec.gen.StringConstants.MAIN_MENU;
-import static dec.gen.StringConstants.WRONG_CHOICE;
-import static dec.gen.StringConstants.WRONG_INPUT;
-import static dec.gen.StringConstants.ZERO_DIV;
+import static dec.gen.constant.StringConstants.END_PROGRAM;
+import static dec.gen.constant.StringConstants.EXIT;
+import static dec.gen.constant.StringConstants.INPUT_ONE_NUMBER;
+import static dec.gen.constant.StringConstants.INPUT_TWO_NUMBERS;
+import static dec.gen.constant.StringConstants.MAIN_MENU;
+import static dec.gen.constant.StringConstants.WRONG_CHOICE;
+import static dec.gen.constant.StringConstants.WRONG_INPUT;
+import static dec.gen.constant.StringConstants.ZERO_DIV;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;

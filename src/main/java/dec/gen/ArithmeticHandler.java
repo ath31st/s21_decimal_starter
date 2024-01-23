@@ -1,7 +1,8 @@
 package dec.gen;
 
-import static dec.gen.StringConstants.ZERO_DIV;
+import static dec.gen.constant.StringConstants.ZERO_DIV;
 
+import dec.gen.constant.ArithmeticConstants;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 

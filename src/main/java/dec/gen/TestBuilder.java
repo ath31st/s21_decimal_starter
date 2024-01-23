@@ -1,10 +1,12 @@
 package dec.gen;
 
+import dec.gen.constant.FunctionNames;
 import java.math.BigDecimal;
 
 public class TestBuilder {
   private final Converter converter = new Converter();
-  public String createOkTestTemplate(String handlerName,
+
+  public String createOkTestTemplate(FunctionNames fName,
                                      int count,
                                      BigDecimal bd1,
                                      BigDecimal bd2,
@@ -13,7 +15,7 @@ public class TestBuilder {
     S21Decimal d2 = converter.fromDecToS21Dec(bd2);
     S21Decimal dCheck = converter.fromDecToS21Dec(bdCheck);
 
-    String testName = handlerName + "_" + count;
+    String testName = fName.getValue() + "_" + count;
     return String.format("START_TEST(%s) {\n" +
             "  // %s\n" +
             "  %s\n" +
@@ -34,6 +36,6 @@ public class TestBuilder {
         bd1.toPlainString(), d1.extendToString("dec_1"),
         bd2.toPlainString(), d2.extendToString("dec_2"),
         bdCheck.toPlainString(), dCheck.extendToString("check"),
-        handlerName);
+        fName.getValue());
   }
 }

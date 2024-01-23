@@ -1,9 +1,9 @@
 package dec.gen;
 
-import static dec.gen.ArithmeticConstants.MAX_BIT_LENGTH;
-import static dec.gen.ArithmeticConstants.MAX_SCALE;
-import static dec.gen.StringConstants.OVERFLOW_VALUES;
-import static dec.gen.StringConstants.WRONG_INPUT;
+import static dec.gen.constant.ArithmeticConstants.MAX_BIT_LENGTH;
+import static dec.gen.constant.ArithmeticConstants.MAX_SCALE;
+import static dec.gen.constant.StringConstants.OVERFLOW_VALUES;
+import static dec.gen.constant.StringConstants.WRONG_INPUT;
 
 import java.math.BigDecimal;
 
