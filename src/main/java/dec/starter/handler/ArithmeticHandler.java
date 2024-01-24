@@ -1,4 +1,4 @@
-package dec.starter;
+package dec.starter.handler;
 
 import static dec.starter.constant.StringConstants.ZERO_DIV;
 

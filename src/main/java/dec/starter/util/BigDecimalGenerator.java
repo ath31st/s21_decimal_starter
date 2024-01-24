@@ -1,4 +1,4 @@
-package dec.starter;
+package dec.starter.util;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;

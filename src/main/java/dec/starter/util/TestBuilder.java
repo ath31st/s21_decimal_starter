@@ -1,5 +1,6 @@
-package dec.starter;
+package dec.starter.util;
 
+import dec.starter.model.S21Decimal;
 import dec.starter.constant.FunctionNames;
 import java.math.BigDecimal;
 

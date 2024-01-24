@@ -1,4 +1,4 @@
-package dec.starter;
+package dec.starter.util;
 
 import static dec.starter.constant.ArithmeticConstants.MAX_BIT_LENGTH;
 import static dec.starter.constant.ArithmeticConstants.MAX_SCALE;

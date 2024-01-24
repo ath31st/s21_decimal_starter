@@ -1,7 +1,8 @@
-package dec.starter;
+package dec.starter.util;
 
 import static dec.starter.constant.ArithmeticConstants.NEG_SIGN;
 
+import dec.starter.model.S21Decimal;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
