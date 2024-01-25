@@ -129,7 +129,7 @@ public class Processor {
 
   private void convertFromNumberToS21Decimal(Scanner scanner) {
     while (true) {
-      outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
+      outputManager.consolePrint(INPUT_DECIMAL_NUMBER.getValue());
 
       String strVal = readInput(scanner);
       if (strVal.equals(EXIT.getValue())) break;
@@ -143,7 +143,7 @@ public class Processor {
 
   private void generateS21Decimal(Scanner scanner) {
     while (true) {
-      outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
+      outputManager.consolePrint(INPUT_COUNT_FOR_GEN_DEC.getValue());
 
       String strVal = scanner.next().trim().toLowerCase();
       if (strVal.equals(EXIT.getValue())) break;
@@ -172,12 +172,15 @@ public class Processor {
       outputManager.consolePrint(WRONG_INPUT.getValue());
       generateTests(scanner);
     }
-    outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
+    outputManager.consolePrint(INPUT_COUNT_FOR_GEN_TEST.getValue());
     while (!strVal.equals(EXIT.getValue())) {
       strVal = readInput(scanner);
       int count;
       try {
         count = Integer.parseInt(strVal);
+        if (count < 1 || count > 100) {
+          throw new IllegalArgumentException();
+        }
         outputManager.consolePrint(testBuilder.buildTestSuit(fName, count));
         break;
       } catch (IllegalArgumentException e) {
