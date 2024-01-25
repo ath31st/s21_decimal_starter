@@ -1,6 +1,7 @@
 package dec.starter.util;
 
 import dec.starter.constant.ArithmeticConstants;
+import dec.starter.handler.ArithmeticHandler;
 import dec.starter.model.S21Decimal;
 import dec.starter.constant.FunctionNames;
 import java.math.BigDecimal;
@@ -12,10 +13,12 @@ import org.apache.commons.lang3.tuple.Triple;
 public class TestBuilder {
   private final Validator validator;
   private final Converter converter;
+  private final ArithmeticHandler arithmeticHandler;
 
-  public TestBuilder(Validator validator, Converter converter) {
+  public TestBuilder(Validator validator, Converter converter, ArithmeticHandler arithmeticHandler) {
     this.validator = validator;
     this.converter = converter;
+    this.arithmeticHandler = arithmeticHandler;
   }
 
   public String buildTestSuit(FunctionNames fName, int count) {
@@ -43,20 +46,19 @@ public class TestBuilder {
 
       switch (fName) {
         case S21_ADD:
-          res = bd1.add(bd2);
+          res = arithmeticHandler.add(bd1, bd2);
           break;
         case S21_SUB:
-          res = bd1.subtract(bd2);
+          res = arithmeticHandler.sub(bd1, bd2);
           break;
         case S21_MUL:
-          res = bd1.multiply(bd2);
+          res = arithmeticHandler.mul(bd1, bd2);
           break;
         case S21_DIV:
           if (bd2.equals(BigDecimal.ZERO)) {
             continue;
           }
-          res = bd1.divide(bd2, ArithmeticConstants.MAX_SCALE.getValue(),
-              RoundingMode.HALF_EVEN).stripTrailingZeros();
+          res = arithmeticHandler.div(bd1, bd2);
           break;
         default:
       }

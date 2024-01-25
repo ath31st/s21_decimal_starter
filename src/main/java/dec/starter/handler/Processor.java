@@ -17,7 +17,7 @@ public class Processor {
   private final Converter converter = new Converter();
   private final ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
   private final OutputManager outputManager = new OutputManager();
-  private final TestBuilder testBuilder = new TestBuilder(validator, converter);
+  private final TestBuilder testBuilder = new TestBuilder(validator, converter, arithmeticHandler);
 
   public void mainMenu() {
     Scanner scanner = new Scanner(System.in);
