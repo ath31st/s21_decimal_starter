@@ -1,19 +1,74 @@
 package dec.starter.util;
 
+import dec.starter.constant.ArithmeticConstants;
 import dec.starter.model.S21Decimal;
 import dec.starter.constant.FunctionNames;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import org.apache.commons.lang3.tuple.Triple;
 
 public class TestBuilder {
+  private final Validator validator;
   private final Converter converter = new Converter();
 
+  public TestBuilder(Validator validator) {
+    this.validator = validator;
+  }
+
+  private String buildTestSuit(FunctionNames fName, int count) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(testHeader());
+    for (int i = 0; i < count; i++) {
+      Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(fName);
+      sb.append(testTemplate(fName, i, t.getLeft(), t.getMiddle(), t.getRight()));
+    }
+    sb.append(footerTestModule(fName, tCaseNamesForFooter(fName, count)));
+
+    return sb.toString();
+  }
+
+  private Triple<BigDecimal, BigDecimal, BigDecimal> generateOkValues(FunctionNames fName) {
+    boolean genTry = true;
+    BigDecimal bd1 = new BigDecimal("999999999999999999999999999999");
+    BigDecimal bd2 = new BigDecimal("999999999999999999999999999999");
+    BigDecimal res = new BigDecimal("999999999999999999999999999999");
+
+    while (genTry) {
+      bd1 = BigDecimalGenerator.generateLimitedBigDecimal();
+      bd2 = BigDecimalGenerator.generateLimitedBigDecimal();
+
+      switch (fName) {
+        case S21_ADD:
+          res = bd1.add(bd2);
+          break;
+        case S21_SUB:
+          res = bd1.subtract(bd2);
+          break;
+        case S21_MUL:
+          res = bd1.multiply(bd2);
+          break;
+        case S21_DIV:
+          res = bd1.divide(bd2, ArithmeticConstants.MAX_SCALE.getValue(),
+              RoundingMode.HALF_EVEN).stripTrailingZeros();
+          break;
+        default:
+      }
+      genTry = (validator.checkBigDecimal(res) != 0);
+    }
+    return Triple.of(bd1, bd2, res);
+  }
+
+  private String testHeader() {
+    return "#include \"не забудьте здесь добавить свой header.h\"\n";
+  }
+
   private String testTemplate(FunctionNames fName,
-                                     int count,
-                                     BigDecimal bd1,
-                                     BigDecimal bd2,
-                                     BigDecimal bdCheck) {
+                              int count,
+                              BigDecimal bd1,
+                              BigDecimal bd2,
+                              BigDecimal bdCheck) {
     S21Decimal d1 = converter.fromDecToS21Dec(bd1);
     S21Decimal d2 = converter.fromDecToS21Dec(bd2);
     S21Decimal dCheck = converter.fromDecToS21Dec(bdCheck);
