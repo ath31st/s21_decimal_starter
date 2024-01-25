@@ -146,17 +146,20 @@ public class Processor {
       outputManager.consolePrint(INPUT_COUNT_FOR_GEN_DEC.getValue());
 
       String strVal = scanner.next().trim().toLowerCase();
-      if (strVal.equals(EXIT.getValue())) break;
-      int count = 0;
+      if (strVal.equals(EXIT.getValue())) {
+        break;
+      }
       try {
-        count = Integer.parseInt(strVal);
+        int count = Integer.parseInt(strVal);
+        if (count < 1 || count > 100) {
+          throw new IllegalArgumentException();
+        }
+        for (int i = 0; i < count; i++) {
+          BigDecimal bd = BigDecimalGenerator.generateLimitedBigDecimal();
+          outputManager.consolePrintBigDecAndS21Dec(bd, "rand_" + (i + 1));
+        }
       } catch (Exception e) {
         outputManager.consolePrint(WRONG_INPUT.getValue());
-      }
-
-      for (int i = 0; i < count; i++) {
-        BigDecimal bd = BigDecimalGenerator.generateLimitedBigDecimal();
-        outputManager.consolePrintBigDecAndS21Dec(bd, "rand_" + (i + 1));
       }
     }
   }
