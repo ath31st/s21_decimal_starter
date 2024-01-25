@@ -1,11 +1,14 @@
 package dec.starter.util;
 
-import dec.starter.constant.ArithmeticConstants;
+import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
+import static dec.starter.constant.TestStringConstants.TEST_CASE_NAME_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_TEMPLATE;
+
+import dec.starter.constant.FunctionNames;
 import dec.starter.handler.ArithmeticHandler;
 import dec.starter.model.S21Decimal;
-import dec.starter.constant.FunctionNames;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.commons.lang3.tuple.Triple;
@@ -69,7 +72,7 @@ public class TestBuilder {
   }
 
   private String testHeader() {
-    return "#include \"не забудьте добавить здесь свой header.h\"\n";
+    return DONT_FORGET_INCLUDE.getValue();
   }
 
   private String testTemplate(FunctionNames fName,
@@ -82,23 +85,8 @@ public class TestBuilder {
     S21Decimal dCheck = converter.fromDecToS21Dec(bdCheck);
 
     String testName = fName.getValue() + "_" + (count + 1);
-    return String.format("START_TEST(%s) {\n" +
-            "  // %s\n" +
-            "  %s\n" +
-            "  // %s\n" +
-            "  %s\n" +
-            "  // %s\n" +
-            "  %s\n" +
-            "  s21_decimal result;\n" +
-            "  int return_value = %s(dec_1, dec_2, &result);\n" +
-            "  ck_assert_int_eq(return_value, OK);\n" +
-            "  ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);\n" +
-            "  ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);\n" +
-            "  ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);\n" +
-            "  ck_assert_uint_eq(dec_check.bits[3], result.bits[3]);\n" +
-            "}\n" +
-            "END_TEST\n",
-        testName,
+
+    return String.format(TEST_TEMPLATE.getValue(), testName,
         bd1.toPlainString(), d1.extendToString("1"),
         bd2.toPlainString(), d2.extendToString("2"),
         bdCheck.toPlainString(), dCheck.extendToString("check"),
@@ -107,18 +95,14 @@ public class TestBuilder {
 
   private String tCaseNamesForFooter(FunctionNames fName, int count) {
     return IntStream.range(1, count + 1)
-        .mapToObj(i -> String.format("  tcase_add_test(tc, %s_%d);\n", fName.getValue(), i))
+        .mapToObj(i ->
+            String.format(TEST_CASE_NAME_TEMPLATE.getValue(), fName.getValue(), i)
+                + System.lineSeparator())
         .collect(Collectors.joining());
   }
 
   private String footerTestModule(FunctionNames fName, String tCaseNames) {
-    return String.format("Suite *%s_cases(void) {\n" +
-        "  Suite *c = suite_create(\"%s_cases\");\n" +
-        "  TCase *tc = tcase_create(\"%s_tc\");\n" +
-        "\n" +
-        tCaseNames +
-        "  suite_add_tcase(c, tc);\n" +
-        "  return c;\n" +
-        "}\n", fName.getValue(), fName.getValue(), fName.getValue(), tCaseNames);
+    return String.format(TEST_SUITE_TEMPLATE.getValue(),
+        fName.getValue(), fName.getValue(), fName.getValue(), tCaseNames);
   }
 }
