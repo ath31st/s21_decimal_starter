@@ -47,8 +47,7 @@ public class Processor {
           generateS21Decimal(scanner);
           break;
         case 7:
-          outputManager.consolePrint(
-              testBuilder.buildTestSuit(FunctionNames.S21_ADD, 3));
+          generateTests(scanner);
           break;
         case 0:
           outputManager.consolePrint(END_PROGRAM.getValue());
@@ -132,7 +131,7 @@ public class Processor {
     while (true) {
       outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
 
-      String strVal = scanner.next().trim().toLowerCase();
+      String strVal = readInput(scanner);
       if (strVal.equals(EXIT.getValue())) break;
 
       if (validator.checkDecimalString(strVal)) {
@@ -158,6 +157,31 @@ public class Processor {
       for (int i = 0; i < count; i++) {
         BigDecimal bd = BigDecimalGenerator.generateLimitedBigDecimal();
         outputManager.consolePrintBigDecAndS21Dec(bd, "rand_" + (i + 1));
+      }
+    }
+  }
+
+  private void generateTests(Scanner scanner) {
+    outputManager.consolePrint(GEN_MENU.getValue());
+    String strVal = readInput(scanner);
+    FunctionNames fName = null;
+    try {
+      int val = Integer.parseInt(strVal);
+      fName = FunctionNames.values()[val - 1];
+    } catch (Exception e) {
+      outputManager.consolePrint(WRONG_INPUT.getValue());
+      generateTests(scanner);
+    }
+    outputManager.consolePrint(INPUT_ONE_NUMBER.getValue());
+    while (!strVal.equals(EXIT.getValue())) {
+      strVal = readInput(scanner);
+      int count;
+      try {
+        count = Integer.parseInt(strVal);
+        outputManager.consolePrint(testBuilder.buildTestSuit(fName, count));
+        break;
+      } catch (IllegalArgumentException e) {
+        outputManager.consolePrint(WRONG_INPUT.getValue());
       }
     }
   }
