@@ -31,9 +31,9 @@ public class TestBuilder {
 
   private Triple<BigDecimal, BigDecimal, BigDecimal> generateOkValues(FunctionNames fName) {
     boolean genTry = true;
-    BigDecimal bd1 = new BigDecimal("999999999999999999999999999999");
-    BigDecimal bd2 = new BigDecimal("999999999999999999999999999999");
-    BigDecimal res = new BigDecimal("999999999999999999999999999999");
+    BigDecimal bd1 = BigDecimal.ZERO;
+    BigDecimal bd2 = BigDecimal.ZERO;
+    BigDecimal res = BigDecimal.ZERO;
 
     while (genTry) {
       bd1 = BigDecimalGenerator.generateLimitedBigDecimal();
@@ -50,6 +50,9 @@ public class TestBuilder {
           res = bd1.multiply(bd2);
           break;
         case S21_DIV:
+          if (bd2.equals(BigDecimal.ZERO)) {
+            continue;
+          }
           res = bd1.divide(bd2, ArithmeticConstants.MAX_SCALE.getValue(),
               RoundingMode.HALF_EVEN).stripTrailingZeros();
           break;
@@ -57,11 +60,12 @@ public class TestBuilder {
       }
       genTry = (validator.checkBigDecimal(res) != 0);
     }
+
     return Triple.of(bd1, bd2, res);
   }
 
   private String testHeader() {
-    return "#include \"не забудьте здесь добавить свой header.h\"\n";
+    return "#include \"не забудьте добавить здесь свой header.h\"\n";
   }
 
   private String testTemplate(FunctionNames fName,
