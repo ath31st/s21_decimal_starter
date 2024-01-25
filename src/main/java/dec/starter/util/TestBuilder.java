@@ -3,11 +3,13 @@ package dec.starter.util;
 import dec.starter.model.S21Decimal;
 import dec.starter.constant.FunctionNames;
 import java.math.BigDecimal;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class TestBuilder {
   private final Converter converter = new Converter();
 
-  public String createOkTestTemplate(FunctionNames fName,
+  private String testTemplate(FunctionNames fName,
                                      int count,
                                      BigDecimal bd1,
                                      BigDecimal bd2,
@@ -38,5 +40,22 @@ public class TestBuilder {
         bd2.toPlainString(), d2.extendToString("dec_2"),
         bdCheck.toPlainString(), dCheck.extendToString("check"),
         fName.getValue());
+  }
+
+  private String tCaseNamesForFooter(FunctionNames fName, int count) {
+    return IntStream.range(1, count + 1)
+        .mapToObj(i -> String.format("tcase_add_test(tc, %s_%d);\n", fName.getValue(), i))
+        .collect(Collectors.joining());
+  }
+
+  private String footerTestModule(FunctionNames fName, String tCaseNames) {
+    return String.format("Suite *%s_cases(void) {\n" +
+        "  Suite *c = suite_create(\"%s_cases\");\n" +
+        "  TCase *tc = tcase_create(\"%s_tc\");\n" +
+        "\n" +
+        tCaseNames +
+        "  suite_add_tcase(c, tc);\n" +
+        "  return c;\n" +
+        "}", fName.getValue(), fName.getValue(), fName.getValue(), tCaseNames);
   }
 }
