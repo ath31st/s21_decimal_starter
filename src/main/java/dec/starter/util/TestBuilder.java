@@ -79,7 +79,7 @@ public class TestBuilder {
     S21Decimal d2 = converter.fromDecToS21Dec(bd2);
     S21Decimal dCheck = converter.fromDecToS21Dec(bdCheck);
 
-    String testName = fName.getValue() + "_" + count;
+    String testName = fName.getValue() + "_" + (count + 1);
     return String.format("START_TEST(%s) {\n" +
             "  // %s\n" +
             "  %s\n" +
@@ -90,15 +90,15 @@ public class TestBuilder {
             "  s21_decimal result;\n" +
             "  int return_value = %s(dec_1, dec_2, &result);\n" +
             "  ck_assert_int_eq(return_value, OK);\n" +
-            "  ck_assert_uint_eq(check.bits[0], result.bits[0]);\n" +
-            "  ck_assert_uint_eq(check.bits[1], result.bits[1]);\n" +
-            "  ck_assert_uint_eq(check.bits[2], result.bits[2]);\n" +
-            "  ck_assert_uint_eq(check.bits[3], result.bits[3]);\n" +
+            "  ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);\n" +
+            "  ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);\n" +
+            "  ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);\n" +
+            "  ck_assert_uint_eq(dec_check.bits[3], result.bits[3]);\n" +
             "}\n" +
             "END_TEST\n",
         testName,
-        bd1.toPlainString(), d1.extendToString("dec_1"),
-        bd2.toPlainString(), d2.extendToString("dec_2"),
+        bd1.toPlainString(), d1.extendToString("1"),
+        bd2.toPlainString(), d2.extendToString("2"),
         bdCheck.toPlainString(), dCheck.extendToString("check"),
         fName.getValue());
   }
