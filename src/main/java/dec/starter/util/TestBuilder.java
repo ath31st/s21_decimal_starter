@@ -11,18 +11,20 @@ import org.apache.commons.lang3.tuple.Triple;
 
 public class TestBuilder {
   private final Validator validator;
-  private final Converter converter = new Converter();
+  private final Converter converter;
 
-  public TestBuilder(Validator validator) {
+  public TestBuilder(Validator validator, Converter converter) {
     this.validator = validator;
+    this.converter = converter;
   }
 
-  private String buildTestSuit(FunctionNames fName, int count) {
+  public String buildTestSuit(FunctionNames fName, int count) {
     StringBuilder sb = new StringBuilder();
-    sb.append(testHeader());
+    sb.append(testHeader()).append(System.lineSeparator());
     for (int i = 0; i < count; i++) {
       Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(fName);
       sb.append(testTemplate(fName, i, t.getLeft(), t.getMiddle(), t.getRight()));
+      sb.append(System.lineSeparator());
     }
     sb.append(footerTestModule(fName, tCaseNamesForFooter(fName, count)));
 
@@ -93,7 +95,7 @@ public class TestBuilder {
             "  ck_assert_uint_eq(check.bits[2], result.bits[2]);\n" +
             "  ck_assert_uint_eq(check.bits[3], result.bits[3]);\n" +
             "}\n" +
-            "END_TEST",
+            "END_TEST\n",
         testName,
         bd1.toPlainString(), d1.extendToString("dec_1"),
         bd2.toPlainString(), d2.extendToString("dec_2"),
@@ -103,7 +105,7 @@ public class TestBuilder {
 
   private String tCaseNamesForFooter(FunctionNames fName, int count) {
     return IntStream.range(1, count + 1)
-        .mapToObj(i -> String.format("tcase_add_test(tc, %s_%d);\n", fName.getValue(), i))
+        .mapToObj(i -> String.format("  tcase_add_test(tc, %s_%d);\n", fName.getValue(), i))
         .collect(Collectors.joining());
   }
 
@@ -115,6 +117,6 @@ public class TestBuilder {
         tCaseNames +
         "  suite_add_tcase(c, tc);\n" +
         "  return c;\n" +
-        "}", fName.getValue(), fName.getValue(), fName.getValue(), tCaseNames);
+        "}\n", fName.getValue(), fName.getValue(), fName.getValue(), tCaseNames);
   }
 }

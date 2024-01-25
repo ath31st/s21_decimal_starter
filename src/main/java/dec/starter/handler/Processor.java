@@ -2,9 +2,11 @@ package dec.starter.handler;
 
 import static dec.starter.constant.StringConstants.*;
 
+import dec.starter.constant.FunctionNames;
 import dec.starter.util.BigDecimalGenerator;
 import dec.starter.util.Converter;
 import dec.starter.util.OutputManager;
+import dec.starter.util.TestBuilder;
 import dec.starter.util.Validator;
 import java.math.BigDecimal;
 import java.util.InputMismatchException;
@@ -12,9 +14,10 @@ import java.util.Scanner;
 
 public class Processor {
   private final Validator validator = new Validator();
-  private final ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
   private final Converter converter = new Converter();
+  private final ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
   private final OutputManager outputManager = new OutputManager();
+  private final TestBuilder testBuilder = new TestBuilder(validator, converter);
 
   public void mainMenu() {
     Scanner scanner = new Scanner(System.in);
@@ -42,6 +45,10 @@ public class Processor {
           break;
         case 6:
           generateS21Decimal(scanner);
+          break;
+        case 7:
+          outputManager.consolePrint(
+              testBuilder.buildTestSuit(FunctionNames.S21_ADD, 3));
           break;
         case 0:
           outputManager.consolePrint(END_PROGRAM.getValue());
