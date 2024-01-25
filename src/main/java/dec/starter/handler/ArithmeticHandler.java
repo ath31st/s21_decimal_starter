@@ -22,10 +22,20 @@ public class ArithmeticHandler {
 
   public BigDecimal div(BigDecimal bd1, BigDecimal bd2) {
     if (bd2.compareTo(BigDecimal.ZERO) != 0) {
-      return bd1
-          .divide(bd2, ArithmeticConstants.MAX_SCALE.getValue(), RoundingMode.HALF_EVEN).stripTrailingZeros();
+      BigDecimal res = bd1
+          .divide(bd2, ArithmeticConstants.MAX_SCALE.getValue(), RoundingMode.HALF_EVEN);
+      return new BigDecimal(replaceTrailingZeroes(res.toPlainString()));
     } else {
       throw new IllegalArgumentException(ZERO_DIV.getValue());
     }
+  }
+
+  private String replaceTrailingZeroes(String plainStrBigDecimal) {
+    if (plainStrBigDecimal.contains(".")) {
+      return plainStrBigDecimal
+          .replaceAll("\\.?(\\d*?)0*$", "$1")
+          .replaceAll("\\.$", "");
+    }
+    return plainStrBigDecimal;
   }
 }

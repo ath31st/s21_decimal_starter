@@ -21,8 +21,7 @@ public class Converter {
 
     BigInteger unscaledValue = bd
         .unscaledValue()
-        .abs()
-        .multiply(BigInteger.TEN.pow(Math.abs(bd.scale())));
+        .abs();
 
     d.setScaleInBit(bd.scale());
     if (bd.signum() == -1) {
