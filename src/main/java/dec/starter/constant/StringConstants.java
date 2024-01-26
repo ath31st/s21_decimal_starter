@@ -3,11 +3,20 @@ package dec.starter.constant;
 public enum StringConstants {
   SEP("----------------"),
   EXIT("exit"),
-  MAIN_MENU("Выберите действие:\n1. Сложение\n2. Вычитание\n"
-      + "3. Умножение\n4. Деление\n5. Из десятичного в s21_decimal"
-      + "\n6. Генератор случайных s21_decimal\n7. Генератор тестов\n0. Выход"),
-  GEN_MENU("Выберите функцию, для которой будут сгенерированы тесты:"
-      + "\n1. s21_add\n2. s21_sub\n3. s21_mul\n4. s21_div"),
+  MAIN_MENU("Выберите действие:" + System.lineSeparator()
+      + "1. Сложение" + System.lineSeparator()
+      + "2. Вычитание" + System.lineSeparator()
+      + "3. Умножение" + System.lineSeparator()
+      + "4. Деление" + System.lineSeparator()
+      + "5. Из десятичного в s21_decimal" + System.lineSeparator()
+      + "6. Генератор случайных s21_decimal" + System.lineSeparator()
+      + "7. Генератор unit-тестов" + System.lineSeparator()
+      + "0. Выход" + System.lineSeparator()),
+  GEN_MENU("Выберите функцию, для которой будут сгенерированы тесты:" + System.lineSeparator()
+      + "1. s21_add" + System.lineSeparator()
+      + "2. s21_sub" + System.lineSeparator()
+      + "3. s21_mul" + System.lineSeparator()
+      + "4. s21_div" + System.lineSeparator()),
   WRONG_INPUT("Неправильный ввод, попробуйте еще раз."),
   WRONG_CHOICE("Неверный выбор, попробуйте еще раз."),
   END_PROGRAM("Программа завершена."),

@@ -48,7 +48,7 @@
                 <executions>
                     <execution>
                         <id>assemble-all</id>
-                        <phase>package</phase>
+                        <phase>none</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
