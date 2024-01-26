@@ -2,6 +2,7 @@ package dec.starter.handler;
 
 import static dec.starter.constant.StringConstants.*;
 
+import dec.starter.exception.ValidatorException;
 import dec.starter.constant.FunctionNames;
 import dec.starter.util.BigDecimalGenerator;
 import dec.starter.util.Converter;
@@ -82,13 +83,18 @@ public class Processor {
   }
 
   private void performOperation(String strVal1, String strVal2, int action) {
-    if (validator.checkDecimalString(strVal1) && validator.checkDecimalString(strVal2)) {
+    try {
+      validator.checkDecimalString(strVal1);
+      validator.checkDecimalString(strVal2);
+
       BigDecimal bd1 = converter.fromStrToDec(strVal1);
       BigDecimal bd2 = converter.fromStrToDec(strVal2);
       BigDecimal res = calculateResult(bd1, bd2, action);
 
       int check = validator.checkBigDecimal(res);
       handleResultPrinting(res, check);
+    } catch (ValidatorException e) {
+      outputManager.consolePrint(e.getMessage());
     }
   }
 
@@ -133,10 +139,12 @@ public class Processor {
 
       String strVal = readInput(scanner);
       if (strVal.equals(EXIT.getValue())) break;
-
-      if (validator.checkDecimalString(strVal)) {
+      try {
+        validator.checkDecimalString(strVal);
         BigDecimal bd = converter.fromStrToDec(strVal);
         outputManager.consolePrintBigDecAndS21Dec(bd, "res");
+      } catch (ValidatorException e) {
+        outputManager.consolePrint(e.getMessage());
       }
     }
   }

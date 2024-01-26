@@ -5,24 +5,21 @@ import static dec.starter.constant.ArithmeticConstants.MAX_SCALE;
 import static dec.starter.constant.StringConstants.OVERFLOW_VALUES;
 import static dec.starter.constant.StringConstants.WRONG_INPUT;
 
+import dec.starter.exception.ValidatorException;
 import java.math.BigDecimal;
 
 public class Validator {
-  public boolean checkDecimalString(String decStr) {
-    boolean checkRes = true;
+  public void checkDecimalString(String decStr) {
     try {
       BigDecimal bd = new BigDecimal(decStr);
       if (bd.scale() > MAX_SCALE.getValue()
           || bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue()) {
-        checkRes = false;
-        System.out.printf(OVERFLOW_VALUES.getValue(),
-            MAX_BIT_LENGTH.getValue(), MAX_SCALE.getValue());
+        throw new ValidatorException(String.format(OVERFLOW_VALUES.getValue(),
+            MAX_BIT_LENGTH.getValue(), MAX_SCALE.getValue()));
       }
     } catch (Exception e) {
-      checkRes = false;
-      System.out.println(WRONG_INPUT.getValue());
+      throw new ValidatorException(WRONG_INPUT.getValue());
     }
-    return checkRes;
   }
 
   //  0 - OK

@@ -52,7 +52,7 @@ _описание появится позже_
 git clone https://github.com/ath31st/s21_decimal_starter
 cd s21_decimal_starter
 mvn clean package
-cp target/*-jar-with-dependencies.jar s21_decimal_starter.jar
+cp target/*-jar-with-dependencies.jar s21_decimal_starter-$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec).jar
 java -jar s21_decimal_starter*.jar
 ```
 
