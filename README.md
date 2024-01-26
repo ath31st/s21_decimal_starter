@@ -5,7 +5,7 @@
 
 ## Версия Программы
 
-Текущая версия программы: 0.7.4 (Обновлено: 26.01.2024)
+Текущая версия программы: 0.7.5 (Обновлено: 26.01.2024)
 
 ## Предисловие
 
@@ -51,8 +51,8 @@ _описание появится позже_
 ```bash
 git clone https://github.com/ath31st/s21_decimal_starter
 cd s21_decimal_starter
-mvn package
-cd target
+mvn clean package
+cp target/*-jar-with-dependencies.jar s21_decimal_starter.jar
 java -jar s21_decimal_starter*.jar
 ```
 
