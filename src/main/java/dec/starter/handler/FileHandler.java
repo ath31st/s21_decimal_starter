@@ -3,6 +3,7 @@ package dec.starter.handler;
 import static dec.starter.constant.FileHandlerConstants.DELETE_SUCCESS;
 import static dec.starter.constant.FileHandlerConstants.DELETE_UNSUCCESSFUL;
 import static dec.starter.constant.FileHandlerConstants.DIRECTORY_ABSENT;
+import static dec.starter.constant.FileHandlerConstants.DOCS;
 import static dec.starter.constant.FileHandlerConstants.FILE_C_EXT;
 import static dec.starter.constant.FileHandlerConstants.FILE_TEST_PREFIX;
 import static dec.starter.constant.FileHandlerConstants.MAC;
@@ -13,6 +14,7 @@ import static dec.starter.constant.FileHandlerConstants.PATH_TO_SAVED_FILE;
 import static dec.starter.constant.FileHandlerConstants.SAVE_SUCCESS;
 import static dec.starter.constant.FileHandlerConstants.SAVE_UNSUCCESSFUL;
 import static dec.starter.constant.FileHandlerConstants.UNIX_PATH;
+import static dec.starter.constant.FileHandlerConstants.UNIX_PATH_RU;
 import static dec.starter.constant.FileHandlerConstants.USER_DIR;
 import static dec.starter.constant.FileHandlerConstants.USER_HOME;
 import static dec.starter.constant.FileHandlerConstants.WIN;
@@ -40,10 +42,21 @@ public class FileHandler {
     } else if (osName.contains(NIX.getValue())
         || osName.contains(NUX.getValue())
         || osName.contains(MAC.getValue())) {
-      saveDirectory = System.getProperty(USER_HOME.getValue()) + UNIX_PATH.getValue();
+      saveDirectory = getLinuxDocumentsFolder();
     } else {
       saveDirectory = System.getProperty(USER_DIR.getValue());
     }
+  }
+
+  private String getLinuxDocumentsFolder() {
+    File documentsFolder = new File(System.getProperty(USER_HOME.getValue()), DOCS.getValue());
+    String userHomePath;
+    if (documentsFolder.exists() && documentsFolder.isDirectory()) {
+      userHomePath = System.getProperty(USER_HOME.getValue()) + UNIX_PATH_RU.getValue();
+    } else {
+      userHomePath = System.getProperty(USER_HOME.getValue() + UNIX_PATH.getValue());
+    }
+    return userHomePath;
   }
 
   public void saveContentToFile(FunctionNames fName, String content) {
