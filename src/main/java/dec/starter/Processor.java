@@ -1,4 +1,4 @@
-package dec.starter.handler;
+package dec.starter;
 
 import static dec.starter.constant.S21DecimalNames.DEC_RAND;
 import static dec.starter.constant.S21DecimalNames.DEC_RES;
@@ -6,6 +6,8 @@ import static dec.starter.constant.StringConstants.*;
 
 import dec.starter.exception.ValidatorException;
 import dec.starter.constant.FunctionNames;
+import dec.starter.handler.ArithmeticHandler;
+import dec.starter.handler.FileHandler;
 import dec.starter.util.BigDecimalGenerator;
 import dec.starter.util.Converter;
 import dec.starter.util.OutputManager;
@@ -101,6 +103,8 @@ public class Processor {
       handleResultPrinting(res, check);
     } catch (ValidatorException e) {
       outputManager.consolePrint(e.getMessage());
+    } catch (IllegalArgumentException e) {
+      outputManager.consolePrint(ZERO_DIV.getValue());
     }
   }
 
@@ -117,11 +121,7 @@ public class Processor {
         res = arithmeticHandler.mul(bd1, bd2);
         break;
       case 4:
-        try {
-          res = arithmeticHandler.div(bd1, bd2);
-        } catch (IllegalArgumentException e) {
-          outputManager.consolePrint(ZERO_DIV.getValue());
-        }
+        res = arithmeticHandler.div(bd1, bd2);
         break;
       default:
         break;
