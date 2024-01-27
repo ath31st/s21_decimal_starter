@@ -1,6 +1,7 @@
 package dec.starter.constant;
 
 public enum StringConstants {
+  SLASH_S("  // %s"),
   SEP("----------------"),
   EXIT("exit"),
   MAIN_MENU("Выберите действие:" + System.lineSeparator()

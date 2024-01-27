@@ -1,14 +1,16 @@
 package dec.starter.constant;
 
+import static dec.starter.constant.StringConstants.SLASH_S;
+
 public enum TestStringConstants {
   DONT_FORGET_INCLUDE("#include \"не забудьте здесь добавить свой header.h\""
       + System.lineSeparator()),
   TEST_TEMPLATE("START_TEST(%s) {" + System.lineSeparator()
-      + "  // %s" + System.lineSeparator()
+      + SLASH_S.getValue() + System.lineSeparator()
       + "  %s" + System.lineSeparator()
-      + "  // %s" + System.lineSeparator()
+      + SLASH_S.getValue() + System.lineSeparator()
       + "  %s" + System.lineSeparator()
-      + "  // %s" + System.lineSeparator()
+      + SLASH_S.getValue() + System.lineSeparator()
       + "  %s" + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int return_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
