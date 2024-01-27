@@ -9,6 +9,8 @@ public enum FileHandlerConstants {
   SAVE_SUCCESS("Данные успешно записаны в файл."),
   SAVE_UNSUCCESSFUL("Сохранение в файл не было произведено по причине: "),
   DIRECTORY_ABSENT("Папка для сохранения файлов отсутствует, возможно, нет прав для ее создания."),
+  FILE_TEST_PREFIX("test_"),
+  FILE_C_EXT(".c"),
   WIN("win"),
   NUX("nux"),
   MAC("mac"),

@@ -20,6 +20,7 @@ public class Processor {
   private final Converter converter = new Converter();
   private final ArithmeticHandler arithmeticHandler = new ArithmeticHandler();
   private final OutputManager outputManager = new OutputManager();
+  private final FileHandler fileHandler = new FileHandler(outputManager);
   private final TestBuilder testBuilder = new TestBuilder(validator, converter, arithmeticHandler);
 
   public void mainMenu() {
@@ -194,7 +195,9 @@ public class Processor {
         if (count < 1 || count > 100) {
           throw new IllegalArgumentException();
         }
-        outputManager.consolePrint(testBuilder.buildTestSuit(fName, count));
+        String generatedTests = testBuilder.buildTestSuit(fName, count);
+        outputManager.consolePrint(generatedTests);
+        fileHandler.saveContentToFile(fName, generatedTests);
         break;
       } catch (IllegalArgumentException e) {
         outputManager.consolePrint(WRONG_INPUT.getValue());
