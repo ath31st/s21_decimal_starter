@@ -1,6 +1,22 @@
 package dec.starter.handler;
 
-import static dec.starter.constant.FileHandlerConstants.*;
+import static dec.starter.constant.FileHandlerConstants.DELETE_SUCCESS;
+import static dec.starter.constant.FileHandlerConstants.DELETE_UNSUCCESSFUL;
+import static dec.starter.constant.FileHandlerConstants.DIRECTORY_ABSENT;
+import static dec.starter.constant.FileHandlerConstants.FILE_C_EXT;
+import static dec.starter.constant.FileHandlerConstants.FILE_TEST_PREFIX;
+import static dec.starter.constant.FileHandlerConstants.MAC;
+import static dec.starter.constant.FileHandlerConstants.NIX;
+import static dec.starter.constant.FileHandlerConstants.NUX;
+import static dec.starter.constant.FileHandlerConstants.OS_NAME;
+import static dec.starter.constant.FileHandlerConstants.PATH_TO_SAVED_FILE;
+import static dec.starter.constant.FileHandlerConstants.SAVE_SUCCESS;
+import static dec.starter.constant.FileHandlerConstants.SAVE_UNSUCCESSFUL;
+import static dec.starter.constant.FileHandlerConstants.UNIX_PATH;
+import static dec.starter.constant.FileHandlerConstants.USER_DIR;
+import static dec.starter.constant.FileHandlerConstants.USER_HOME;
+import static dec.starter.constant.FileHandlerConstants.WIN;
+import static dec.starter.constant.FileHandlerConstants.WIN_PATH;
 
 import dec.starter.constant.FunctionNames;
 import dec.starter.util.OutputManager;

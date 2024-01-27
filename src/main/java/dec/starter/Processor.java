@@ -2,10 +2,22 @@ package dec.starter;
 
 import static dec.starter.constant.S21DecimalNames.DEC_RAND;
 import static dec.starter.constant.S21DecimalNames.DEC_RES;
-import static dec.starter.constant.StringConstants.*;
+import static dec.starter.constant.StringConstants.END_PROGRAM;
+import static dec.starter.constant.StringConstants.EXIT;
+import static dec.starter.constant.StringConstants.GEN_MENU;
+import static dec.starter.constant.StringConstants.INPUT_COUNT_FOR_GEN_DEC;
+import static dec.starter.constant.StringConstants.INPUT_COUNT_FOR_GEN_TEST;
+import static dec.starter.constant.StringConstants.INPUT_DECIMAL_NUMBER;
+import static dec.starter.constant.StringConstants.INPUT_TWO_NUMBERS;
+import static dec.starter.constant.StringConstants.MAIN_MENU;
+import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
+import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
+import static dec.starter.constant.StringConstants.WRONG_CHOICE;
+import static dec.starter.constant.StringConstants.WRONG_INPUT;
+import static dec.starter.constant.StringConstants.ZERO_DIV;
 
-import dec.starter.exception.ValidatorException;
 import dec.starter.constant.FunctionNames;
+import dec.starter.exception.ValidatorException;
 import dec.starter.handler.ArithmeticHandler;
 import dec.starter.handler.FileHandler;
 import dec.starter.util.BigDecimalGenerator;
