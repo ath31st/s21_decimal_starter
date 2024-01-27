@@ -53,6 +53,9 @@ public class Processor {
         case 7:
           generateTests(scanner);
           break;
+        case 8:
+          fileHandler.deleteFilesAndDirectory();
+          break;
         case 0:
           outputManager.consolePrint(END_PROGRAM.getValue());
           break;

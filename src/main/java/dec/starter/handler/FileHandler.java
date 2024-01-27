@@ -42,7 +42,6 @@ public class FileHandler {
         writer.write(content);
         outputManager.consolePrint(SAVE_SUCCESS.getValue());
         outputManager.consolePrint(PATH_TO_SAVED_FILE.getValue() + saveDirectory + fileName);
-        outputManager.consolePrint(System.lineSeparator());
       } catch (IOException e) {
         outputManager.consolePrint(SAVE_UNSUCCESSFUL.getValue()
             + e.getMessage());
