@@ -20,7 +20,8 @@ public enum StringConstants {
       + "1. s21_add" + System.lineSeparator()
       + "2. s21_sub" + System.lineSeparator()
       + "3. s21_mul" + System.lineSeparator()
-      + "4. s21_div" + System.lineSeparator()),
+      + "4. s21_div" + System.lineSeparator()
+      + SEP.getValue()),
   WRONG_INPUT("Неправильный ввод, попробуйте еще раз."),
   WRONG_CHOICE("Неверный выбор, попробуйте еще раз."),
   END_PROGRAM("Программа завершена."),

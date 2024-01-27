@@ -14,7 +14,7 @@ public enum TestStringConstants {
       + "  %s" + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int return_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
-      + "  ck_assert_int_eq(return_value, OK);" + System.lineSeparator()
+      + "  ck_assert_int_eq(return_value, 0);" + System.lineSeparator()
       + "  ck_assert_uint_eq(dec_check.bits[0], result.bits[0]);" + System.lineSeparator()
       + "  ck_assert_uint_eq(dec_check.bits[1], result.bits[1]);" + System.lineSeparator()
       + "  ck_assert_uint_eq(dec_check.bits[2], result.bits[2]);" + System.lineSeparator()
