@@ -1,5 +1,8 @@
 package dec.starter.util;
 
+import static dec.starter.constant.S21DecimalNames.DEC_1;
+import static dec.starter.constant.S21DecimalNames.DEC_2;
+import static dec.starter.constant.S21DecimalNames.DEC_CHECK;
 import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
 import static dec.starter.constant.TestStringConstants.TEST_CASE_NAME_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
@@ -87,9 +90,9 @@ public class TestBuilder {
     String testName = fName.getValue() + "_" + (count + 1);
 
     return String.format(TEST_TEMPLATE.getValue(), testName,
-        bd1.toPlainString(), d1.extendToString("1"),
-        bd2.toPlainString(), d2.extendToString("2"),
-        bdCheck.toPlainString(), dCheck.extendToString("check"),
+        bd1.toPlainString(), d1.extendToString(DEC_1.getValue()),
+        bd2.toPlainString(), d2.extendToString(DEC_2.getValue()),
+        bdCheck.toPlainString(), dCheck.extendToString(DEC_CHECK.getValue()),
         fName.getValue());
   }
 

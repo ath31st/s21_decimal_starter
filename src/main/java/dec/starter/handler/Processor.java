@@ -1,5 +1,7 @@
 package dec.starter.handler;
 
+import static dec.starter.constant.S21DecimalNames.DEC_RAND;
+import static dec.starter.constant.S21DecimalNames.DEC_RES;
 import static dec.starter.constant.StringConstants.*;
 
 import dec.starter.exception.ValidatorException;
@@ -129,7 +131,7 @@ public class Processor {
     } else if (check == 2) {
       outputManager.consolePrint(RES_TOO_SMALL_OR_POS_NEG.getValue());
     } else {
-      outputManager.consolePrintBigDecAndS21Dec(res, "res");
+      outputManager.consolePrintBigDecAndS21Dec(res, DEC_RES.getValue());
     }
   }
 
@@ -142,7 +144,7 @@ public class Processor {
       try {
         validator.checkDecimalString(strVal);
         BigDecimal bd = converter.fromStrToDec(strVal);
-        outputManager.consolePrintBigDecAndS21Dec(bd, "res");
+        outputManager.consolePrintBigDecAndS21Dec(bd, DEC_RES.getValue());
       } catch (ValidatorException e) {
         outputManager.consolePrint(e.getMessage());
       }
@@ -164,7 +166,7 @@ public class Processor {
         }
         for (int i = 0; i < count; i++) {
           BigDecimal bd = BigDecimalGenerator.generateLimitedBigDecimal();
-          outputManager.consolePrintBigDecAndS21Dec(bd, "rand_" + (i + 1));
+          outputManager.consolePrintBigDecAndS21Dec(bd, DEC_RAND.getValue() + (i + 1));
         }
       } catch (Exception e) {
         outputManager.consolePrint(WRONG_INPUT.getValue());

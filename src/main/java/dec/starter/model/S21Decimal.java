@@ -58,7 +58,7 @@ public class S21Decimal {
   }
 
   public String extendToString(String name) {
-    return String.format("s21_decimal dec_%s = {{0x%s, 0x%s, 0x%s, 0x%s}};",
+    return String.format("s21_decimal %s = {{0x%s, 0x%s, 0x%s, 0x%s}};",
         name,
         Integer.toHexString(lowBits),
         Integer.toHexString(midBits),
