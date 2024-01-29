@@ -19,11 +19,6 @@ public class Validator {
         throw new ValidatorException(String.format(OVERFLOW_VALUES.getValue(),
             MAX_BIT_LENGTH.getValue(), MAX_SCALE.getValue()));
       }
-//      if (bd.scale() > MAX_SCALE.getValue()
-//          || bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue()) {
-//        throw new ValidatorException(String.format(OVERFLOW_VALUES.getValue(),
-//            MAX_BIT_LENGTH.getValue(), MAX_SCALE.getValue()));
-//      }
     } catch (ValidatorException e) {
       throw new ValidatorException(e.getMessage());
     } catch (Exception e) {
@@ -39,7 +34,7 @@ public class Validator {
     int scale = bd.scale();
     if (scale > MAX_SCALE.getValue()) {
       checkRes = 2;
-    } else if (scale == -1) {
+    } else if (scale < 0) {
       checkRes = 1;
     }
     if (checkRes == 0 && (bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue())) {
