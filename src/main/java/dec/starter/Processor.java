@@ -5,6 +5,7 @@ import static dec.starter.constant.S21DecimalNames.DEC_RES;
 import static dec.starter.constant.StringConstants.END_PROGRAM;
 import static dec.starter.constant.StringConstants.EXIT;
 import static dec.starter.constant.StringConstants.GEN_MENU;
+import static dec.starter.constant.StringConstants.HB;
 import static dec.starter.constant.StringConstants.INPUT_COUNT_FOR_GEN_DEC;
 import static dec.starter.constant.StringConstants.INPUT_COUNT_FOR_GEN_TEST;
 import static dec.starter.constant.StringConstants.INPUT_DECIMAL_NUMBER;
@@ -39,7 +40,7 @@ public class Processor {
 
   public void mainMenu() {
     Scanner scanner = new Scanner(System.in);
-
+    outputManager.consolePrint(HB.getValue());
     while (true) {
       outputManager.consolePrint(MAIN_MENU.getValue());
 
