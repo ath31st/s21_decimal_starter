@@ -30,12 +30,22 @@ public class ArithmeticHandler {
     }
   }
 
-  private String replaceTrailingZeroes(String plainStrBigDecimal) {
-    if (plainStrBigDecimal.contains(".")) {
-      return plainStrBigDecimal
-          .replaceAll("\\.?(\\d*?)0*$", "$1")
-          .replaceAll("\\.$", "");
+  private String replaceTrailingZeroes(String str) {
+    if (str.contains(".")) {
+      int index = str.indexOf('.');
+      StringBuilder result = new StringBuilder(str);
+
+      for (int i = result.length() - 1; i > index; i--) {
+        if (result.charAt(i) == '0') {
+          result.deleteCharAt(i);
+        } else {
+          break;
+        }
+      }
+
+      return result.toString();
+    } else {
+      return str;
     }
-    return plainStrBigDecimal;
   }
 }
