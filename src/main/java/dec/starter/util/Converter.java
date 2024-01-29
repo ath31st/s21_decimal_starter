@@ -16,7 +16,6 @@ public class Converter {
   }
 
   public S21Decimal fromDecToS21Dec(BigDecimal bd) {
-    //79228162514264337593543950335
     S21Decimal d = new S21Decimal();
 
     BigInteger unscaledValue = bd

@@ -27,10 +27,13 @@ public class Validator {
   //  2 - the number is too small or equal to negative infinity
   public int checkBigDecimal(BigDecimal bd) {
     int checkRes = 0;
-    if (bd.scale() > MAX_SCALE.getValue()) {
+    int scale = bd.scale();
+    if (scale > MAX_SCALE.getValue()) {
       checkRes = 2;
+    } else if (scale == -1) {
+      checkRes = 1;
     }
-    if (checkRes == 0 && bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue()) {
+    if (checkRes == 0 && (bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue())) {
       checkRes = 1;
     }
     return checkRes;
