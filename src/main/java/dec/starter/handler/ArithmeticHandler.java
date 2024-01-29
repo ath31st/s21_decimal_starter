@@ -12,11 +12,11 @@ public class ArithmeticHandler {
       = new MathContext(MAX_PRECISION.getValue(), RoundingMode.HALF_EVEN);
 
   public BigDecimal add(BigDecimal bd1, BigDecimal bd2) {
-    return bd1.add(bd2);
+    return bd1.add(bd2, mathContextS21Dec);
   }
 
   public BigDecimal sub(BigDecimal bd1, BigDecimal bd2) {
-    return bd1.subtract(bd2);
+    return bd1.subtract(bd2, mathContextS21Dec);
   }
 
   public BigDecimal mul(BigDecimal bd1, BigDecimal bd2) {

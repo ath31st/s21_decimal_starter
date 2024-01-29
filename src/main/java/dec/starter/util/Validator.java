@@ -9,14 +9,23 @@ import dec.starter.exception.ValidatorException;
 import java.math.BigDecimal;
 
 public class Validator {
+  private final BigDecimal maxS21Decimal = new BigDecimal("79228162514264337593543950335");
+  private final BigDecimal minS21Decimal = new BigDecimal("-79228162514264337593543950335");
+
   public void checkDecimalString(String decStr) {
     try {
       BigDecimal bd = new BigDecimal(decStr);
-      if (bd.scale() > MAX_SCALE.getValue()
-          || bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue()) {
+      if (bd.scale() > 29 || bd.compareTo(maxS21Decimal) > 0 || bd.compareTo(minS21Decimal) < 0) {
         throw new ValidatorException(String.format(OVERFLOW_VALUES.getValue(),
             MAX_BIT_LENGTH.getValue(), MAX_SCALE.getValue()));
       }
+//      if (bd.scale() > MAX_SCALE.getValue()
+//          || bd.unscaledValue().bitLength() > MAX_BIT_LENGTH.getValue()) {
+//        throw new ValidatorException(String.format(OVERFLOW_VALUES.getValue(),
+//            MAX_BIT_LENGTH.getValue(), MAX_SCALE.getValue()));
+//      }
+    } catch (ValidatorException e) {
+      throw new ValidatorException(e.getMessage());
     } catch (Exception e) {
       throw new ValidatorException(WRONG_INPUT.getValue());
     }
