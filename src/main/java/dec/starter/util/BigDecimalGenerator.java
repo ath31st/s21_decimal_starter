@@ -1,5 +1,7 @@
 package dec.starter.util;
 
+import static dec.starter.constant.ArithmeticConstants.MAX_PRECISION;
+
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -10,7 +12,7 @@ public class BigDecimalGenerator {
 
   public static BigDecimal generateLimitedBigDecimal() {
 
-    int length = generateRandomInteger(1, 29);
+    int length = generateRandomInteger(1, MAX_PRECISION.getValue());
 
     StringBuilder numberBuilder = new StringBuilder();
 
@@ -22,6 +24,9 @@ public class BigDecimalGenerator {
     if (generateRandomInteger(0, 1) == 0) {
       int commaIndex = generateRandomInteger(0, length);
       numberBuilder.insert(commaIndex, '.');
+      if (commaIndex == 0 && length == MAX_PRECISION.getValue()) {
+        numberBuilder.deleteCharAt(length - 1);
+      }
     }
 
     BigDecimal bd = new BigDecimal(numberBuilder.toString());
