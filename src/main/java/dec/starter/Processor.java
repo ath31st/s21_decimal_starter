@@ -184,31 +184,47 @@ public class Processor {
 
   private void generateTests(Scanner scanner) {
     outputManager.consolePrint(GEN_MENU.getValue());
-    String strVal = readInput(scanner);
+
     FunctionNames fName = null;
-    try {
-      int val = Integer.parseInt(strVal);
-      fName = FunctionNames.values()[val - 1];
-    } catch (Exception e) {
-      outputManager.consolePrint(WRONG_INPUT.getValue());
-      generateTests(scanner);
+    while (fName == null) {
+      String strVal = readInput(scanner);
+      fName = getFunctionNameFromInput(strVal);
     }
+
     outputManager.consolePrint(INPUT_COUNT_FOR_GEN_TEST.getValue());
+    String strVal = readInput(scanner);
     while (!strVal.equals(EXIT.getValue())) {
-      strVal = readInput(scanner);
       int count;
       try {
         count = Integer.parseInt(strVal);
         if (count < 1 || count > 100) {
           throw new IllegalArgumentException();
         }
-        String generatedTests = testBuilder.buildTestSuit(fName, count);
-        outputManager.consolePrint(generatedTests);
+        String generatedTests;
+        if (fName == FunctionNames.ALL_FUNCTIONS) {
+           generatedTests = testBuilder.buildAllSuitsAtOnce(count);
+        } else {
+          generatedTests = testBuilder.buildTestSuit(fName, count);
+          outputManager.consolePrint(generatedTests);
+        }
         fileHandler.saveContentToFile(fName, generatedTests);
-        break;
+        return;
       } catch (IllegalArgumentException e) {
         outputManager.consolePrint(WRONG_INPUT.getValue());
       }
+      strVal = readInput(scanner);
     }
+  }
+
+
+  private FunctionNames getFunctionNameFromInput(String strVal) {
+    FunctionNames fName = null;
+    try {
+      int val = Integer.parseInt(strVal);
+      fName = FunctionNames.values()[val - 1];
+    } catch (Exception e) {
+      outputManager.consolePrint(WRONG_INPUT.getValue());
+    }
+    return fName;
   }
 }

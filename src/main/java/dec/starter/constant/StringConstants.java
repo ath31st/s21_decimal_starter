@@ -21,6 +21,7 @@ public enum StringConstants {
       + "2. s21_sub" + System.lineSeparator()
       + "3. s21_mul" + System.lineSeparator()
       + "4. s21_div" + System.lineSeparator()
+      + "5. Все функции сразу" + System.lineSeparator()
       + SEP.getValue()),
   WRONG_INPUT("Неправильный ввод, попробуйте еще раз."),
   WRONG_CHOICE("Неверный выбор, попробуйте еще раз."),

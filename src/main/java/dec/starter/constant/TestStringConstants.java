@@ -29,6 +29,7 @@ public enum TestStringConstants {
       + "  TCase *tc = tcase_create(\"%s_tc\");" + System.lineSeparator()
       + System.lineSeparator()
       + "%s"
+      + System.lineSeparator()
       + "  suite_add_tcase(c, tc);" + System.lineSeparator()
       + "  return c;" + System.lineSeparator()
       + "}" + System.lineSeparator());
