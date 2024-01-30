@@ -24,6 +24,7 @@ public enum StringConstants {
       + SEP.getValue()),
   WRONG_INPUT("Неправильный ввод, попробуйте еще раз."),
   WRONG_CHOICE("Неверный выбор, попробуйте еще раз."),
+  WRONG_OPERAND("Был введен некорректный операнд."),
   END_PROGRAM("Программа завершена."),
   INPUT_TWO_NUMBERS(SEP.getValue() + System.lineSeparator()
       + "Введите два числа или \"exit\" для выхода в предыдущее меню."),

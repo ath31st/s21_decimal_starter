@@ -1,7 +1,6 @@
 package dec.starter;
 
 import static dec.starter.constant.S21DecimalNames.DEC_RAND;
-import static dec.starter.constant.S21DecimalNames.DEC_RES;
 import static dec.starter.constant.StringConstants.END_PROGRAM;
 import static dec.starter.constant.StringConstants.EXIT;
 import static dec.starter.constant.StringConstants.GEN_MENU;
@@ -11,11 +10,9 @@ import static dec.starter.constant.StringConstants.INPUT_COUNT_FOR_GEN_TEST;
 import static dec.starter.constant.StringConstants.INPUT_DECIMAL_NUMBER;
 import static dec.starter.constant.StringConstants.INPUT_TWO_NUMBERS;
 import static dec.starter.constant.StringConstants.MAIN_MENU;
-import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
-import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 import static dec.starter.constant.StringConstants.WRONG_CHOICE;
 import static dec.starter.constant.StringConstants.WRONG_INPUT;
-import static dec.starter.constant.StringConstants.ZERO_DIV;
+import static dec.starter.constant.StringConstants.WRONG_OPERAND;
 
 import dec.starter.constant.FunctionNames;
 import dec.starter.exception.ValidatorException;
@@ -105,19 +102,23 @@ public class Processor {
 
   private void performOperation(String strVal1, String strVal2, int action) {
     try {
-      validator.checkDecimalString(strVal1);
-      validator.checkDecimalString(strVal2);
-
       BigDecimal bd1 = converter.fromStrToDec(strVal1);
       BigDecimal bd2 = converter.fromStrToDec(strVal2);
-      BigDecimal res = calculateResult(bd1, bd2, action);
 
-      int check = validator.checkBigDecimal(res);
-      handleResultPrinting(res, check);
+      int checkOperand1 = validator.checkBigDecimal(bd1);
+      int checkOperand2 = validator.checkBigDecimal(bd2);
+      if (checkOperand1 == 0 && checkOperand2 == 0) {
+        BigDecimal res = calculateResult(bd1, bd2, action);
+        res = arithmeticHandler.additionalRounding(res);
+        int check = validator.checkBigDecimal(res);
+        outputManager.handleResultPrinting(res, check);
+      } else {
+        outputManager.consolePrint(WRONG_OPERAND.getValue());
+      }
     } catch (ValidatorException e) {
       outputManager.consolePrint(e.getMessage());
     } catch (IllegalArgumentException e) {
-      outputManager.consolePrint(ZERO_DIV.getValue());
+      outputManager.consolePrint(WRONG_INPUT.getValue());
     }
   }
 
@@ -142,16 +143,6 @@ public class Processor {
     return res;
   }
 
-  private void handleResultPrinting(BigDecimal res, int check) {
-    if (check == 1) {
-      outputManager.consolePrint(RES_TOO_LARGE_OR_POS_INF.getValue());
-    } else if (check == 2) {
-      outputManager.consolePrint(RES_TOO_SMALL_OR_POS_NEG.getValue());
-    } else {
-      outputManager.consolePrintBigDecAndS21Dec(res, DEC_RES.getValue());
-    }
-  }
-
   private void convertFromNumberToS21Decimal(Scanner scanner) {
     while (true) {
       outputManager.consolePrint(INPUT_DECIMAL_NUMBER.getValue());
@@ -159,11 +150,11 @@ public class Processor {
       String strVal = readInput(scanner);
       if (strVal.equals(EXIT.getValue())) break;
       try {
-        validator.checkDecimalString(strVal);
         BigDecimal bd = converter.fromStrToDec(strVal);
-        outputManager.consolePrintBigDecAndS21Dec(bd, DEC_RES.getValue());
-      } catch (ValidatorException e) {
-        outputManager.consolePrint(e.getMessage());
+        int check = validator.checkBigDecimal(bd);
+        outputManager.handleResultPrinting(bd, check);
+      } catch (IllegalArgumentException e) {
+        outputManager.consolePrint(WRONG_INPUT.getValue());
       }
     }
   }
