@@ -39,7 +39,7 @@ public enum StringConstants {
   OVERFLOW_VALUES("Введенное число превышает длину %d бит или степень %d%n"),
   RES_TOO_LARGE_OR_POS_INF("Результат слишком велик или положительная бесконечность."),
   RES_TOO_SMALL_OR_POS_NEG("Результат слишком мал или отрицательная бесконечность."),
-  HB("                                            _   _                 "
+  HB_LOGO("                                            _   _                 "
       + System.lineSeparator() + "       _ __   _____      _____ _ __ ___  __| | | |__  _   _       "
       + System.lineSeparator() + "      | '_ \\ / _ \\ \\ /\\ / / _ \\ '__/ _ \\/ _` | | '_ \\| | | |      "
       + System.lineSeparator() + "      | |_) | (_) \\ V  V /  __/ | |  __/ (_| | | |_) | |_| |      "
