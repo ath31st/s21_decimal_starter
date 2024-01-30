@@ -5,6 +5,7 @@ import static dec.starter.constant.StringConstants.DECIMAL_VALUE;
 import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 
+import dec.starter.App;
 import dec.starter.model.S21Decimal;
 import java.math.BigDecimal;
 import org.apache.logging.log4j.LogManager;
@@ -15,16 +16,13 @@ public class OutputManager {
   private final Converter converter = new Converter();
 
   public void consolePrint(String str) {
-    logger.info(str);
+    System.out.println(str);
   }
 
   public void consolePrintBigDecAndS21Dec(BigDecimal bd, String dName) {
     S21Decimal d = converter.fromDecToS21Dec(bd);
-    String value = DECIMAL_VALUE.getValue() + bd.toPlainString();
-    String extendedInfo = d.extendToString(dName);
-
-    logger.info(value);
-    logger.info(extendedInfo);
+    System.out.println(DECIMAL_VALUE.getValue() + bd.toPlainString());
+    System.out.println(d.extendToString(dName));
   }
 
   public void handleResultPrinting(BigDecimal res, int check) {

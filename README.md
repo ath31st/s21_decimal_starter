@@ -96,6 +96,9 @@ java -jar s21_decimal_starter*.jar
 1. Java: 11
 2. Maven: 3.6.0
 3. Apache Commons Lang 3: 3.14.0
+4. Junit: 5.10.1
+5. Log4j2: 2.22.1
+6. Jacoco: 0.8.11
 
 ## Лицензия
 
