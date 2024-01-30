@@ -1,6 +1,7 @@
 package dec.starter.handler;
 
 import static dec.starter.constant.ArithmeticConstants.MAX_PRECISION;
+import static dec.starter.constant.ArithmeticConstants.MAX_SCALE;
 import static dec.starter.constant.StringConstants.ZERO_DIV;
 
 import java.math.BigDecimal;
@@ -29,5 +30,13 @@ public class ArithmeticHandler {
     } else {
       throw new IllegalArgumentException(ZERO_DIV.getValue());
     }
+  }
+
+  public BigDecimal additionalRounding(BigDecimal bd) {
+    if (bd.scale() == MAX_SCALE.getValue() + 1
+        && bd.abs().compareTo(BigDecimal.ZERO) > 0 && bd.abs().compareTo(BigDecimal.ONE) < 0) {
+      return bd.round(new MathContext(MAX_PRECISION.getValue() - 1, RoundingMode.HALF_EVEN));
+    }
+    return bd;
   }
 }
