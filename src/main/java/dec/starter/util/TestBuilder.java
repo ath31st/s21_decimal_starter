@@ -12,6 +12,9 @@ import dec.starter.constant.FunctionNames;
 import dec.starter.handler.ArithmeticHandler;
 import dec.starter.model.S21Decimal;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.commons.lang3.tuple.Triple;
@@ -27,18 +30,41 @@ public class TestBuilder {
     this.arithmeticHandler = arithmeticHandler;
   }
 
+  public String buildAllSuitsAtOnce(int count) {
+    return buildTestSuitCommon(
+        FunctionNames.ALL_FUNCTIONS,
+        count,
+        Arrays.stream(FunctionNames.values())
+            .filter(f -> f != FunctionNames.ALL_FUNCTIONS)
+            .collect(Collectors.toList()));
+  }
+
   public String buildTestSuit(FunctionNames fName, int count) {
+    return buildTestSuitCommon(fName, count, Collections.singletonList(fName));
+  }
+
+  private String buildTestSuitCommon(FunctionNames footerFName, int count, List<FunctionNames> functionList) {
     StringBuilder sb = new StringBuilder();
     sb.append(testHeader()).append(System.lineSeparator());
-    for (int i = 0; i < count; i++) {
-      Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(fName);
-      sb.append(testTemplate(fName, i, t.getLeft(), t.getMiddle(), t.getRight()));
-      sb.append(System.lineSeparator());
+
+    for (FunctionNames currentFName : functionList) {
+      for (int i = 0; i < count; i++) {
+        Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(currentFName);
+        sb.append(testTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
+        sb.append(System.lineSeparator());
+      }
     }
-    sb.append(footerTestModule(fName, tCaseNamesForFooter(fName, count)));
+
+    String commonTCaseNames = functionList.stream()
+        .filter(f -> f != FunctionNames.ALL_FUNCTIONS)
+        .map(f -> tCaseNamesForFooter(f, count))
+        .collect(Collectors.joining(System.lineSeparator()));
+
+    sb.append(footerTestModule(footerFName, commonTCaseNames));
 
     return sb.toString();
   }
+
 
   private Triple<BigDecimal, BigDecimal, BigDecimal> generateOkValues(FunctionNames fName) {
     boolean genTry = true;
