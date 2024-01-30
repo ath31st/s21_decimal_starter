@@ -2,13 +2,15 @@ package dec.starter;
 
 import static dec.starter.constant.StringConstants.HB_LOGO;
 
-import dec.starter.util.OutputManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class App {
+  private static final Logger logger = LogManager.getLogger(App.class);
+
   public static void main(String[] args) {
-    OutputManager outputManager = new OutputManager();
     Processor processor = new Processor();
-    outputManager.consolePrint(HB_LOGO.getValue());
+    logger.info(HB_LOGO.getValue());
     processor.mainMenu();
   }
 }
