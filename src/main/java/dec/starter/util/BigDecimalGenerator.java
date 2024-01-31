@@ -7,6 +7,9 @@ import java.security.SecureRandom;
 import java.util.Date;
 
 public class BigDecimalGenerator {
+  private static final BigDecimal MAX_S21_DECIMAL_VALUE
+      = new BigDecimal("79228162514264337593543950335");
+
   private BigDecimalGenerator() {
   }
 
@@ -30,6 +33,9 @@ public class BigDecimalGenerator {
     }
 
     BigDecimal bd = new BigDecimal(numberBuilder.toString());
+    if (bd.compareTo(MAX_S21_DECIMAL_VALUE) > 0) {
+      bd = MAX_S21_DECIMAL_VALUE.subtract(new BigDecimal(generateRandomInteger(1, Integer.MAX_VALUE)));
+    }
 
     return generateRandomInteger(0, 1) == 0 ? bd : bd.negate();
   }
