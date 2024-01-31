@@ -29,7 +29,7 @@ public enum TestStringConstants {
       + "  %s" + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  // overflow" + System.lineSeparator()
-      + "  int check = %d // %s" + System.lineSeparator()
+      + "  int check = %d; // %s" + System.lineSeparator()
       + "  int return_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + "  ck_assert_int_eq(return_value, check);" + System.lineSeparator()
       + "}" + System.lineSeparator()
