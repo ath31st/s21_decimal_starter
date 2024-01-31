@@ -27,6 +27,7 @@ public class TestBuilder {
   private final Validator validator;
   private final Converter converter;
   private final ArithmeticHandler arithmeticHandler;
+  private static final int PART_OF_TOTAL_COUNTS = 3; // 33%
 
   public TestBuilder(Validator validator, Converter converter, ArithmeticHandler arithmeticHandler) {
     this.validator = validator;
@@ -58,7 +59,7 @@ public class TestBuilder {
         sb.append(System.lineSeparator());
       }
 
-      for (int i = 0; i < count / 3; i++) {
+      for (int i = 0; i < count / PART_OF_TOTAL_COUNTS; i++) {
         Triple<BigDecimal, BigDecimal, Integer> t = generateFailValues(currentFName);
         sb.append(testFailTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
         sb.append(System.lineSeparator());
@@ -67,7 +68,8 @@ public class TestBuilder {
 
     String commonTCaseNames = functionList.stream()
         .filter(f -> f != FunctionNames.ALL_FUNCTIONS)
-        .map(f -> tCaseOkNamesForFooter(f, count) + tCaseFailNamesForFooter(f, count / 3))
+        .map(f -> tCaseOkNamesForFooter(f, count)
+            + tCaseFailNamesForFooter(f, count / PART_OF_TOTAL_COUNTS))
         .collect(Collectors.joining(System.lineSeparator()));
 
     sb.append(footerTestModule(footerFName, commonTCaseNames));
