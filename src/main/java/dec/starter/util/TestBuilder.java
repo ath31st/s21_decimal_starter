@@ -7,6 +7,8 @@ import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
 import static dec.starter.constant.TestStringConstants.TEST_FAIL_CASE_NAME_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_INVALID_DECIMAL_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_INVALID_DEC_CASE_NAME_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_OK_CASE_NAME_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_FAIL_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
@@ -28,6 +30,7 @@ public class TestBuilder {
   private final Converter converter;
   private final ArithmeticHandler arithmeticHandler;
   private static final int PART_OF_TOTAL_COUNTS = 3; // 33%
+  private static final int INVALID_DEC_TESTS_COUNT = 16;
 
   public TestBuilder(Validator validator, Converter converter, ArithmeticHandler arithmeticHandler) {
     this.validator = validator;
@@ -53,6 +56,9 @@ public class TestBuilder {
     sb.append(testHeader()).append(System.lineSeparator());
 
     for (FunctionNames currentFName : functionList) {
+      sb.append(testInvalidTemplate(currentFName));
+      sb.append(System.lineSeparator());
+
       for (int i = 0; i < count; i++) {
         Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(currentFName);
         sb.append(testOkTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
@@ -68,7 +74,7 @@ public class TestBuilder {
 
     String commonTCaseNames = functionList.stream()
         .filter(f -> f != FunctionNames.ALL_FUNCTIONS)
-        .map(f -> tCaseOkNamesForFooter(f, count)
+        .map(f -> tCaseInvalidDecNamesForFooter(f) + tCaseOkNamesForFooter(f, count)
             + tCaseFailNamesForFooter(f, count / PART_OF_TOTAL_COUNTS))
         .collect(Collectors.joining(System.lineSeparator()));
 
@@ -160,6 +166,25 @@ public class TestBuilder {
         bd2.toPlainString(), d2.extendToString(DEC_2.getValue()),
         failCode, failInfo,
         fName.getValue());
+  }
+
+  private String testInvalidTemplate(FunctionNames fName) {
+    String testName = fName.getValue();
+
+    return String.format(TEST_INVALID_DECIMAL_TEMPLATE.getValue(),
+        testName, testName, testName, testName, testName, testName, testName, testName, testName,
+        testName, testName, testName, testName, testName, testName, testName, testName, testName,
+        testName, testName, testName, testName, testName, testName, testName, testName, testName,
+        testName, testName, testName, testName, testName, testName, testName
+    );
+  }
+
+  private String tCaseInvalidDecNamesForFooter(FunctionNames fName) {
+    return IntStream.range(1, INVALID_DEC_TESTS_COUNT)
+        .mapToObj(i ->
+            String.format(TEST_INVALID_DEC_CASE_NAME_TEMPLATE.getValue(), fName.getValue(), i)
+                + System.lineSeparator())
+        .collect(Collectors.joining());
   }
 
   private String tCaseOkNamesForFooter(FunctionNames fName, int count) {
