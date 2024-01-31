@@ -4,6 +4,7 @@ import static dec.starter.constant.ArithmeticConstants.MAX_PRECISION;
 import static dec.starter.constant.ArithmeticConstants.MAX_SCALE;
 import static dec.starter.constant.StringConstants.ZERO_DIV;
 
+import dec.starter.constant.FunctionNames;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -38,5 +39,47 @@ public class ArithmeticHandler {
       return bd.round(new MathContext(MAX_PRECISION.getValue() - 1, RoundingMode.HALF_EVEN));
     }
     return bd;
+  }
+
+  public BigDecimal calculateResult(BigDecimal bd1, BigDecimal bd2, int action) {
+    BigDecimal res = BigDecimal.ZERO;
+    switch (action) {
+      case 1:
+        res = add(bd1, bd2);
+        break;
+      case 2:
+        res = sub(bd1, bd2);
+        break;
+      case 3:
+        res = mul(bd1, bd2);
+        break;
+      case 4:
+        res = div(bd1, bd2);
+        break;
+      default:
+        break;
+    }
+    return res;
+  }
+
+  public BigDecimal calculateResult(BigDecimal bd1, BigDecimal bd2, FunctionNames fName) {
+    BigDecimal res = BigDecimal.ZERO;
+    switch (fName) {
+      case S21_ADD:
+        res = add(bd1, bd2);
+        break;
+      case S21_SUB:
+        res = sub(bd1, bd2);
+        break;
+      case S21_MUL:
+        res = mul(bd1, bd2);
+        break;
+      case S21_DIV:
+        res = div(bd1, bd2);
+        break;
+      default:
+        break;
+    }
+    return res;
   }
 }

@@ -52,7 +52,7 @@ public class Processor {
         case 2:
         case 3:
         case 4:
-          processing(scanner, choice);
+          arithmeticProcessing(scanner, choice);
           break;
         case 5:
           convertFromNumberToS21Decimal(scanner);
@@ -80,7 +80,7 @@ public class Processor {
     System.exit(0);
   }
 
-  private void processing(Scanner scanner, int action) {
+  private void arithmeticProcessing(Scanner scanner, int action) {
     while (true) {
       outputManager.consolePrint(INPUT_TWO_NUMBERS.getValue());
 
@@ -105,8 +105,9 @@ public class Processor {
 
       int checkOperand1 = validator.checkBigDecimal(bd1);
       int checkOperand2 = validator.checkBigDecimal(bd2);
+
       if (checkOperand1 == 0 && checkOperand2 == 0) {
-        BigDecimal res = calculateResult(bd1, bd2, action);
+        BigDecimal res = arithmeticHandler.calculateResult(bd1, bd2, action);
         res = arithmeticHandler.additionalRounding(res);
         int check = validator.checkBigDecimal(res);
         outputManager.handleResultPrinting(res, check);
@@ -118,27 +119,6 @@ public class Processor {
     } catch (IllegalArgumentException e) {
       outputManager.consolePrint(WRONG_INPUT.getValue());
     }
-  }
-
-  private BigDecimal calculateResult(BigDecimal bd1, BigDecimal bd2, int action) {
-    BigDecimal res = BigDecimal.ZERO;
-    switch (action) {
-      case 1:
-        res = arithmeticHandler.add(bd1, bd2);
-        break;
-      case 2:
-        res = arithmeticHandler.sub(bd1, bd2);
-        break;
-      case 3:
-        res = arithmeticHandler.mul(bd1, bd2);
-        break;
-      case 4:
-        res = arithmeticHandler.div(bd1, bd2);
-        break;
-      default:
-        break;
-    }
-    return res;
   }
 
   private void convertFromNumberToS21Decimal(Scanner scanner) {
@@ -200,7 +180,7 @@ public class Processor {
         }
         String generatedTests;
         if (fName == FunctionNames.ALL_FUNCTIONS) {
-           generatedTests = testBuilder.buildAllSuitsAtOnce(count);
+          generatedTests = testBuilder.buildAllSuitsAtOnce(count);
         } else {
           generatedTests = testBuilder.buildTestSuit(fName, count);
           outputManager.consolePrint(generatedTests);
