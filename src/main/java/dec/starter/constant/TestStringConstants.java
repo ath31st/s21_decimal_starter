@@ -22,6 +22,19 @@ public enum TestStringConstants {
       + "}" + System.lineSeparator()
       + "END_TEST" + System.lineSeparator()),
 
+  TEST_FAIL_TEMPLATE("START_TEST(%s) {" + System.lineSeparator()
+      + SLASH_S.getValue() + System.lineSeparator()
+      + "  %s" + System.lineSeparator()
+      + SLASH_S.getValue() + System.lineSeparator()
+      + "  %s" + System.lineSeparator()
+      + "  s21_decimal result;" + System.lineSeparator()
+      + "  // overflow" + System.lineSeparator()
+      + "  int check = %d // %s" + System.lineSeparator()
+      + "  int return_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
+      + "  ck_assert_int_eq(return_value, check);" + System.lineSeparator()
+      + "}" + System.lineSeparator()
+      + "END_TEST" + System.lineSeparator()),
+
   TEST_CASE_NAME_TEMPLATE("  tcase_add_test(tc, %s_%d);"),
 
   TEST_SUITE_TEMPLATE("Suite *%s_cases(void) {" + System.lineSeparator()

@@ -3,8 +3,11 @@ package dec.starter.util;
 import static dec.starter.constant.S21DecimalNames.DEC_1;
 import static dec.starter.constant.S21DecimalNames.DEC_2;
 import static dec.starter.constant.S21DecimalNames.DEC_CHECK;
+import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
+import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
 import static dec.starter.constant.TestStringConstants.TEST_CASE_NAME_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_FAIL_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_OK_TEMPLATE;
 
@@ -70,7 +73,6 @@ public class TestBuilder {
 
     return sb.toString();
   }
-
 
   private Triple<BigDecimal, BigDecimal, BigDecimal> generateOkValues(FunctionNames fName) {
     boolean genTry = true;
@@ -146,12 +148,14 @@ public class TestBuilder {
     S21Decimal d1 = converter.fromDecToS21Dec(bd1);
     S21Decimal d2 = converter.fromDecToS21Dec(bd2);
 
-    String testName = fName.getValue() + "_" + (count + 1);
+    String testName = "fail_" + fName.getValue() + "_" + (count + 1);
+    String failInfo = failCode == 1
+        ? RES_TOO_LARGE_OR_POS_INF.getValue() : RES_TOO_SMALL_OR_POS_NEG.getValue();
 
-    return String.format(TEST_OK_TEMPLATE.getValue(), testName,
+    return String.format(TEST_FAIL_TEMPLATE.getValue(), testName,
         bd1.toPlainString(), d1.extendToString(DEC_1.getValue()),
         bd2.toPlainString(), d2.extendToString(DEC_2.getValue()),
-        bdCheck.toPlainString(), dCheck.extendToString(DEC_CHECK.getValue()),
+        failCode, failInfo,
         fName.getValue());
   }
 
