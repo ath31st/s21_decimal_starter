@@ -6,7 +6,7 @@ import static dec.starter.constant.S21DecimalNames.DEC_CHECK;
 import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
 import static dec.starter.constant.TestStringConstants.TEST_CASE_NAME_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
-import static dec.starter.constant.TestStringConstants.TEST_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_OK_TEMPLATE;
 
 import dec.starter.constant.FunctionNames;
 import dec.starter.handler.ArithmeticHandler;
@@ -50,7 +50,13 @@ public class TestBuilder {
     for (FunctionNames currentFName : functionList) {
       for (int i = 0; i < count; i++) {
         Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(currentFName);
-        sb.append(testTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
+        sb.append(testOkTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
+        sb.append(System.lineSeparator());
+      }
+
+      for (int i = 0; i < count; i++) {
+        Triple<BigDecimal, BigDecimal, Integer> t = generateFailValues(currentFName);
+        sb.append(testFailTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
         sb.append(System.lineSeparator());
       }
     }
@@ -114,18 +120,35 @@ public class TestBuilder {
     return DONT_FORGET_INCLUDE.getValue();
   }
 
-  private String testTemplate(FunctionNames fName,
-                              int count,
-                              BigDecimal bd1,
-                              BigDecimal bd2,
-                              BigDecimal bdCheck) {
+  private String testOkTemplate(FunctionNames fName,
+                                int count,
+                                BigDecimal bd1,
+                                BigDecimal bd2,
+                                BigDecimal bdCheck) {
     S21Decimal d1 = converter.fromDecToS21Dec(bd1);
     S21Decimal d2 = converter.fromDecToS21Dec(bd2);
     S21Decimal dCheck = converter.fromDecToS21Dec(bdCheck);
 
     String testName = fName.getValue() + "_" + (count + 1);
 
-    return String.format(TEST_TEMPLATE.getValue(), testName,
+    return String.format(TEST_OK_TEMPLATE.getValue(), testName,
+        bd1.toPlainString(), d1.extendToString(DEC_1.getValue()),
+        bd2.toPlainString(), d2.extendToString(DEC_2.getValue()),
+        bdCheck.toPlainString(), dCheck.extendToString(DEC_CHECK.getValue()),
+        fName.getValue());
+  }
+
+  private String testFailTemplate(FunctionNames fName,
+                                  int count,
+                                  BigDecimal bd1,
+                                  BigDecimal bd2,
+                                  int failCode) {
+    S21Decimal d1 = converter.fromDecToS21Dec(bd1);
+    S21Decimal d2 = converter.fromDecToS21Dec(bd2);
+
+    String testName = fName.getValue() + "_" + (count + 1);
+
+    return String.format(TEST_OK_TEMPLATE.getValue(), testName,
         bd1.toPlainString(), d1.extendToString(DEC_1.getValue()),
         bd2.toPlainString(), d2.extendToString(DEC_2.getValue()),
         bdCheck.toPlainString(), dCheck.extendToString(DEC_CHECK.getValue()),
