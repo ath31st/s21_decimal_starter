@@ -5,14 +5,10 @@ import static dec.starter.constant.StringConstants.DECIMAL_VALUE;
 import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 
-import dec.starter.App;
 import dec.starter.model.S21Decimal;
 import java.math.BigDecimal;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class OutputManager {
-  private static final Logger logger = LogManager.getLogger(OutputManager.class);
   private final Converter converter = new Converter();
 
   public void consolePrint(String str) {
