@@ -76,28 +76,38 @@ public class TestBuilder {
       bd1 = BigDecimalGenerator.generateLimitedBigDecimal();
       bd2 = BigDecimalGenerator.generateLimitedBigDecimal();
 
-      switch (fName) {
-        case S21_ADD:
-          res = arithmeticHandler.add(bd1, bd2);
-          break;
-        case S21_SUB:
-          res = arithmeticHandler.sub(bd1, bd2);
-          break;
-        case S21_MUL:
-          res = arithmeticHandler.mul(bd1, bd2);
-          break;
-        case S21_DIV:
-          if (bd2.equals(BigDecimal.ZERO)) {
-            continue;
-          }
-          res = arithmeticHandler.div(bd1, bd2);
-          break;
-        default:
+      if (fName == FunctionNames.S21_DIV && bd2.equals(BigDecimal.ZERO)) {
+        continue;
       }
+
+      res = arithmeticHandler.calculateResult(bd1, bd2, fName);
       genTry = (validator.checkBigDecimal(res) != 0);
     }
 
     return Triple.of(bd1, bd2, res);
+  }
+
+  private Triple<BigDecimal, BigDecimal, Integer> generateFailValues(FunctionNames fName) {
+    boolean genTry = true;
+    int failCode = 0;
+    BigDecimal bd1 = BigDecimal.ZERO;
+    BigDecimal bd2 = BigDecimal.ZERO;
+    BigDecimal res;
+
+    while (genTry) {
+      bd1 = BigDecimalGenerator.generateLimitedBigDecimal();
+      bd2 = BigDecimalGenerator.generateLimitedBigDecimal();
+
+      if (fName == FunctionNames.S21_DIV && bd2.equals(BigDecimal.ZERO)) {
+        continue;
+      }
+
+      res = arithmeticHandler.calculateResult(bd1, bd2, fName);
+      failCode = validator.checkBigDecimal(res);
+      genTry = (failCode == 0);
+    }
+
+    return Triple.of(bd1, bd2, failCode);
   }
 
   private String testHeader() {
