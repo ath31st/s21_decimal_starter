@@ -180,7 +180,7 @@ public class TestBuilder {
   }
 
   private String tCaseInvalidDecNamesForFooter(FunctionNames fName) {
-    return IntStream.range(1, INVALID_DEC_TESTS_COUNT)
+    return IntStream.range(1, INVALID_DEC_TESTS_COUNT + 1)
         .mapToObj(i ->
             String.format(TEST_INVALID_DEC_CASE_NAME_TEMPLATE.getValue(), fName.getValue(), i)
                 + System.lineSeparator())

@@ -233,7 +233,7 @@ public enum TestStringConstants {
       + System.lineSeparator()
       + "  ck_assert_int_eq(result_value, 1);" + System.lineSeparator()
       + "}" + System.lineSeparator()
-      + "END_TEST");
+      + "END_TEST" + System.lineSeparator());
 
   private final String value;
 
