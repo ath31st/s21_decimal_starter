@@ -6,7 +6,8 @@ import static dec.starter.constant.S21DecimalNames.DEC_CHECK;
 import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
-import static dec.starter.constant.TestStringConstants.TEST_CASE_NAME_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_FAIL_CASE_NAME_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_OK_CASE_NAME_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_FAIL_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_OK_TEMPLATE;
@@ -57,7 +58,7 @@ public class TestBuilder {
         sb.append(System.lineSeparator());
       }
 
-      for (int i = 0; i < count; i++) {
+      for (int i = 0; i < count / 3; i++) {
         Triple<BigDecimal, BigDecimal, Integer> t = generateFailValues(currentFName);
         sb.append(testFailTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
         sb.append(System.lineSeparator());
@@ -66,7 +67,7 @@ public class TestBuilder {
 
     String commonTCaseNames = functionList.stream()
         .filter(f -> f != FunctionNames.ALL_FUNCTIONS)
-        .map(f -> tCaseNamesForFooter(f, count))
+        .map(f -> tCaseOkNamesForFooter(f, count) + tCaseFailNamesForFooter(f, count / 3))
         .collect(Collectors.joining(System.lineSeparator()));
 
     sb.append(footerTestModule(footerFName, commonTCaseNames));
@@ -159,10 +160,18 @@ public class TestBuilder {
         fName.getValue());
   }
 
-  private String tCaseNamesForFooter(FunctionNames fName, int count) {
+  private String tCaseOkNamesForFooter(FunctionNames fName, int count) {
     return IntStream.range(1, count + 1)
         .mapToObj(i ->
-            String.format(TEST_CASE_NAME_TEMPLATE.getValue(), fName.getValue(), i)
+            String.format(TEST_OK_CASE_NAME_TEMPLATE.getValue(), fName.getValue(), i)
+                + System.lineSeparator())
+        .collect(Collectors.joining());
+  }
+
+  private String tCaseFailNamesForFooter(FunctionNames fName, int count) {
+    return IntStream.range(1, count + 1)
+        .mapToObj(i ->
+            String.format(TEST_FAIL_CASE_NAME_TEMPLATE.getValue(), fName.getValue(), i)
                 + System.lineSeparator())
         .collect(Collectors.joining());
   }

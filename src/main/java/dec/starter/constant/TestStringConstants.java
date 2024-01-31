@@ -35,7 +35,8 @@ public enum TestStringConstants {
       + "}" + System.lineSeparator()
       + "END_TEST" + System.lineSeparator()),
 
-  TEST_CASE_NAME_TEMPLATE("  tcase_add_test(tc, %s_%d);"),
+  TEST_OK_CASE_NAME_TEMPLATE("  tcase_add_test(tc, %s_%d);"),
+  TEST_FAIL_CASE_NAME_TEMPLATE("  tcase_add_test(tc, fail_%s_%d);"),
 
   TEST_SUITE_TEMPLATE("Suite *%s_cases(void) {" + System.lineSeparator()
       + "  Suite *c = suite_create(\"%s_cases\");" + System.lineSeparator()
