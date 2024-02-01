@@ -2,6 +2,7 @@ package dec.starter.util;
 
 import static dec.starter.constant.S21DecimalNames.DEC_RES;
 import static dec.starter.constant.StringConstants.DECIMAL_VALUE;
+import static dec.starter.constant.StringConstants.DOT_SEP;
 import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 
@@ -17,6 +18,7 @@ public class OutputManager {
 
   public void consolePrintBigDecAndS21Dec(BigDecimal bd, String dName) {
     S21Decimal d = converter.fromDecToS21Dec(bd);
+    System.out.println(DOT_SEP.getValue());
     System.out.println(DECIMAL_VALUE.getValue() + bd.toPlainString());
     System.out.println(d.extendToString(dName));
   }

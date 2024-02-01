@@ -3,6 +3,7 @@ package dec.starter.constant;
 public enum StringConstants {
   SLASH_S("  // %s"),
   SEP("------------------------------------------"),
+  DOT_SEP(".........................................."),
   EXIT("exit"),
   MAIN_MENU(SEP.getValue() + System.lineSeparator()
       + "Выберите действие:" + System.lineSeparator()
