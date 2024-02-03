@@ -32,13 +32,21 @@ class TestBuilderTest {
   }
 
   @Test
-  void testBuildTestSuitWithoutFailTest() {
+  void testBuildTestSuit() {
     FunctionNames fName = FunctionNames.S21_ADD;
-    int count = 2;
+    int count = 6;
 
     BigDecimal expectedResult = BigDecimal.ONE;
 
-    when(validator.checkBigDecimal(any(BigDecimal.class))).thenReturn(0);
+    when(validator.checkBigDecimal(any(BigDecimal.class)))
+        .thenReturn(0)
+        .thenReturn(0)
+        .thenReturn(0)
+        .thenReturn(0)
+        .thenReturn(0)
+        .thenReturn(0)
+        .thenReturn(2)
+        .thenReturn(1);
     when(converter.fromDecToS21Dec(any(BigDecimal.class))).thenReturn(new S21Decimal());
     when(arithmeticHandler.calculateResult(any(BigDecimal.class), any(BigDecimal.class), eq(fName)))
         .thenReturn(expectedResult);
@@ -47,7 +55,6 @@ class TestBuilderTest {
 
     assertNotNull(result);
   }
-
 
   @Test
   void testBuildAllSuitsAtOnce() {
