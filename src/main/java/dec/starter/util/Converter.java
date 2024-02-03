@@ -11,10 +11,6 @@ public class Converter {
     return new BigDecimal(strValue);
   }
 
-  public String fromDecToStr(BigDecimal bd) {
-    return bd.toPlainString();
-  }
-
   public S21Decimal fromDecToS21Dec(BigDecimal bd) {
     S21Decimal d = new S21Decimal();
 
