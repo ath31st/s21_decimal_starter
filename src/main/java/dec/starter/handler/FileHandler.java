@@ -1,6 +1,7 @@
 package dec.starter.handler;
 
 import static dec.starter.constant.FileHandlerConstants.CURRENT_WORKING_DIR;
+import static dec.starter.constant.FileHandlerConstants.DELETE_FILE_UNSUCCESSFUL;
 import static dec.starter.constant.FileHandlerConstants.DELETE_SUCCESS;
 import static dec.starter.constant.FileHandlerConstants.DELETE_UNSUCCESSFUL;
 import static dec.starter.constant.FileHandlerConstants.DIRECTORY_ABSENT;
@@ -26,6 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 public class FileHandler {
   private final String saveDirectory;
@@ -74,13 +76,8 @@ public class FileHandler {
 
     if (directory.exists()) {
       File[] files = directory.listFiles();
-
       if (files != null) {
-        for (File file : files) {
-          if (file.isFile()) {
-            file.delete();
-          }
-        }
+        deleteFiles(files);
       }
       try {
         Files.delete(Path.of(saveDirectory));
@@ -91,5 +88,17 @@ public class FileHandler {
     } else {
       outputManager.consolePrint(DIRECTORY_FOR_DELETE_ABSENT.getValue());
     }
+  }
+
+  private void deleteFiles(File[] files) {
+    Arrays.stream(files)
+        .filter(File::isFile)
+        .forEach(f -> {
+          try {
+            Files.delete(f.toPath());
+          } catch (IOException e) {
+            outputManager.consolePrint(DELETE_FILE_UNSUCCESSFUL.getValue());
+          }
+        });
   }
 }

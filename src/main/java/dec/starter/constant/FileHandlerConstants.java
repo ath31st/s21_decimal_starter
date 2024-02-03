@@ -19,7 +19,8 @@ public enum FileHandlerConstants {
   MAC("mac"),
   NIX("nix"),
   DELETE_SUCCESS("Удаление папки прошло успешно."),
-  DELETE_UNSUCCESSFUL("Удаление папки не удалось, возможно, нет прав для удаления.");
+  DELETE_UNSUCCESSFUL("Удаление папки не удалось. Возможно, нет прав для удаления."),
+  DELETE_FILE_UNSUCCESSFUL("Удаление файла не удалось. Возможно, нет прав для удаления.");
   private final String value;
 
   FileHandlerConstants(String value) {
