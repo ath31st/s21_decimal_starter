@@ -30,6 +30,10 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 public class FileHandler {
+  public String getSaveDirectory() {
+    return saveDirectory;
+  }
+
   private final String saveDirectory;
   private final OutputManager outputManager;
 
