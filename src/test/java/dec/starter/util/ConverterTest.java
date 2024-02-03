@@ -1,10 +1,11 @@
 package dec.starter.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import dec.starter.model.S21Decimal;
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ConverterTest {
 
