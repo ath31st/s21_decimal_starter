@@ -60,7 +60,6 @@ public class TestBuilder {
     }
 
     String commonTCaseNames = functionList.stream()
-        .filter(f -> f != FunctionNames.ALL_FUNCTIONS)
         .map(f -> tCaseInvalidDecNamesForFooter(f) + tCaseOkNamesForFooter(f, count)
             + tCaseFailNamesForFooter(f, count / PART_OF_TOTAL_COUNTS))
         .collect(Collectors.joining(System.lineSeparator()));
@@ -99,7 +98,7 @@ public class TestBuilder {
       bd1 = BigDecimalGenerator.generateLimitedBigDecimal();
       bd2 = BigDecimalGenerator.generateLimitedBigDecimal();
 
-      if (fName == FunctionNames.S21_DIV && bd2.equals(BigDecimal.ZERO)) {
+      if (fName == FunctionNames.S21_DIV && bd2.compareTo(BigDecimal.ZERO) == 0) {
         continue;
       }
 
