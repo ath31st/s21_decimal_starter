@@ -56,20 +56,7 @@ public class TestBuilder {
     sb.append(testHeader()).append(System.lineSeparator());
 
     for (FunctionNames currentFName : functionList) {
-      sb.append(testInvalidTemplate(currentFName));
-      sb.append(System.lineSeparator());
-
-      for (int i = 0; i < count; i++) {
-        Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(currentFName);
-        sb.append(testOkTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
-        sb.append(System.lineSeparator());
-      }
-
-      for (int i = 0; i < count / PART_OF_TOTAL_COUNTS; i++) {
-        Triple<BigDecimal, BigDecimal, Integer> t = generateFailValues(currentFName);
-        sb.append(testFailTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
-        sb.append(System.lineSeparator());
-      }
+      sb.append(buildTestsForCurrentFuncName(count, currentFName));
     }
 
     String commonTCaseNames = functionList.stream()
@@ -80,6 +67,25 @@ public class TestBuilder {
 
     sb.append(footerTestModule(footerFName, commonTCaseNames));
 
+    return sb.toString();
+  }
+
+  private String buildTestsForCurrentFuncName(int count, FunctionNames currentFName) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(testInvalidTemplate(currentFName));
+    sb.append(System.lineSeparator());
+
+    for (int i = 0; i < count; i++) {
+      Triple<BigDecimal, BigDecimal, BigDecimal> t = generateOkValues(currentFName);
+      sb.append(testOkTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
+      sb.append(System.lineSeparator());
+    }
+
+    for (int i = 0; i < count / PART_OF_TOTAL_COUNTS; i++) {
+      Triple<BigDecimal, BigDecimal, Integer> t = generateFailValues(currentFName);
+      sb.append(testFailTemplate(currentFName, i, t.getLeft(), t.getMiddle(), t.getRight()));
+      sb.append(System.lineSeparator());
+    }
     return sb.toString();
   }
 
