@@ -44,6 +44,8 @@ public enum StringConstants {
   RES_TOO_LARGE_OR_POS_INF("Результат слишком велик или положительная бесконечность."),
   RES_TOO_SMALL_OR_POS_NEG("Результат слишком мал или отрицательная бесконечность."),
   DECIMAL_VALUE("Десятичное значение: "),
+  EXCEPTION_IN_THREAD("Возникла ошибка вычисления в потоке: "),
+  EXCEPTION_IN_EX_SERVICE("Возникла ошибка в ExecutorService. "),
   HB_LOGO("                                            _   _                 "
       + System.lineSeparator() + "       _ __   _____      _____ _ __ ___  __| | | |__  _   _       "
       + System.lineSeparator() + "      | '_ \\ / _ \\ \\ /\\ / / _ \\ '__/ _ \\/ _` | | '_ \\| | | |      "

@@ -3,24 +3,31 @@ package dec.starter.util;
 import static dec.starter.constant.S21DecimalNames.DEC_1;
 import static dec.starter.constant.S21DecimalNames.DEC_2;
 import static dec.starter.constant.S21DecimalNames.DEC_CHECK;
+import static dec.starter.constant.StringConstants.EXCEPTION_IN_EX_SERVICE;
 import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
+import static dec.starter.constant.StringConstants.EXCEPTION_IN_THREAD;
 import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
 import static dec.starter.constant.TestStringConstants.TEST_FAIL_CASE_NAME_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_FAIL_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_INVALID_DECIMAL_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_INVALID_DEC_CASE_NAME_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_OK_CASE_NAME_TEMPLATE;
-import static dec.starter.constant.TestStringConstants.TEST_FAIL_TEMPLATE;
-import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_OK_TEMPLATE;
+import static dec.starter.constant.TestStringConstants.TEST_SUITE_TEMPLATE;
 
 import dec.starter.constant.FunctionNames;
+import dec.starter.exception.TestBuilderException;
 import dec.starter.handler.ArithmeticHandler;
 import dec.starter.model.S21Decimal;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.commons.lang3.tuple.Triple;
@@ -51,13 +58,31 @@ public class TestBuilder {
     return buildTestSuitCommon(fName, count, Collections.singletonList(fName));
   }
 
-  private String buildTestSuitCommon(FunctionNames footerFName, int count, List<FunctionNames> functionList) {
+  private String buildTestSuitCommon(FunctionNames footerFName,
+                                     int count,
+                                     List<FunctionNames> functionList) {
+    ExecutorService executorService
+        = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
     StringBuilder sb = new StringBuilder();
     sb.append(testHeader()).append(System.lineSeparator());
 
-    for (FunctionNames currentFName : functionList) {
-      sb.append(buildTestsForCurrentFuncName(count, currentFName));
-    }
+    List<Future<String>> futures = functionList.stream()
+        .map(currentFName -> executorService.submit(
+            () -> buildTestsForCurrentFuncName(count, currentFName)))
+        .collect(Collectors.toList());
+
+    futures.forEach(f -> {
+      try {
+        sb.append(f.get());
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new TestBuilderException(EXCEPTION_IN_THREAD.getValue()
+            + Thread.currentThread().getName());
+      } catch (ExecutionException e) {
+        throw new TestBuilderException(EXCEPTION_IN_EX_SERVICE.getValue() + e.getMessage());
+      }
+    });
 
     String commonTCaseNames = functionList.stream()
         .map(f -> tCaseInvalidDecNamesForFooter(f) + tCaseOkNamesForFooter(f, count)
@@ -120,7 +145,7 @@ public class TestBuilder {
       bd1 = BigDecimalGenerator.generateLimitedBigDecimal();
       bd2 = BigDecimalGenerator.generateLimitedBigDecimal();
 
-      if (fName == FunctionNames.S21_DIV && bd2.equals(BigDecimal.ZERO)) {
+      if (fName == FunctionNames.S21_DIV && bd2.compareTo(BigDecimal.ZERO) == 0) {
         continue;
       }
 
