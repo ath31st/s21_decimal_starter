@@ -9,22 +9,55 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
+/**
+ * Handler class for arithmetic operations using custom S21Decimal format.
+ */
 public class ArithmeticHandler {
   private final MathContext mathContextS21Dec
       = new MathContext(MAX_PRECISION.getValue(), RoundingMode.HALF_EVEN);
+
+  /**
+   * Performs addition operation on two BigDecimal numbers.
+   *
+   * @param bd1 The first BigDecimal operand.
+   * @param bd2 The second BigDecimal operand.
+   * @return The result of the addition operation.
+   */
 
   public BigDecimal add(BigDecimal bd1, BigDecimal bd2) {
     return bd1.add(bd2, mathContextS21Dec);
   }
 
+  /**
+   * Performs subtraction operation on two BigDecimal numbers.
+   *
+   * @param bd1 The first BigDecimal operand.
+   * @param bd2 The second BigDecimal operand.
+   * @return The result of the subtraction operation.
+   */
   public BigDecimal sub(BigDecimal bd1, BigDecimal bd2) {
     return bd1.subtract(bd2, mathContextS21Dec);
   }
 
+  /**
+   * Performs multiplication operation on two BigDecimal numbers.
+   *
+   * @param bd1 The first BigDecimal operand.
+   * @param bd2 The second BigDecimal operand.
+   * @return The result of the multiplication operation.
+   */
   public BigDecimal mul(BigDecimal bd1, BigDecimal bd2) {
     return bd1.multiply(bd2, mathContextS21Dec);
   }
 
+  /**
+   * Performs division operation on two BigDecimal numbers.
+   *
+   * @param bd1 The numerator BigDecimal operand.
+   * @param bd2 The denominator BigDecimal operand.
+   * @return The result of the division operation.
+   * @throws IllegalArgumentException if the denominator is zero.
+   */
   public BigDecimal div(BigDecimal bd1, BigDecimal bd2) {
     if (bd2.compareTo(BigDecimal.ZERO) != 0) {
       return bd1.divide(bd2, mathContextS21Dec);
@@ -33,6 +66,12 @@ public class ArithmeticHandler {
     }
   }
 
+  /**
+   * Performs additional rounding for BigDecimal numbers based on specific conditions.
+   *
+   * @param bd The BigDecimal number to be rounded.
+   * @return The result of additional rounding.
+   */
   public BigDecimal additionalRounding(BigDecimal bd) {
     if (bd.scale() == MAX_SCALE.getValue() + 1
         && bd.abs().compareTo(BigDecimal.ZERO) > 0 && bd.abs().compareTo(BigDecimal.ONE) < 0) {
@@ -41,6 +80,14 @@ public class ArithmeticHandler {
     return bd;
   }
 
+  /**
+   * Calculates the result of an arithmetic operation based on the specified action code.
+   *
+   * @param bd1    The first BigDecimal operand.
+   * @param bd2    The second BigDecimal operand.
+   * @param action The action code representing the arithmetic operation.
+   * @return The result of the arithmetic operation.
+   */
   public BigDecimal calculateResult(BigDecimal bd1, BigDecimal bd2, int action) {
     BigDecimal res = BigDecimal.ZERO;
     switch (action) {
@@ -62,9 +109,17 @@ public class ArithmeticHandler {
     return res;
   }
 
-  public BigDecimal calculateResult(BigDecimal bd1, BigDecimal bd2, FunctionNames fName) {
+  /**
+   * Calculates the result of an arithmetic operation based on the specified function name.
+   *
+   * @param bd1      The first BigDecimal operand.
+   * @param bd2      The second BigDecimal operand.
+   * @param funcName The function name representing the arithmetic operation.
+   * @return The result of the arithmetic operation.
+   */
+  public BigDecimal calculateResult(BigDecimal bd1, BigDecimal bd2, FunctionNames funcName) {
     BigDecimal res = BigDecimal.ZERO;
-    switch (fName) {
+    switch (funcName) {
       case S21_ADD:
         res = add(bd1, bd2);
         break;

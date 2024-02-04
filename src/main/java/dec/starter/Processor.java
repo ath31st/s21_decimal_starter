@@ -194,7 +194,6 @@ public class Processor {
     }
   }
 
-
   private FunctionNames getFunctionNameFromInput(String strVal) {
     FunctionNames fName = null;
     try {
