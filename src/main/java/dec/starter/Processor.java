@@ -14,6 +14,7 @@ import static dec.starter.constant.StringConstants.WRONG_INPUT;
 import static dec.starter.constant.StringConstants.WRONG_OPERAND;
 
 import dec.starter.constant.FunctionNames;
+import dec.starter.exception.TestBuilderException;
 import dec.starter.exception.ValidatorException;
 import dec.starter.handler.ArithmeticHandler;
 import dec.starter.handler.FileHandler;
@@ -175,7 +176,7 @@ public class Processor {
       int count;
       try {
         count = Integer.parseInt(strVal);
-        if (count < 1 || count > 100) {
+        if (count < 1 || count > 500) {
           throw new IllegalArgumentException();
         }
         String generatedTests;
@@ -189,6 +190,8 @@ public class Processor {
         return;
       } catch (IllegalArgumentException e) {
         outputManager.consolePrint(WRONG_INPUT.getValue());
+      } catch (TestBuilderException e) {
+        outputManager.consolePrint(e.getMessage());
       }
       strVal = readInput(scanner);
     }

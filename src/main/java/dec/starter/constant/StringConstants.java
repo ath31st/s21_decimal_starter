@@ -38,7 +38,7 @@ public enum StringConstants {
   INPUT_COUNT_FOR_GEN_DEC(SEP.getValue() + System.lineSeparator()
       + "Введите количество случайных s21_decimal от 1 до 100 или \"exit\" для выхода в предыдущее меню."),
   INPUT_COUNT_FOR_GEN_TEST(SEP.getValue() + System.lineSeparator()
-      + "Введите количество тестов от 1 до 100 или \"exit\" для выхода основное меню."),
+      + "Введите количество тестов от 1 до 500 или \"exit\" для выхода основное меню."),
   ZERO_DIV("Деление на 0 недопустимо."),
   OVERFLOW_VALUES("Введенное число превышает длину %d бит или степень %d%n"),
   RES_TOO_LARGE_OR_POS_INF("Результат слишком велик или положительная бесконечность."),
