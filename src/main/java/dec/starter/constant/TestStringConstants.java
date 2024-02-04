@@ -2,6 +2,9 @@ package dec.starter.constant;
 
 import static dec.starter.constant.StringConstants.SLASH_S;
 
+/**
+ * Enumeration of string constants used in TestBuilder for preparing tests.
+ */
 public enum TestStringConstants {
   DONT_FORGET_INCLUDE("#include \"не забудьте здесь добавить свой header.h\""
       + System.lineSeparator()),

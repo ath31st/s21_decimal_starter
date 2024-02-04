@@ -1,5 +1,8 @@
 package dec.starter.constant;
 
+/**
+ * Enumeration of constants related to file handling.
+ */
 public enum FileHandlerConstants {
   OS_NAME("os.name"),
   USER_HOME("user.home"),

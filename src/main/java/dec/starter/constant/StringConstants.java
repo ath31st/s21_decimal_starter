@@ -1,5 +1,8 @@
 package dec.starter.constant;
 
+/**
+ * Enumeration of string constants used in the application.
+ */
 public enum StringConstants {
   SLASH_S("  // %s"),
   SEP("------------------------------------------"),

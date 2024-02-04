@@ -1,7 +1,9 @@
 package dec.starter.constant;
 
+/**
+ * Enumeration of arithmetic constants used in calculations.
+ */
 public enum ArithmeticConstants {
-  //79228162514264337593543950335
   MAX_BIT_LENGTH(96),
   MAX_PRECISION(29),
   MAX_SCALE(28),

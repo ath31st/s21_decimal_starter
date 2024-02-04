@@ -1,5 +1,8 @@
 package dec.starter.constant;
 
+/**
+ * Enumeration of s21_decimal names for arithmetic operations.
+ */
 public enum S21DecimalNames {
   DEC_1("dec_1"),
   DEC_2("dec_2"),

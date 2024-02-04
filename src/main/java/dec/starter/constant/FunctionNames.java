@@ -1,5 +1,8 @@
 package dec.starter.constant;
 
+/**
+ * Enumeration of function names related to arithmetic operations.
+ */
 public enum FunctionNames {
   S21_ADD("s21_add"),
   S21_SUB("s21_sub"),
