@@ -1,5 +1,8 @@
 package dec.starter.model;
 
+/**
+ * Class representing a custom decimal format for S21_decimal project.
+ */
 public class S21Decimal {
   private int lowBits;
   private int midBits;
@@ -34,6 +37,11 @@ public class S21Decimal {
     return signScaleBits;
   }
 
+  /**
+   * Sets the sign bit of the bit[3] s21_decimal value.
+   *
+   * @param sign The sign bit to be set (0 or 1).
+   */
   public void setSignInBit(int sign) {
     if (sign == 1 || sign == 0) {
       signScaleBits &= 0x7FFFFFFF;
@@ -41,6 +49,11 @@ public class S21Decimal {
     }
   }
 
+  /**
+   * Sets the scale bits of the bit[3] s21_decimal value.
+   *
+   * @param scale The scale bits to be set (0 to 28).
+   */
   public void setScaleInBit(int scale) {
     if (scale >= 0 && scale <= 28) {
       signScaleBits &= ~(0xFF << 16);
@@ -48,6 +61,11 @@ public class S21Decimal {
     }
   }
 
+  /**
+   * Returns a string representation of the s21_decimal.
+   *
+   * @return The string representation of the s21_decimal.
+   */
   @Override
   public String toString() {
     return "s21_decimal = {{0x"
@@ -57,6 +75,12 @@ public class S21Decimal {
         + ", 0x" + Integer.toHexString(signScaleBits) + "}}";
   }
 
+  /**
+   * Returns an extended string representation of the s21_decimal with a given name.
+   *
+   * @param name The name to be included in the string.
+   * @return The extended string representation of the s21_decimal.
+   */
   public String extendToString(String name) {
     return String.format("s21_decimal %s = {{0x%s, 0x%s, 0x%s, 0x%s}};",
         name,
