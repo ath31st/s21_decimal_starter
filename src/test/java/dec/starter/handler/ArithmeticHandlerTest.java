@@ -48,31 +48,45 @@ class ArithmeticHandlerTest {
   }
 
   @Test
-  void testAdditionalRounding() {
+  void testAdditionalRounding1() {
+    BigDecimal result = arithmeticHandler.additionalRounding(
+        new BigDecimal("0.032258064516129032258064516129"));
+    assertEquals(new BigDecimal("0.0322580645161290322580645161"), result);
+  }
+
+  @Test
+  void testAdditionalRounding2() {
+    BigDecimal result = arithmeticHandler.additionalRounding(
+        new BigDecimal("0.0032258064516129032258064516129"));
+    assertEquals(new BigDecimal("0.0032258064516129032258064516"), result);
+  }
+
+  @Test
+  void testNoAdditionalRounding3() {
     BigDecimal result = arithmeticHandler.additionalRounding(
         new BigDecimal("0.79228162514264337593543950335"));
     assertEquals(new BigDecimal("0.7922816251426433759354395034"), result);
   }
 
   @Test
-  void testNoAdditionalRounding1() {
+  void testNoAdditionalRounding4() {
     BigDecimal result = arithmeticHandler.additionalRounding(
-        new BigDecimal("1.79228162514264337593543950335"));
-    assertEquals(new BigDecimal("1.79228162514264337593543950335"), result);
+        new BigDecimal("0.79228162514264337593543950311111"));
+    assertEquals(new BigDecimal("0.7922816251426433759354395031"), result);
   }
 
   @Test
-  void testNoAdditionalRounding2() {
+  void testNoAdditionalRounding5() {
     BigDecimal result = arithmeticHandler.additionalRounding(
-        new BigDecimal("1.792281625142643375935439503"));
-    assertEquals(new BigDecimal("1.792281625142643375935439503"), result);
+        new BigDecimal("0.79228162514264312332445568961113"));
+    assertEquals(new BigDecimal("0.7922816251426431233244556896"), result);
   }
 
   @Test
-  void testNoAdditionalRounding3() {
+  void testNoAdditionalRounding6() {
     BigDecimal result = arithmeticHandler.additionalRounding(
-        new BigDecimal("0.7922816251426433759354395033555"));
-    assertEquals(new BigDecimal("0.7922816251426433759354395033555"), result);
+        new BigDecimal("0.88888888888888888888888888889"));
+    assertEquals(new BigDecimal("0.8888888888888888888888888889"), result);
   }
 
   @Test

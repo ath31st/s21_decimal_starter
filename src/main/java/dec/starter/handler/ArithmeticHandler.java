@@ -73,9 +73,14 @@ public class ArithmeticHandler {
    * @return The result of additional rounding.
    */
   public BigDecimal additionalRounding(BigDecimal bd) {
-    if (bd.scale() == MAX_SCALE.getValue() + 1
-        && bd.abs().compareTo(BigDecimal.ZERO) > 0 && bd.abs().compareTo(BigDecimal.ONE) < 0) {
-      return bd.round(new MathContext(MAX_PRECISION.getValue() - 1, RoundingMode.HALF_EVEN));
+    int scale = bd.scale();
+    int precision = bd.precision();
+    if (scale > MAX_SCALE.getValue()
+        && bd.abs().compareTo(BigDecimal.ZERO) > 0
+        && bd.abs().compareTo(BigDecimal.ONE) < 0
+    ) {
+      return bd.round(new MathContext(MAX_SCALE.getValue()
+          - (scale - precision), RoundingMode.HALF_EVEN));
     }
     return bd;
   }
