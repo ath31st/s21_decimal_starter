@@ -29,13 +29,13 @@ public class OutputManager {
    * Prints the given BigDecimal and its corresponding S21Decimal to the console.
    *
    * @param bd    The BigDecimal value.
-   * @param dName The name of the S21Decimal.
+   * @param decimalName The name of the S21Decimal.
    */
-  public void consolePrintBigDecAndS21Dec(BigDecimal bd, String dName) {
+  public void consolePrintBigDecAndS21Dec(BigDecimal bd, String decimalName) {
     S21Decimal d = converter.fromDecToS21Dec(bd);
     System.out.println(DOT_SEP.getValue());
     System.out.println(DECIMAL_VALUE.getValue() + bd.toPlainString());
-    System.out.println(d.extendToString(dName));
+    System.out.println(d.extendToString(decimalName));
   }
 
   /**

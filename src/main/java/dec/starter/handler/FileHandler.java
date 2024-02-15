@@ -71,17 +71,17 @@ public class FileHandler {
   /**
    * Saves content to a file with the specified function name.
    *
-   * @param fName   The function name.
+   * @param funcName   The function name.
    * @param content The content to be saved.
    */
-  public void saveContentToFile(FunctionNames fName, String content) {
+  public void saveContentToFile(FunctionNames funcName, String content) {
     File directory = new File(saveDirectory);
     boolean success = true;
     if (!directory.exists()) {
       success = directory.mkdir();
     }
     if (success) {
-      String fileName = FILE_TEST_PREFIX.getValue() + fName.getValue() + FILE_C_EXT.getValue();
+      String fileName = FILE_TEST_PREFIX.getValue() + funcName.getValue() + FILE_C_EXT.getValue();
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveDirectory + fileName))) {
         writer.write(content);
         outputManager.consolePrint(SAVE_SUCCESS.getValue());

@@ -210,10 +210,10 @@ public class Processor {
   private void generateTests(Scanner scanner) {
     outputManager.consolePrint(GEN_MENU.getValue());
 
-    FunctionNames fName = null;
-    while (fName == null) {
+    FunctionNames funcName = null;
+    while (funcName == null) {
       String strVal = readInput(scanner);
-      fName = getFunctionNameFromInput(strVal);
+      funcName = getFunctionNameFromInput(strVal);
     }
 
     outputManager.consolePrint(INPUT_COUNT_FOR_GEN_TEST.getValue());
@@ -226,13 +226,13 @@ public class Processor {
           throw new IllegalArgumentException();
         }
         String generatedTests;
-        if (fName == FunctionNames.ALL_FUNCTIONS) {
+        if (funcName == FunctionNames.ALL_FUNCTIONS) {
           generatedTests = testBuilder.buildAllSuitsAtOnce(count);
         } else {
-          generatedTests = testBuilder.buildTestSuit(fName, count);
+          generatedTests = testBuilder.buildTestSuit(funcName, count);
           outputManager.consolePrint(generatedTests);
         }
-        fileHandler.saveContentToFile(fName, generatedTests);
+        fileHandler.saveContentToFile(funcName, generatedTests);
         return;
       } catch (IllegalArgumentException e) {
         outputManager.consolePrint(WRONG_INPUT.getValue());
@@ -250,13 +250,13 @@ public class Processor {
    * @return The corresponding FunctionNames enum, or null if the conversion fails.
    */
   private FunctionNames getFunctionNameFromInput(String strVal) {
-    FunctionNames fName = null;
+    FunctionNames funcName = null;
     try {
       int val = Integer.parseInt(strVal);
-      fName = FunctionNames.values()[val - 1];
+      funcName = FunctionNames.values()[val - 1];
     } catch (Exception e) {
       outputManager.consolePrint(WRONG_INPUT.getValue());
     }
-    return fName;
+    return funcName;
   }
 }
