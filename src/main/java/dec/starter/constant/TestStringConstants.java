@@ -113,7 +113,8 @@ public enum TestStringConstants {
       + "  // степень 28" + System.lineSeparator()
       + "  // биты 24-30 не пустые" + System.lineSeparator()
       + "  s21_decimal dec_1 = {{0x1, 0x0, 0x0, 0x11C0000}};" + System.lineSeparator()
-      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};" + System.lineSeparator()
+      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -125,7 +126,8 @@ public enum TestStringConstants {
       + "  // степень 28" + System.lineSeparator()
       + "  // биты 24-30 не пустые" + System.lineSeparator()
       + "  s21_decimal dec_1 = {{0xA, 0x0, 0x0, 0x401C0000}};" + System.lineSeparator()
-      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};" + System.lineSeparator()
+      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -135,8 +137,10 @@ public enum TestStringConstants {
       + System.lineSeparator()
       + "START_TEST(invalid_dec_%s_8) {" + System.lineSeparator()
       + "  // Все биты имеют максимальное значение" + System.lineSeparator()
-      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};" + System.lineSeparator()
-      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};" + System.lineSeparator()
+      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};"
+      + System.lineSeparator()
+      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x0}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -171,7 +175,8 @@ public enum TestStringConstants {
       + "START_TEST(invalid_dec_%s_11) {" + System.lineSeparator()
       + "  // степень 29 (допустимое значение от 0 до 28)" + System.lineSeparator()
       + "  s21_decimal dec_2 = {{0xA, 0x0, 0x0, 0x1D0000}};" + System.lineSeparator()
-      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};" + System.lineSeparator()
+      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -183,7 +188,8 @@ public enum TestStringConstants {
       + "  // степень 28" + System.lineSeparator()
       + "  // биты 0-15 не пустые" + System.lineSeparator()
       + "  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x1C0001}};" + System.lineSeparator()
-      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};" + System.lineSeparator()
+      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x20000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -195,7 +201,8 @@ public enum TestStringConstants {
       + "  // степень 28" + System.lineSeparator()
       + "  // биты 0-15 не пустые" + System.lineSeparator()
       + "  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x1C8000}};" + System.lineSeparator()
-      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};" + System.lineSeparator()
+      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -207,7 +214,8 @@ public enum TestStringConstants {
       + "  // степень 28" + System.lineSeparator()
       + "  // биты 24-30 не пустые" + System.lineSeparator()
       + "  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x11C0000}};" + System.lineSeparator()
-      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};" + System.lineSeparator()
+      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x80000000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -219,7 +227,8 @@ public enum TestStringConstants {
       + "  // степень 28" + System.lineSeparator()
       + "  // биты 24-30 не пустые" + System.lineSeparator()
       + "  s21_decimal dec_2 = {{0x1, 0x0, 0x0, 0x401C0000}};" + System.lineSeparator()
-      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};" + System.lineSeparator()
+      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
@@ -229,8 +238,10 @@ public enum TestStringConstants {
       + System.lineSeparator()
       + "START_TEST(invalid_dec_%s_16) {" + System.lineSeparator()
       + "  // Все биты имеют максимальное значение" + System.lineSeparator()
-      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};" + System.lineSeparator()
-      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};" + System.lineSeparator()
+      + "  s21_decimal dec_2 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}};"
+      + System.lineSeparator()
+      + "  s21_decimal dec_1 = {{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x140000}};"
+      + System.lineSeparator()
       + "  s21_decimal result;" + System.lineSeparator()
       + "  int result_value = %s(dec_1, dec_2, &result);" + System.lineSeparator()
       + System.lineSeparator()
