@@ -4,9 +4,9 @@ import static dec.starter.constant.S21DecimalNames.DEC_1;
 import static dec.starter.constant.S21DecimalNames.DEC_2;
 import static dec.starter.constant.S21DecimalNames.DEC_CHECK;
 import static dec.starter.constant.StringConstants.EXCEPTION_IN_EX_SERVICE;
+import static dec.starter.constant.StringConstants.EXCEPTION_IN_THREAD;
 import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
-import static dec.starter.constant.StringConstants.EXCEPTION_IN_THREAD;
 import static dec.starter.constant.TestStringConstants.DONT_FORGET_INCLUDE;
 import static dec.starter.constant.TestStringConstants.TEST_FAIL_CASE_NAME_TEMPLATE;
 import static dec.starter.constant.TestStringConstants.TEST_FAIL_TEMPLATE;
@@ -32,19 +32,44 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.commons.lang3.tuple.Triple;
 
+/**
+ * TestBuilder class for generating test suites and cases for various arithmetic functions.
+ */
 public class TestBuilder {
   private final Validator validator;
   private final Converter converter;
   private final ArithmeticHandler arithmeticHandler;
+  /**
+   * Constant representing the percentage of total counts used in test generation.
+   */
   private static final int PART_OF_TOTAL_COUNTS = 3; // 33%
+  /**
+   * Constant representing the count of invalid decimal tests.
+   */
   private static final int INVALID_DEC_TESTS_COUNT = 16;
 
-  public TestBuilder(Validator validator, Converter converter, ArithmeticHandler arithmeticHandler) {
+  /**
+   * Constructor for TestBuilder.
+   *
+   * @param validator         Validator instance for input validation.
+   * @param converter         Converter instance for converting between different decimal
+   *                          representations.
+   * @param arithmeticHandler ArithmeticHandler instance for performing arithmetic operations.
+   */
+  public TestBuilder(Validator validator,
+                     Converter converter,
+                     ArithmeticHandler arithmeticHandler) {
     this.validator = validator;
     this.converter = converter;
     this.arithmeticHandler = arithmeticHandler;
   }
 
+  /**
+   * Builds test suites for all arithmetic functions at once.
+   *
+   * @param count The number of test cases to generate for each function.
+   * @return The generated test suites.
+   */
   public String buildAllSuitsAtOnce(int count) {
     return buildTestSuitCommon(
         FunctionNames.ALL_FUNCTIONS,
@@ -54,10 +79,26 @@ public class TestBuilder {
             .collect(Collectors.toList()));
   }
 
+  /**
+   * Builds a test suite for a specific arithmetic function.
+   *
+   * @param fName The arithmetic function for which to generate the test suite.
+   * @param count The number of test cases to generate for the specified function.
+   * @return The generated test suite.
+   */
   public String buildTestSuit(FunctionNames fName, int count) {
     return buildTestSuitCommon(fName, count, Collections.singletonList(fName));
   }
 
+  /**
+   * Builds a test suite for a specific arithmetic function or footer based on the provided
+   * parameters.
+   *
+   * @param footerFName  The arithmetic function or footer for which to generate the test suite.
+   * @param count        The number of test cases to generate for each specified function.
+   * @param functionList The list of arithmetic functions to include in the test suite.
+   * @return The generated test suite.
+   */
   private String buildTestSuitCommon(FunctionNames footerFName,
                                      int count,
                                      List<FunctionNames> functionList) {
@@ -94,6 +135,13 @@ public class TestBuilder {
     return sb.toString();
   }
 
+  /**
+   * Builds tests for the specified arithmetic function and count.
+   *
+   * @param count        The number of test cases to generate for the specified function.
+   * @param currentFName The current arithmetic function for which to generate tests.
+   * @return The generated tests for the specified function.
+   */
   private String buildTestsForCurrentFuncName(int count, FunctionNames currentFName) {
     StringBuilder sb = new StringBuilder();
     sb.append(testInvalidTemplate(currentFName));
@@ -113,6 +161,12 @@ public class TestBuilder {
     return sb.toString();
   }
 
+  /**
+   * Generates valid values for an arithmetic function for test cases.
+   *
+   * @param fName The arithmetic function for which to generate valid values.
+   * @return A Triple containing valid BigDecimal values for the function.
+   */
   private Triple<BigDecimal, BigDecimal, BigDecimal> generateOkValues(FunctionNames fName) {
     boolean genTry = true;
     BigDecimal bd1 = BigDecimal.ZERO;
@@ -134,6 +188,12 @@ public class TestBuilder {
     return Triple.of(bd1, bd2, res);
   }
 
+  /**
+   * Generates invalid values for an arithmetic function for test cases.
+   *
+   * @param fName The arithmetic function for which to generate invalid values.
+   * @return A Triple containing invalid BigDecimal values and a fail code.
+   */
   private Triple<BigDecimal, BigDecimal, Integer> generateFailValues(FunctionNames fName) {
     boolean genTry = true;
     int failCode = 0;
@@ -157,10 +217,25 @@ public class TestBuilder {
     return Triple.of(bd1, bd2, failCode);
   }
 
+  /**
+   * Creates the header for the generated test suite.
+   *
+   * @return The header string for the test suite.
+   */
   private String testHeader() {
     return DONT_FORGET_INCLUDE.getValue();
   }
 
+  /**
+   * Generates the test template for successful test cases.
+   *
+   * @param fName   The arithmetic function for which to generate the test template.
+   * @param count   The index of the test case.
+   * @param bd1     The first BigDecimal operand.
+   * @param bd2     The second BigDecimal operand.
+   * @param bdCheck The result of the arithmetic operation.
+   * @return The generated test template for successful test cases.
+   */
   private String testOkTemplate(FunctionNames fName,
                                 int count,
                                 BigDecimal bd1,
@@ -179,6 +254,16 @@ public class TestBuilder {
         fName.getValue());
   }
 
+  /**
+   * Generates the test template for failed test cases.
+   *
+   * @param fName    The arithmetic function for which to generate the test template.
+   * @param count    The index of the test case.
+   * @param bd1      The first BigDecimal operand.
+   * @param bd2      The second BigDecimal operand.
+   * @param failCode The fail code indicating the reason for failure.
+   * @return The generated test template for failed test cases.
+   */
   private String testFailTemplate(FunctionNames fName,
                                   int count,
                                   BigDecimal bd1,
@@ -198,6 +283,12 @@ public class TestBuilder {
         fName.getValue());
   }
 
+  /**
+   * Generates the test template for invalid decimal values.
+   *
+   * @param fName The arithmetic function for which to generate the test template.
+   * @return The generated test template for invalid decimal values.
+   */
   private String testInvalidTemplate(FunctionNames fName) {
     String testName = fName.getValue();
 
@@ -209,6 +300,13 @@ public class TestBuilder {
     );
   }
 
+  /**
+   * Generates the names for test cases with invalid decimal values for the specified arithmetic
+   * function.
+   *
+   * @param fName The arithmetic function for which to generate the names.
+   * @return The generated names for test cases with invalid decimal values.
+   */
   private String tCaseInvalidDecNamesForFooter(FunctionNames fName) {
     return IntStream.range(1, INVALID_DEC_TESTS_COUNT + 1)
         .mapToObj(i ->
@@ -217,6 +315,13 @@ public class TestBuilder {
         .collect(Collectors.joining());
   }
 
+  /**
+   * Generates the names for successful test cases for the specified arithmetic function.
+   *
+   * @param fName The arithmetic function for which to generate the names.
+   * @param count The number of successful test cases.
+   * @return The generated names for successful test cases.
+   */
   private String tCaseOkNamesForFooter(FunctionNames fName, int count) {
     return IntStream.range(1, count + 1)
         .mapToObj(i ->
@@ -225,6 +330,13 @@ public class TestBuilder {
         .collect(Collectors.joining());
   }
 
+  /**
+   * Generates the names for failed test cases for the specified arithmetic function.
+   *
+   * @param fName The arithmetic function for which to generate the names.
+   * @param count The number of failed test cases.
+   * @return The generated names for failed test cases.
+   */
   private String tCaseFailNamesForFooter(FunctionNames fName, int count) {
     return IntStream.range(1, count + 1)
         .mapToObj(i ->
@@ -233,6 +345,13 @@ public class TestBuilder {
         .collect(Collectors.joining());
   }
 
+  /**
+   * Generates the footer module for the entire test suite.
+   *
+   * @param fName      The arithmetic function or footer for which to generate the footer module.
+   * @param tCaseNames The names of the test cases to include in the footer module.
+   * @return The generated footer module for the entire test suite.
+   */
   private String footerTestModule(FunctionNames fName, String tCaseNames) {
     return String.format(TEST_SUITE_TEMPLATE.getValue(),
         fName.getValue(), fName.getValue(), fName.getValue(), tCaseNames);
