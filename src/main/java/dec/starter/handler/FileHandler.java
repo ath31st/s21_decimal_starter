@@ -29,7 +29,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 
+/**
+ * Handles file-related operations such as saving generated tests to a file,
+ * deleting files, and managing directories.
+ */
 public class FileHandler {
+  /**
+   * Gets the save directory.
+   *
+   * @return The save directory.
+   */
   public String getSaveDirectory() {
     return saveDirectory;
   }
@@ -37,6 +46,11 @@ public class FileHandler {
   private final String saveDirectory;
   private final OutputManager outputManager;
 
+  /**
+   * Constructs a FileHandler with the given OutputManager.
+   *
+   * @param outputManager The output manager for displaying messages.
+   */
   public FileHandler(OutputManager outputManager) {
     this.outputManager = outputManager;
     String osName = System.getProperty(OS_NAME.getValue()).toLowerCase();
@@ -54,6 +68,12 @@ public class FileHandler {
     }
   }
 
+  /**
+   * Saves content to a file with the specified function name.
+   *
+   * @param fName   The function name.
+   * @param content The content to be saved.
+   */
   public void saveContentToFile(FunctionNames fName, String content) {
     File directory = new File(saveDirectory);
     boolean success = true;
@@ -75,6 +95,9 @@ public class FileHandler {
     }
   }
 
+  /**
+   * Deletes files with generated tests and the directory.
+   */
   public void deleteFilesAndDirectory() {
     File directory = new File(saveDirectory);
 
@@ -94,6 +117,11 @@ public class FileHandler {
     }
   }
 
+  /**
+   * Deletes an array of files.
+   *
+   * @param files The array of files to be deleted.
+   */
   private void deleteFiles(File[] files) {
     Arrays.stream(files)
         .filter(File::isFile)
