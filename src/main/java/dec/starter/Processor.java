@@ -27,6 +27,9 @@ import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Main processor class that handles the main menu and various operations in the application.
+ */
 public class Processor {
   private final Validator validator = new Validator();
   private final Converter converter = new Converter();
@@ -35,6 +38,9 @@ public class Processor {
   private final FileHandler fileHandler = new FileHandler(outputManager);
   private final TestBuilder testBuilder = new TestBuilder(validator, converter, arithmeticHandler);
 
+  /**
+   * Displays the main menu and handles user input for various operations.
+   */
   public void mainMenu() {
     Scanner scanner = new Scanner(System.in);
     while (true) {
@@ -81,24 +87,47 @@ public class Processor {
     System.exit(0);
   }
 
+  /**
+   * Handles arithmetic processing based on the user's choice.
+   *
+   * @param scanner The Scanner object for user input.
+   * @param action  The user's choice representing the arithmetic operation to be performed.
+   */
   private void arithmeticProcessing(Scanner scanner, int action) {
     while (true) {
       outputManager.consolePrint(INPUT_TWO_NUMBERS.getValue());
 
       String strVal1 = readInput(scanner);
-      if (strVal1.equals(EXIT.getValue())) break;
+      if (strVal1.equals(EXIT.getValue())) {
+        break;
+      }
 
       String strVal2 = readInput(scanner);
-      if (strVal2.equals(EXIT.getValue())) break;
+      if (strVal2.equals(EXIT.getValue())) {
+        break;
+      }
 
       performOperation(strVal1, strVal2, action);
     }
   }
 
+  /**
+   * Reads input from the user and trims it.
+   *
+   * @param scanner The Scanner object for user input.
+   * @return The trimmed input string.
+   */
   private String readInput(Scanner scanner) {
     return scanner.next().trim().toLowerCase();
   }
 
+  /**
+   * Performs the specified arithmetic operation on two BigDecimal values and prints the result.
+   *
+   * @param strVal1 The string representation of the first BigDecimal operand.
+   * @param strVal2 The string representation of the second BigDecimal operand.
+   * @param action  The user's choice representing the arithmetic operation to be performed.
+   */
   private void performOperation(String strVal1, String strVal2, int action) {
     try {
       BigDecimal bd1 = converter.fromStrToDec(strVal1);
@@ -122,12 +151,19 @@ public class Processor {
     }
   }
 
+  /**
+   * Handles conversion from a decimal number to its S21Decimal representation.
+   *
+   * @param scanner The Scanner object for user input.
+   */
   private void convertFromNumberToS21Decimal(Scanner scanner) {
     while (true) {
       outputManager.consolePrint(INPUT_DECIMAL_NUMBER.getValue());
 
       String strVal = readInput(scanner);
-      if (strVal.equals(EXIT.getValue())) break;
+      if (strVal.equals(EXIT.getValue())) {
+        break;
+      }
       try {
         BigDecimal bd = converter.fromStrToDec(strVal);
         int check = validator.checkBigDecimal(bd);
@@ -138,6 +174,11 @@ public class Processor {
     }
   }
 
+  /**
+   * Generates random S21Decimal numbers based on user input for the count.
+   *
+   * @param scanner The Scanner object for user input.
+   */
   private void generateS21Decimal(Scanner scanner) {
     while (true) {
       outputManager.consolePrint(INPUT_COUNT_FOR_GEN_DEC.getValue());
@@ -161,6 +202,11 @@ public class Processor {
     }
   }
 
+  /**
+   * Generates S21Decimal test cases based on user input for the function name and count.
+   *
+   * @param scanner The Scanner object for user input.
+   */
   private void generateTests(Scanner scanner) {
     outputManager.consolePrint(GEN_MENU.getValue());
 
@@ -197,6 +243,12 @@ public class Processor {
     }
   }
 
+  /**
+   * Converts a user input string to a FunctionNames enum.
+   *
+   * @param strVal The user input string.
+   * @return The corresponding FunctionNames enum, or null if the conversion fails.
+   */
   private FunctionNames getFunctionNameFromInput(String strVal) {
     FunctionNames fName = null;
     try {
