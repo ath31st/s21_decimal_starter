@@ -5,7 +5,7 @@
 
     <groupId>dec.starter</groupId>
     <artifactId>s21_decimal_starter</artifactId>
-    <version>0.8.15</version>
+    <version>0.8.16</version>
     <packaging>jar</packaging>
 
     <name>s21_decimal_starter</name>
