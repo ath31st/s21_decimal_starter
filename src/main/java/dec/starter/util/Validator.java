@@ -31,6 +31,8 @@ public class Validator {
       checkRes = 2;
     } else if (precision > MAX_PRECISION.getValue() || bd.compareTo(maxS21Decimal) > 0) {
       checkRes = 1;
+    } else if ((new BigDecimal(bd.unscaledValue()).compareTo(maxS21Decimal)) > 0) {
+      checkRes = 3;
     }
     return checkRes;
   }

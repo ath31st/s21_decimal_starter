@@ -43,6 +43,7 @@ public enum StringConstants {
   OVERFLOW_VALUES("Введенное число превышает длину %d бит или степень %d%n"),
   RES_TOO_LARGE_OR_POS_INF("Результат слишком велик или положительная бесконечность."),
   RES_TOO_SMALL_OR_POS_NEG("Результат слишком мал или отрицательная бесконечность."),
+  RES_NO_FIT_IN_MANTISSA("Результат не вмещается в мантиссу s21_big_decimal."),
   DECIMAL_VALUE("Десятичное значение: "),
   EXCEPTION_IN_THREAD("Возникла ошибка вычисления в потоке: "),
   EXCEPTION_IN_EX_SERVICE("Возникла ошибка в ExecutorService. "),

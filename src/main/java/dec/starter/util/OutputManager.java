@@ -3,6 +3,7 @@ package dec.starter.util;
 import static dec.starter.constant.S21DecimalNames.DEC_RES;
 import static dec.starter.constant.StringConstants.DECIMAL_VALUE;
 import static dec.starter.constant.StringConstants.DOT_SEP;
+import static dec.starter.constant.StringConstants.RES_NO_FIT_IN_MANTISSA;
 import static dec.starter.constant.StringConstants.RES_TOO_LARGE_OR_POS_INF;
 import static dec.starter.constant.StringConstants.RES_TOO_SMALL_OR_POS_NEG;
 
@@ -28,7 +29,7 @@ public class OutputManager {
   /**
    * Prints the given BigDecimal and its corresponding S21Decimal to the console.
    *
-   * @param bd    The BigDecimal value.
+   * @param bd          The BigDecimal value.
    * @param decimalName The name of the S21Decimal.
    */
   public void consolePrintBigDecAndS21Dec(BigDecimal bd, String decimalName) {
@@ -49,6 +50,8 @@ public class OutputManager {
       consolePrint(RES_TOO_LARGE_OR_POS_INF.getValue());
     } else if (check == 2) {
       consolePrint(RES_TOO_SMALL_OR_POS_NEG.getValue());
+    } else if (check == 3) {
+      consolePrint(RES_NO_FIT_IN_MANTISSA.getValue());
     } else {
       consolePrintBigDecAndS21Dec(res, DEC_RES.getValue());
     }
