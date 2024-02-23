@@ -29,6 +29,27 @@ public class Converter {
     return new BigDecimal(strValue);
   }
 
+  public S21Decimal fromStrToS21Dec(String strValue) {
+    String[] hexValues = strValue.split("[{},\\s]+");
+
+    if (hexValues.length != 4) {
+      throw new IllegalArgumentException("Invalid S21Decimal string format");
+    }
+
+    int[] intValues = new int[4];
+    for (int i = 0; i < 4; i++) {
+      intValues[i] = Integer.parseInt(hexValues[i].substring(2), 16);
+    }
+
+    S21Decimal s21Dec = new S21Decimal();
+    s21Dec.setLowBits(intValues[0]);
+    s21Dec.setMidBits(intValues[1]);
+    s21Dec.setHighBits(intValues[2]);
+    s21Dec.setSignScaleBits(intValues[3]);
+
+    return s21Dec;
+  }
+
   /**
    * Converts a BigDecimal to a custom 96-bit signed decimal format S21Decimal.
    *

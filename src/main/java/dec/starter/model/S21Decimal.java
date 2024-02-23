@@ -37,6 +37,10 @@ public class S21Decimal {
     return signScaleBits;
   }
 
+  public void setSignScaleBits(int signScaleBits) {
+    this.signScaleBits = signScaleBits;
+  }
+
   /**
    * Sets the sign bit of the bit[3] s21_decimal value.
    *
