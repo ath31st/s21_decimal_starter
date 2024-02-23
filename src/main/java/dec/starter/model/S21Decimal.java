@@ -49,6 +49,11 @@ public class S21Decimal {
     }
   }
 
+  /**
+   * Gets the sign bit of the bit[3] S21Decimal value.
+   *
+   * @return The sign bit (0 or 1).
+   */
   public int getSignInBit() {
     return (signScaleBits >>> 31) & 1;
   }
@@ -65,6 +70,11 @@ public class S21Decimal {
     }
   }
 
+  /**
+   * Gets the scale bits of the bit[3] S21Decimal value.
+   *
+   * @return The scale bits (0 to 28).
+   */
   public int getScaleInBit() {
     return (signScaleBits >>> 16) & 0xFF;
   }
