@@ -92,8 +92,8 @@ public class Converter {
    * @return The equivalent BigDecimal representation of the input S21Decimal.
    */
   public BigDecimal fromS21DecToDec(S21Decimal s21Dec) {
-    int scale = s21Dec.getScale();
-    int sign = s21Dec.getSign() == NEG_SIGN.getValue() ? -1 : 1;
+    int scale = s21Dec.getScaleInBit();
+    int sign = s21Dec.getSignInBit() == NEG_SIGN.getValue() ? -1 : 1;
 
     int[] intValues = {s21Dec.getLowBits(), s21Dec.getMidBits(), s21Dec.getHighBits()};
     BigInteger unscaledValue = combine32BitValues(intValues);

@@ -49,6 +49,10 @@ public class S21Decimal {
     }
   }
 
+  public int getSignInBit() {
+    return (signScaleBits >>> 31) & 1;
+  }
+
   /**
    * Sets the scale bits of the bit[3] s21_decimal value.
    *
@@ -59,6 +63,10 @@ public class S21Decimal {
       signScaleBits &= ~(0xFF << 16);
       signScaleBits |= scale << 16;
     }
+  }
+
+  public int getScaleInBit() {
+    return (signScaleBits >>> 16) & 0xFF;
   }
 
   /**
