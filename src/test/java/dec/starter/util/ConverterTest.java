@@ -163,4 +163,69 @@ class ConverterTest {
     assertEquals(checkDec.getHighBits(), result.getHighBits());
     assertEquals(checkDec.getSignScaleBits(), result.getSignScaleBits());
   }
+
+  @Test
+  void testFromS21DecToDecSuccess1() {
+    String strVal = "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0xffffffff, 0x80000000}};";
+    S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+    BigDecimal minS21Decimal = new BigDecimal("-79228162514264337593543950335");
+
+    BigDecimal result = converter.fromS21DecToDec(s21Dec);
+
+    assertEquals(0, result.compareTo(minS21Decimal));
+  }
+
+  @Test
+  void testFromS21DecToDecSuccess2() {
+    String strVal = "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0xffffffff, 0x0}};";
+    S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+    BigDecimal maxS21Decimal = new BigDecimal("79228162514264337593543950335");
+
+    BigDecimal result = converter.fromS21DecToDec(s21Dec);
+
+    assertEquals(0, result.compareTo(maxS21Decimal));
+  }
+
+  @Test
+  void testFromS21DecToDecSuccessZero() {
+    String strVal = "s21_decimal dec_res = {{0x0, 0x0, 0x0, 0x0}};";
+    S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+    BigDecimal bd = BigDecimal.ZERO;
+
+    BigDecimal result = converter.fromS21DecToDec(s21Dec);
+
+    assertEquals(0, result.compareTo(bd));
+  }
+  @Test
+  void testFromS21DecToDecSuccess3() {
+    String strVal = "s21_decimal dec_res = {{0x1, 0x0, 0x0, 0x0}};";
+    S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+    BigDecimal bd = BigDecimal.ONE;
+
+    BigDecimal result = converter.fromS21DecToDec(s21Dec);
+
+    assertEquals(0, result.compareTo(bd));
+  }
+
+  @Test
+  void testFromS21DecToDecSuccess4() {
+    String strVal = "s21_decimal dec_res = {{0xcaed7ac9, 0x849ba54f, 0x31a8, 0x70000}};";
+    S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+    BigDecimal bd = new BigDecimal("23450456607779234.2342345");
+
+    BigDecimal result = converter.fromS21DecToDec(s21Dec);
+
+    assertEquals(0, result.compareTo(bd));
+  }
+
+  @Test
+  void testFromS21DecToDecSuccess5() {
+    String strVal = "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0xffffffff, 0x20000}};";
+    S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+    BigDecimal bd = new BigDecimal("792281625142643375935439503.35");
+
+    BigDecimal result = converter.fromS21DecToDec(s21Dec);
+
+    assertEquals(0, result.compareTo(bd));
+  }
 }

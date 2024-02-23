@@ -150,6 +150,12 @@ public class Converter {
       }
     }
 
-    return new BigInteger(bytes);
+    byte[] reversedBytes = new byte[12];
+    for (int i = 0; i < 12; i++) {
+      reversedBytes[i] = bytes[11 - i];
+    }
+
+    return new BigInteger(reversedBytes);
   }
+
 }
