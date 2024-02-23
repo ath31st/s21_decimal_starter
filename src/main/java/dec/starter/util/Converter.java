@@ -127,8 +127,9 @@ public class Converter {
     int scale = s21Dec.getScaleInBit();
     int sign = s21Dec.getSignInBit() == NEG_SIGN.getValue() ? -1 : 1;
 
-    int[] intValues = {s21Dec.getLowBits(), s21Dec.getMidBits(), s21Dec.getHighBits()};
-    BigInteger unscaledValue = combine32BitValues(intValues);
+    long[] longValues = {Integer.toUnsignedLong(s21Dec.getLowBits()),
+        Integer.toUnsignedLong(s21Dec.getMidBits()), Integer.toUnsignedLong(s21Dec.getHighBits())};
+    BigInteger unscaledValue = combine32BitValues(longValues);
 
     return new BigDecimal(unscaledValue, scale).multiply(BigDecimal.valueOf(sign));
   }
@@ -139,14 +140,14 @@ public class Converter {
    * @param intValues An array of three 32-bit integer values.
    * @return The BigInteger representation of the combined input values.
    */
-  private BigInteger combine32BitValues(int[] intValues) {
+  private BigInteger combine32BitValues(long[] intValues) {
     byte[] bytes = new byte[12];
 
     for (int i = 0; i < 3; i++) {
-      int intValue = intValues[i];
+      long longValue = intValues[i];
 
       for (int j = 0; j < 4; j++) {
-        bytes[i * 4 + j] = (byte) ((intValue >> (j * 8)) & 0xFF);
+        bytes[i * 4 + j] = (byte) ((longValue >> (j * 8)) & 0xFF);
       }
     }
 
@@ -155,7 +156,6 @@ public class Converter {
       reversedBytes[i] = bytes[11 - i];
     }
 
-    return new BigInteger(reversedBytes);
+    return new BigInteger(1, reversedBytes);
   }
-
 }
