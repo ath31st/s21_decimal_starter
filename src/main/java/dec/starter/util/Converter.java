@@ -29,6 +29,13 @@ public class Converter {
     return new BigDecimal(strValue);
   }
 
+  /**
+   * Converts a string representation to a custom 96-bit signed decimal format S21Decimal.
+   *
+   * @param strValue The string representation of the S21Decimal value.
+   * @return The equivalent S21Decimal representation of the input string.
+   * @throws IllegalArgumentException If the input string format is incorrect.
+   */
   public S21Decimal fromStrToS21Dec(String strValue) {
     String[] hexValues = strValue.split("[{},\\s]+");
 
