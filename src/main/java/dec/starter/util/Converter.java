@@ -84,4 +84,40 @@ public class Converter {
 
     return intValues;
   }
+
+  /**
+   * Converts a custom 96-bit signed decimal format S21Decimal to a BigDecimal.
+   *
+   * @param s21Dec The S21Decimal to be converted.
+   * @return The equivalent BigDecimal representation of the input S21Decimal.
+   */
+  public BigDecimal fromS21DecToDec(S21Decimal s21Dec) {
+    int scale = s21Dec.getScale();
+    int sign = s21Dec.getSign() == NEG_SIGN.getValue() ? -1 : 1;
+
+    int[] intValues = {s21Dec.getLowBits(), s21Dec.getMidBits(), s21Dec.getHighBits()};
+    BigInteger unscaledValue = combine32BitValues(intValues);
+
+    return new BigDecimal(unscaledValue, scale).multiply(BigDecimal.valueOf(sign));
+  }
+
+  /**
+   * Combines three 32-bit integer values into a BigInteger.
+   *
+   * @param intValues An array of three 32-bit integer values.
+   * @return The BigInteger representation of the combined input values.
+   */
+  private BigInteger combine32BitValues(int[] intValues) {
+    byte[] bytes = new byte[12];
+
+    for (int i = 0; i < 3; i++) {
+      int intValue = intValues[i];
+
+      for (int j = 0; j < 4; j++) {
+        bytes[i * 4 + j] = (byte) ((intValue >> (j * 8)) & 0xFF);
+      }
+    }
+
+    return new BigInteger(bytes);
+  }
 }
