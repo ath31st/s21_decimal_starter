@@ -61,4 +61,21 @@ class ConverterTest {
     assertEquals(0x27e41b32, result.getHighBits());
     assertEquals(0x90000, result.getSignScaleBits());
   }
+
+  @Test
+  void testFromStrToS21Dec() {
+    String strVal = "s21_decimal dec_res = {{0xa80af531, 0x4e7c160f, 0x2d26, 0xe0000}};";
+    S21Decimal checkDec = new S21Decimal();
+    checkDec.setLowBits(Integer.parseUnsignedInt("0xa80af531".substring(2), 16));
+    checkDec.setMidBits(Integer.parseUnsignedInt("0x4e7c160f".substring(2), 16));
+    checkDec.setHighBits(Integer.parseUnsignedInt("0x2d26".substring(2), 16));
+    checkDec.setSignScaleBits(Integer.parseUnsignedInt("0xe0000".substring(2), 16));
+
+    S21Decimal result = converter.fromStrToS21Dec(strVal);
+
+    assertEquals(checkDec.getLowBits(), result.getLowBits());
+    assertEquals(checkDec.getMidBits(), result.getMidBits());
+    assertEquals(checkDec.getHighBits(), result.getHighBits());
+    assertEquals(checkDec.getSignScaleBits(), result.getSignScaleBits());
+  }
 }

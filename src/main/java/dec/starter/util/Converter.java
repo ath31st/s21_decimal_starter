@@ -5,6 +5,8 @@ import static dec.starter.constant.ArithmeticConstants.NEG_SIGN;
 import dec.starter.model.S21Decimal;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The Converter class provides utility methods for converting
@@ -37,15 +39,17 @@ public class Converter {
    * @throws IllegalArgumentException If the input string format is incorrect.
    */
   public S21Decimal fromStrToS21Dec(String strValue) {
-    String[] hexValues = strValue.split("[{},\\s]+");
-
-    if (hexValues.length != 4) {
-      throw new IllegalArgumentException("Invalid S21Decimal string format");
-    }
+    Pattern pattern = Pattern.compile("0x[0-9a-fA-F]+");
+    Matcher matcher = pattern.matcher(strValue);
 
     int[] intValues = new int[4];
-    for (int i = 0; i < 4; i++) {
-      intValues[i] = Integer.parseInt(hexValues[i].substring(2), 16);
+    int i = 0;
+    while (matcher.find() && i < 4) {
+      intValues[i++] = Integer.parseUnsignedInt(matcher.group().substring(2), 16);
+    }
+
+    if (i != 4) {
+      throw new IllegalArgumentException("Invalid S21Decimal string format");
     }
 
     S21Decimal s21Dec = new S21Decimal();
