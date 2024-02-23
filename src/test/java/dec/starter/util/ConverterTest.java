@@ -63,13 +63,98 @@ class ConverterTest {
   }
 
   @Test
-  void testFromStrToS21Dec() {
+  void testFromStrToS21DecSuccess1() {
     String strVal = "s21_decimal dec_res = {{0xa80af531, 0x4e7c160f, 0x2d26, 0xe0000}};";
     S21Decimal checkDec = new S21Decimal();
     checkDec.setLowBits(Integer.parseUnsignedInt("0xa80af531".substring(2), 16));
     checkDec.setMidBits(Integer.parseUnsignedInt("0x4e7c160f".substring(2), 16));
     checkDec.setHighBits(Integer.parseUnsignedInt("0x2d26".substring(2), 16));
     checkDec.setSignScaleBits(Integer.parseUnsignedInt("0xe0000".substring(2), 16));
+
+    S21Decimal result = converter.fromStrToS21Dec(strVal);
+
+    assertEquals(checkDec.getLowBits(), result.getLowBits());
+    assertEquals(checkDec.getMidBits(), result.getMidBits());
+    assertEquals(checkDec.getHighBits(), result.getHighBits());
+    assertEquals(checkDec.getSignScaleBits(), result.getSignScaleBits());
+  }
+
+  @Test
+  void testFromStrToS21DecSuccessZero() {
+    String strVal = "s21_decimal dec_res = {{0x0, 0x0, 0x0, 0x0}};";
+    S21Decimal checkDec = new S21Decimal();
+    checkDec.setLowBits(Integer.parseUnsignedInt("0x0".substring(2), 16));
+    checkDec.setMidBits(Integer.parseUnsignedInt("0x0".substring(2), 16));
+    checkDec.setHighBits(Integer.parseUnsignedInt("0x0".substring(2), 16));
+    checkDec.setSignScaleBits(Integer.parseUnsignedInt("0x0".substring(2), 16));
+
+    S21Decimal result = converter.fromStrToS21Dec(strVal);
+
+    assertEquals(checkDec.getLowBits(), result.getLowBits());
+    assertEquals(checkDec.getMidBits(), result.getMidBits());
+    assertEquals(checkDec.getHighBits(), result.getHighBits());
+    assertEquals(checkDec.getSignScaleBits(), result.getSignScaleBits());
+  }
+
+  @Test
+  void testFromStrToS21DecSuccess2() {
+    String strVal = "s21_decimal dec_res = {{0xe93e4e02, 0xb7acc82, 0xd3c2, 0x800c0000}};";
+    S21Decimal checkDec = new S21Decimal();
+    checkDec.setLowBits(Integer.parseUnsignedInt("0xe93e4e02".substring(2), 16));
+    checkDec.setMidBits(Integer.parseUnsignedInt("0xb7acc82".substring(2), 16));
+    checkDec.setHighBits(Integer.parseUnsignedInt("0xd3c2".substring(2), 16));
+    checkDec.setSignScaleBits(Integer.parseUnsignedInt("0x800c0000".substring(2), 16));
+
+    S21Decimal result = converter.fromStrToS21Dec(strVal);
+
+    assertEquals(checkDec.getLowBits(), result.getLowBits());
+    assertEquals(checkDec.getMidBits(), result.getMidBits());
+    assertEquals(checkDec.getHighBits(), result.getHighBits());
+    assertEquals(checkDec.getSignScaleBits(), result.getSignScaleBits());
+  }
+
+  @Test
+  void testFromStrToS21DecSuccess3() {
+    String strVal = "s21_decimal dec_res = {{0xd5, 0x0, 0x0, 0x80120000}};";
+    S21Decimal checkDec = new S21Decimal();
+    checkDec.setLowBits(Integer.parseUnsignedInt("0xd5".substring(2), 16));
+    checkDec.setMidBits(Integer.parseUnsignedInt("0x0".substring(2), 16));
+    checkDec.setHighBits(Integer.parseUnsignedInt("0x0".substring(2), 16));
+    checkDec.setSignScaleBits(Integer.parseUnsignedInt("0x80120000".substring(2), 16));
+
+    S21Decimal result = converter.fromStrToS21Dec(strVal);
+
+    assertEquals(checkDec.getLowBits(), result.getLowBits());
+    assertEquals(checkDec.getMidBits(), result.getMidBits());
+    assertEquals(checkDec.getHighBits(), result.getHighBits());
+    assertEquals(checkDec.getSignScaleBits(), result.getSignScaleBits());
+  }
+
+  @Test
+  void testFromStrToS21DecSuccess4() {
+    String strVal = "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0xffffffff, 0x0}};";
+    S21Decimal checkDec = new S21Decimal();
+    checkDec.setLowBits(Integer.parseUnsignedInt("0xffffffff".substring(2), 16));
+    checkDec.setMidBits(Integer.parseUnsignedInt("0xffffffff".substring(2), 16));
+    checkDec.setHighBits(Integer.parseUnsignedInt("0xffffffff".substring(2), 16));
+    checkDec.setSignScaleBits(Integer.parseUnsignedInt("0x0".substring(2), 16));
+
+    S21Decimal result = converter.fromStrToS21Dec(strVal);
+
+    assertEquals(checkDec.getLowBits(), result.getLowBits());
+    assertEquals(checkDec.getMidBits(), result.getMidBits());
+    assertEquals(checkDec.getHighBits(), result.getHighBits());
+    assertEquals(checkDec.getSignScaleBits(), result.getSignScaleBits());
+  }
+
+  @Test
+  void testFromStrToS21DecSuccess5() {
+    String strVal = "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0xffffffff, 0x80000000}};";
+    S21Decimal checkDec = new S21Decimal();
+    checkDec.setLowBits(Integer.parseUnsignedInt("0xffffffff".substring(2), 16));
+    checkDec.setMidBits(Integer.parseUnsignedInt("0xffffffff".substring(2), 16));
+    checkDec.setHighBits(Integer.parseUnsignedInt("0xffffffff".substring(2), 16));
+    checkDec.setSignScaleBits(Integer.parseUnsignedInt("0x80000000".substring(2), 16));
 
     S21Decimal result = converter.fromStrToS21Dec(strVal);
 
