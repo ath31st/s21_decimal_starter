@@ -67,16 +67,16 @@ public class Processor {
           convertFromNumberToS21Decimal(scanner);
           break;
         case 6:
-          generateS21Decimal(scanner);
+          convertFromStrS21decimalToBigInteger(scanner);
           break;
         case 7:
-          generateTests(scanner);
+          generateS21Decimal(scanner);
           break;
         case 8:
-          fileHandler.deleteFilesAndDirectory();
+          generateTests(scanner);
           break;
         case 9:
-          convertFromStrS21decimalToBigInteger(scanner);
+          fileHandler.deleteFilesAndDirectory();
           break;
         case 0:
           outputManager.consolePrint(END_PROGRAM.getValue());

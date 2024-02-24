@@ -15,9 +15,10 @@ public enum StringConstants {
       + "3. Умножение" + System.lineSeparator()
       + "4. Деление" + System.lineSeparator()
       + "5. Из десятичного в s21_decimal" + System.lineSeparator()
-      + "6. Генератор случайных s21_decimal" + System.lineSeparator()
-      + "7. Генератор unit-тестов" + System.lineSeparator()
-      + "8. Удаление папки и файлов с unit-тестами" + System.lineSeparator()
+      + "6. Из s21_decimal в десятичное число" + System.lineSeparator()
+      + "7. Генератор случайных s21_decimal" + System.lineSeparator()
+      + "8. Генератор unit-тестов" + System.lineSeparator()
+      + "9. Удаление папки и файлов с unit-тестами" + System.lineSeparator()
       + "0. Выход" + System.lineSeparator()
       + SEP.getValue()),
   GEN_MENU("Выберите функцию, для которой будут сгенерированы тесты:" + System.lineSeparator()
