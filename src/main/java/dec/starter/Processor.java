@@ -179,6 +179,14 @@ public class Processor {
     }
   }
 
+  /**
+   * Read S21 decimal numbers from the provided Scanner, converts them to BigDecimal,
+   * and prints the resulting decimal values.
+   * The input loop continues until the user
+   * enters the specified exit command.
+   *
+   * @param scanner The Scanner object to read input from.
+   */
   private void convertFromStrS21decimalToBigInteger(Scanner scanner) {
     scanner.nextLine();
 
