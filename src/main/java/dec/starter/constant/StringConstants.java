@@ -35,6 +35,11 @@ public enum StringConstants {
       + "Введите два числа или \"exit\" для выхода в предыдущее меню."),
   INPUT_DECIMAL_NUMBER(SEP.getValue() + System.lineSeparator()
       + "Введите десятичное число или \"exit\" для выхода в предыдущее меню."),
+  INPUT_S21_DECIMAL_NUMBER(SEP.getValue() + System.lineSeparator()
+      + "Введите s21_decimal число или \"exit\" для выхода в предыдущее меню. "
+      + "Поддерживается следующий формат ввода: s21_decimal dec = "
+      + "{{0xcaed7ac9, 0x849ba54f, 0x31a8, 0x70000}}; " + System.lineSeparator()
+      + "Главная часть находится между фигнурными скобками, остальное неважно."),
   INPUT_COUNT_FOR_GEN_DEC(SEP.getValue() + System.lineSeparator() + "Введите количество "
       + "случайных s21_decimal от 1 до 100 или \"exit\" для выхода в предыдущее меню."),
   INPUT_COUNT_FOR_GEN_TEST(SEP.getValue() + System.lineSeparator()

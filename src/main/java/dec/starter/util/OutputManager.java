@@ -34,9 +34,9 @@ public class OutputManager {
    */
   public void consolePrintBigDecAndS21Dec(BigDecimal bd, String decimalName) {
     S21Decimal d = converter.fromDecToS21Dec(bd);
-    System.out.println(DOT_SEP.getValue());
-    System.out.println(DECIMAL_VALUE.getValue() + bd.toPlainString());
-    System.out.println(d.extendToString(decimalName));
+    consolePrint(DOT_SEP.getValue());
+    consolePrint(DECIMAL_VALUE.getValue() + bd.toPlainString());
+    consolePrint(d.extendToString(decimalName));
   }
 
   /**
@@ -55,5 +55,9 @@ public class OutputManager {
     } else {
       consolePrintBigDecAndS21Dec(res, DEC_RES.getValue());
     }
+  }
+
+  public void printDecimalValueFromBigDecimal(BigDecimal bd) {
+    consolePrint(DECIMAL_VALUE.getValue() + System.lineSeparator() + bd.toPlainString());
   }
 }
