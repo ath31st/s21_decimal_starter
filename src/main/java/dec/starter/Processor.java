@@ -7,6 +7,7 @@ import static dec.starter.constant.StringConstants.GEN_MENU;
 import static dec.starter.constant.StringConstants.INPUT_COUNT_FOR_GEN_DEC;
 import static dec.starter.constant.StringConstants.INPUT_COUNT_FOR_GEN_TEST;
 import static dec.starter.constant.StringConstants.INPUT_DECIMAL_NUMBER;
+import static dec.starter.constant.StringConstants.INPUT_S21_DECIMAL_NUMBER;
 import static dec.starter.constant.StringConstants.INPUT_TWO_NUMBERS;
 import static dec.starter.constant.StringConstants.MAIN_MENU;
 import static dec.starter.constant.StringConstants.WRONG_CHOICE;
@@ -18,6 +19,7 @@ import dec.starter.exception.TestBuilderException;
 import dec.starter.exception.ValidatorException;
 import dec.starter.handler.ArithmeticHandler;
 import dec.starter.handler.FileHandler;
+import dec.starter.model.S21Decimal;
 import dec.starter.util.BigDecimalGenerator;
 import dec.starter.util.Converter;
 import dec.starter.util.OutputManager;
@@ -72,6 +74,9 @@ public class Processor {
           break;
         case 8:
           fileHandler.deleteFilesAndDirectory();
+          break;
+        case 9:
+          convertFromStrS21decimalToBigInteger(scanner);
           break;
         case 0:
           outputManager.consolePrint(END_PROGRAM.getValue());
@@ -168,6 +173,26 @@ public class Processor {
         BigDecimal bd = converter.fromStrToDec(strVal);
         int check = validator.checkBigDecimal(bd);
         outputManager.handleResultPrinting(bd, check);
+      } catch (IllegalArgumentException e) {
+        outputManager.consolePrint(WRONG_INPUT.getValue());
+      }
+    }
+  }
+
+  private void convertFromStrS21decimalToBigInteger(Scanner scanner) {
+    scanner.nextLine();
+
+    while (true) {
+      outputManager.consolePrint(INPUT_S21_DECIMAL_NUMBER.getValue());
+
+      String strVal = scanner.nextLine().trim();
+      if (strVal.equals(EXIT.getValue())) {
+        break;
+      }
+      try {
+        S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+        BigDecimal bd = converter.fromS21DecToDec(s21Dec);
+        outputManager.printDecimalValueFromBigDecimal(bd);
       } catch (IllegalArgumentException e) {
         outputManager.consolePrint(WRONG_INPUT.getValue());
       }
