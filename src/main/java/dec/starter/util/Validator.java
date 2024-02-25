@@ -2,8 +2,11 @@ package dec.starter.util;
 
 import static dec.starter.constant.ArithmeticConstants.MAX_PRECISION;
 import static dec.starter.constant.ArithmeticConstants.MAX_SCALE;
+import static dec.starter.constant.StringConstants.REGEXP_HEX_INT;
 
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The Validator class provides methods to validate properties of BigDecimal numbers.
@@ -35,5 +38,43 @@ public class Validator {
       checkRes = 3;
     }
     return checkRes;
+  }
+
+  /**
+   * Checks the validity of a string representation for an S21Decimal value.
+   * The string should be in the format of four hexadecimal integers separated by commas,
+   * representing the lowBits, midBits, highBits, and signScaleBits, respectively.
+   *
+   * @param strVal The string representation of an S21Decimal value.
+   * @throws IllegalArgumentException If the input string does not match the expected format.
+   */
+  public void checkStrS21decimal(String strVal) {
+    Pattern pattern = Pattern.compile(REGEXP_HEX_INT.getValue());
+    Matcher matcher = pattern.matcher(strVal);
+
+    int i = 0;
+    while (matcher.find()) {
+      i++;
+    }
+
+    if (i != 4) {
+      throw new IllegalArgumentException();
+    }
+  }
+
+  /**
+   * Checks if the provided signScaleBits meet the validity criteria.
+   *
+   * @param signScaleBits The signScaleBits value to be checked.
+   * @throws IllegalArgumentException If the signScaleBits are invalid.
+   */
+  public void checkSignScaleBits(int signScaleBits) {
+    if ((signScaleBits & 0xFFFF) != 0 || (signScaleBits >> 24 & 0x7F) != 0) {
+      throw new IllegalArgumentException("Invalid signScaleBits: Unused bits must be zero.");
+    }
+
+    if (((signScaleBits >> 16) & 0xFF) > 28) {
+      throw new IllegalArgumentException("Invalid signScaleBits: Exponent value exceeds 28.");
+    }
   }
 }
