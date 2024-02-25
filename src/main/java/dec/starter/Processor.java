@@ -198,7 +198,9 @@ public class Processor {
         break;
       }
       try {
+        validator.checkStrS21decimal(strVal);
         S21Decimal s21Dec = converter.fromStrToS21Dec(strVal);
+        validator.checkSignScaleBits(s21Dec.getSignScaleBits());
         BigDecimal bd = converter.fromS21DecToDec(s21Dec);
         outputManager.printDecimalValueFromBigDecimal(bd);
       } catch (IllegalArgumentException e) {
