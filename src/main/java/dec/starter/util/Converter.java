@@ -1,6 +1,7 @@
 package dec.starter.util;
 
 import static dec.starter.constant.ArithmeticConstants.NEG_SIGN;
+import static dec.starter.constant.StringConstants.REGEXP_HEX_INT;
 
 import dec.starter.model.S21Decimal;
 import java.math.BigDecimal;
@@ -39,7 +40,7 @@ public class Converter {
    * @throws IllegalArgumentException If the input string format is incorrect.
    */
   public S21Decimal fromStrToS21Dec(String strValue) {
-    Pattern pattern = Pattern.compile("0x[0-9a-fA-F]+");
+    Pattern pattern = Pattern.compile(REGEXP_HEX_INT.getValue());
     Matcher matcher = pattern.matcher(strValue);
 
     int[] intValues = new int[4];

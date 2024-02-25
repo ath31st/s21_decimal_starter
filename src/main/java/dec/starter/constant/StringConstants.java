@@ -53,6 +53,7 @@ public enum StringConstants {
   DECIMAL_VALUE("Десятичное значение: "),
   EXCEPTION_IN_THREAD("Возникла ошибка вычисления в потоке: "),
   EXCEPTION_IN_EX_SERVICE("Возникла ошибка в ExecutorService. "),
+  REGEXP_HEX_INT("0x[0-9a-fA-F]{1,8}"),
   HB_LOGO("                                            _   _                 "
       + System.lineSeparator()
       + "       _ __   _____      _____ _ __ ___  __| | | |__  _   _       "
