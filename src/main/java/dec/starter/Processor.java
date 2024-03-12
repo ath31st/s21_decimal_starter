@@ -98,7 +98,7 @@ public class Processor {
    * @param scanner The Scanner object for user input.
    * @param action  The user's choice representing the arithmetic operation to be performed.
    */
-  private void arithmeticProcessing(Scanner scanner, int action) {
+  protected void arithmeticProcessing(Scanner scanner, int action) {
     while (true) {
       outputManager.consolePrint(INPUT_TWO_NUMBERS.getValue());
 
