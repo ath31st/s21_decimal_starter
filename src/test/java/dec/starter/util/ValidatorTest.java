@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ValidatorTest {
   private final Validator validator = new Validator();
@@ -97,45 +99,12 @@ class ValidatorTest {
     assertDoesNotThrow(() -> validator.checkSignScaleBits(signScaleBits));
   }
 
-  @Test
-  void testCheckSignScaleBitsThrowException1() {
-    int signScaleBits = Integer.parseUnsignedInt("1D0000", 16);
-    assertThrows(IllegalArgumentException.class, () -> validator.checkSignScaleBits(signScaleBits));
-  }
-
-  @Test
-  void testCheckSignScaleBitsThrowException2() {
-    int signScaleBits = Integer.parseUnsignedInt("1C0001", 16);
-    assertThrows(IllegalArgumentException.class, () -> validator.checkSignScaleBits(signScaleBits));
-  }
-
-  @Test
-  void testCheckSignScaleBitsThrowException3() {
-    int signScaleBits = Integer.parseUnsignedInt("380000", 16);
-    assertThrows(IllegalArgumentException.class, () -> validator.checkSignScaleBits(signScaleBits));
-  }
-
-  @Test
-  void testCheckSignScaleBitsThrowException4() {
-    int signScaleBits = Integer.parseUnsignedInt("1C8000", 16);
-    assertThrows(IllegalArgumentException.class, () -> validator.checkSignScaleBits(signScaleBits));
-  }
-
-  @Test
-  void testCheckSignScaleBitsThrowException5() {
-    int signScaleBits = Integer.parseUnsignedInt("11C0000", 16);
-    assertThrows(IllegalArgumentException.class, () -> validator.checkSignScaleBits(signScaleBits));
-  }
-
-  @Test
-  void testCheckSignScaleBitsThrowException6() {
-    int signScaleBits = Integer.parseUnsignedInt("401C0000", 16);
-    assertThrows(IllegalArgumentException.class, () -> validator.checkSignScaleBits(signScaleBits));
-  }
-
-  @Test
-  void testCheckSignScaleBitsThrowException7() {
-    int signScaleBits = Integer.parseUnsignedInt("FFFFFFFF", 16);
+  @ParameterizedTest
+  @ValueSource(strings = {
+      "1D0000", "1C0001", "380000", "1C8000", "11C0000", "401C0000", "FFFFFFFF"
+  })
+  void testCheckSignScaleBitsThrowException(String val) {
+    int signScaleBits = Integer.parseUnsignedInt(val, 16);
     assertThrows(IllegalArgumentException.class, () -> validator.checkSignScaleBits(signScaleBits));
   }
 }
