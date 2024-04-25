@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import dec.starter.model.S21Decimal;
-import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 class ConverterTest {
@@ -231,15 +233,14 @@ class ConverterTest {
     assertEquals(0, result.compareTo(bd));
   }
 
-  @Test
-  void testFromS21DecToDecThrowException1() {
-    String strVal = "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0x20000}};";
-    assertThrows(IllegalArgumentException.class, () -> converter.fromStrToS21Dec(strVal));
-  }
-
-  @Test
-  void testFromS21DecToDecThrowException2() {
-    String strVal = "s21_decimal dec_res = {{}};";
+  @ParameterizedTest
+  @ValueSource(strings = {
+      "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0x20000}};",
+      "s21_decimal dec_res = {{}};",
+      "s21_decimal dec_res = {{0xzz, 0x0, 0x0, 0x0}};",
+      "s21_decimal dec_res = {{0xffffffff, 0xffffffff, 0xffffffff}};"
+  })
+  void testFromS21DecToDecThrowException(String strVal) {
     assertThrows(IllegalArgumentException.class, () -> converter.fromStrToS21Dec(strVal));
   }
 }
