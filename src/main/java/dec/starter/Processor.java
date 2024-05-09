@@ -40,6 +40,11 @@ public class Processor {
   private final FileHandler fileHandler = new FileHandler(outputManager);
   private final TestBuilder testBuilder = new TestBuilder(validator, converter, arithmeticHandler);
 
+  private static final int MAX_GENERATED_S21DEC = 100;
+  private static final int MIN_GENERATED_S21DEC = 1;
+  private static final int MAX_GENERATED_TESTS = 500;
+  private static final int MIN_GENERATED_TESTS = 1;
+
   /**
    * Displays the main menu and handles user input for various operations.
    */
@@ -224,7 +229,7 @@ public class Processor {
       }
       try {
         int count = Integer.parseInt(strVal);
-        if (count < 1 || count > 100) {
+        if (count < MIN_GENERATED_S21DEC || count > MAX_GENERATED_S21DEC) {
           throw new IllegalArgumentException();
         }
         for (int i = 0; i < count; i++) {
@@ -257,7 +262,7 @@ public class Processor {
       int count;
       try {
         count = Integer.parseInt(strVal);
-        if (count < 1 || count > 500) {
+        if (count < MIN_GENERATED_TESTS || count > MAX_GENERATED_TESTS) {
           throw new IllegalArgumentException();
         }
         String generatedTests;
